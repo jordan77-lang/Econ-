@@ -411,9 +411,21 @@
   }
 
   /* === MAIN LAYOUT === */
+  html.app-shell-active,
   body.app-shell-active {
     overflow: hidden;
-    height: 100vh;
+    height: 100%;
+    overscroll-behavior: none;
+  }
+
+  body.app-shell-active {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  body.app-shell-active > .header {
+    flex-shrink: 0;
   }
 
   .main {
@@ -423,15 +435,20 @@
     margin: 0 auto;
     padding: 1rem 2rem 1rem 2rem;
     padding-right: calc(360px + 3rem);
-    height: calc(100vh - 70px);
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
   }
 
-  body.dev-mode-active.app-shell-active .main {
-    height: calc(100vh - 70px - 34px);
+  body.app-shell-active > .main {
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  body:not(.app-shell-active) .main {
+    min-height: calc(100vh - 70px);
   }
 
   /* === LEFT PANEL === */
@@ -482,14 +499,8 @@
     justify-content: space-between;
     flex-shrink: 0;
     z-index: 12;
-    position: sticky;
-    top: 0;
     gap: 0.75rem;
     flex-wrap: wrap;
-  }
-
-  body.dev-mode-active .card-header {
-    top: 34px;
   }
 
   .card-header-actions {
@@ -1754,19 +1765,19 @@
     top: 80px;
     right: 2rem;
     width: 360px;
-    max-height: calc(100vh - 100px);
-    overflow-y: auto;
+    height: calc(100vh - 100px);
+    overflow: hidden;
     z-index: 10;
   }
   body.dev-mode-active .right-panel {
     top: 114px;
-    max-height: calc(100vh - 134px);
+    height: calc(100vh - 134px);
   }
   body.app-shell-active .right-panel {
-    max-height: calc(100vh - 100px);
+    height: calc(100vh - 100px);
   }
   body.dev-mode-active.app-shell-active .right-panel {
-    max-height: calc(100vh - 134px);
+    height: calc(100vh - 134px);
   }
 
   .hammond-panel {
@@ -1776,6 +1787,7 @@
     overflow: hidden;
     box-shadow: 0 0 30px var(--hammond-shadow);
     flex: 1;
+    min-height: 0;
     display: flex;
     flex-direction: column;
   }
@@ -1873,13 +1885,13 @@
 
   .hammond-messages {
     flex: 1;
+    min-height: 0;
     padding: 16px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    min-height: 300px;
-    max-height: 420px;
+    overscroll-behavior: contain;
   }
 
   .hammond-messages::-webkit-scrollbar { width: 4px; }
@@ -1988,6 +2000,7 @@
     border: 1px solid var(--border);
     border-radius: 8px;
     padding: 1rem;
+    flex-shrink: 0;
   }
 
   .progress-title {
@@ -2221,6 +2234,7 @@
   /* responsive */
   @media (max-width: 1100px) {
     .main { padding-right: 2rem; height: auto; overflow: visible; }
+    html.app-shell-active,
     body.app-shell-active { overflow: auto; height: auto; }
     .left-panel { overflow: visible; }
     #tutorial-page.panel-visible,
@@ -2378,7 +2392,9 @@
   }
   .dev-autofill-btn:hover { background: #2a1a00; border-color: #ffb800; }
   /* push page content down so dev bar doesn't overlap header */
-  body.dev-mode-active { padding-top: 34px; }
+  body.dev-mode-active:not(.app-shell-active) { padding-top: 34px; }
+  body.dev-mode-active.app-shell-active { padding-top: 0; }
+  body.dev-mode-active.app-shell-active > .header { margin-top: 34px; }
   /* END DEV STYLES */
 
   /* ============================================================
@@ -2611,7 +2627,7 @@
 </head>
 <body>
 
-<a href="#mission-scroll" class="skip-link">Skip to mission content</a>
+<a href="#mission-scroll" class="skip-link" onclick="focusMissionScroll(event)">Skip to mission content</a>
 
 <!-- ============================================================
      LOGIN OVERLAY
@@ -2734,7 +2750,7 @@
             <button type="button" class="theme-toggle-btn theme-toggle-btn--icon theme-toggle-btn--tutorial" onclick="toggleTheme()" aria-label="Switch between light and dark display mode">☀</button>
           </div>
         </div>
-        <div class="tutorial-body">
+        <div class="tutorial-body" tabindex="-1">
 
           <!-- STATION 1: INSTRUCTIONS PANEL -->
           <div class="tut-station active" id="tut-s1">
@@ -2921,7 +2937,7 @@
         </div>
       </div>
       <div class="card-body">
-      <div class="mission-scroll" id="mission-scroll">
+      <div class="mission-scroll" id="mission-scroll" tabindex="-1">
 
         <!-- ===== OBJECTIVE 1 ===== -->
         <div id="obj-1">
@@ -3635,6 +3651,7 @@ function toggleTheme() {
 }
 
 function getChartThemeColors() {
+  if (chartExportColors) return chartExportColors;
   const s = getComputedStyle(document.documentElement);
   const v = (name, fallback) => s.getPropertyValue(name).trim() || fallback;
   return {
@@ -3652,6 +3669,34 @@ function getChartThemeColors() {
     mr: v('--chart-mr', '#E070FF'),
     tc: v('--chart-tc', '#FFD966'),
   };
+}
+
+/** Print-friendly palette — used only for offscreen PDF chart snapshots */
+const LIGHT_CHART_EXPORT_COLORS = {
+  legend: '#2a4258',
+  grid: '#a8bcc8',
+  tick: '#2a4258',
+  tooltipBg: '#ffffff',
+  tooltipBorder: '#9ab0c4',
+  tooltipTitle: '#0066a1',
+  tooltipBody: '#0c1a28',
+  atc: '#003D8F',
+  avc: '#C45100',
+  afc: '#006DA3',
+  mc: '#007A5C',
+  mr: '#8B2A9B',
+  tc: '#a67c00',
+};
+
+let chartExportColors = null;
+
+function withPdfChartColors(fn) {
+  chartExportColors = LIGHT_CHART_EXPORT_COLORS;
+  try {
+    return fn();
+  } finally {
+    chartExportColors = null;
+  }
 }
 
 function applyChartThemeOptions(chart) {
@@ -3885,6 +3930,7 @@ function populateAllChartDataTables() {
 
 function initAccessibility() {
   initInstructionAria();
+  initWorkAreaWheelScroll();
   const loginOverlay = document.getElementById('login-overlay');
   if (loginOverlay && loginOverlay.style.display !== 'none') {
     loginFocusTrap = createFocusTrap(loginOverlay);
@@ -4136,7 +4182,7 @@ function pulseBriefingBtn(step) {
   clearBriefingPulse();
   btn.classList.add('briefing-pulse', 'action-pulse');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  btn.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' });
+  scrollWorkAreaToElement(btn, reduceMotion ? 'auto' : 'smooth');
   clearTimeout(briefingPulseTimer);
   briefingPulseTimer = setTimeout(() => {
     btn.classList.remove('briefing-pulse', 'action-pulse');
@@ -5045,12 +5091,45 @@ function setMissionProgressPct(pct, subtitle) {
   if (subEl && subtitle !== undefined) subEl.textContent = subtitle;
 }
 
+function getWorkScroller() {
+  const mission = document.getElementById('mission-scroll');
+  if (mission && mission.offsetParent !== null) return mission;
+  const tutorial = document.querySelector('.tutorial-body');
+  if (tutorial && tutorial.offsetParent !== null) return tutorial;
+  return null;
+}
+
+function scrollWorkAreaToElement(el, behavior = 'smooth', offset = 12) {
+  if (!el) return;
+  const scroller = el.closest('.mission-scroll, .tutorial-body') || getWorkScroller();
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const scrollBehavior = reduceMotion ? 'auto' : behavior;
+  if (scroller) {
+    const top = el.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop - offset;
+    scroller.scrollTo({ top: Math.max(0, top), behavior: scrollBehavior });
+    return;
+  }
+  el.scrollIntoView({ behavior: scrollBehavior, block: 'nearest' });
+}
+
+function initWorkAreaWheelScroll() {
+  const panel = document.querySelector('.left-panel');
+  if (!panel || panel.dataset.wheelBound) return;
+  panel.dataset.wheelBound = '1';
+  panel.addEventListener('wheel', (e) => {
+    if (!document.body.classList.contains('app-shell-active')) return;
+    const scroller = getWorkScroller();
+    if (!scroller || scroller.contains(e.target)) return;
+    scroller.scrollTop += e.deltaY;
+    e.preventDefault();
+  }, { passive: false });
+}
+
 function scrollToUnlock(targetId, delay = 180) {
   setTimeout(() => {
     const el = document.getElementById(targetId);
     if (!el) return;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    scrollWorkAreaToElement(el, 'smooth', 12);
   }, delay);
 }
 
@@ -5523,31 +5602,93 @@ function exportChart(chartId) {
   link.click();
 }
 
-/** High-resolution chart capture with white background for PDF export */
-function captureChartForPdf(chartId) {
-  const chart = state.charts[chartId];
-  const canvas = chart?.canvas || document.getElementById(chartId);
-  if (!canvas) return null;
-
-  if (chart) {
-    chart.resize();
-    chart.update('none');
+function pdfChartSnapshotSpec(chartId) {
+  switch (chartId) {
+    case 'chartTC':
+      if (!state.charts['chartTC']) return null;
+      return {
+        datasets: buildChartTCDatasets(),
+        options: {
+          ...buildChartOptions({
+            x: xAxis(0, 2040, 120),
+            y: yAxis(0, 720, 120, 'TOTAL COST ($)')
+          }, ''),
+          clip: 0,
+          responsive: false,
+          maintainAspectRatio: false,
+          animation: false,
+        }
+      };
+    case 'chartA':
+      if (!state.charts['chartA']) return null;
+      return {
+        datasets: buildChartADatasets(),
+        options: {
+          ...buildChartAOptions(),
+          responsive: false,
+          maintainAspectRatio: false,
+          animation: false,
+        }
+      };
+    case 'chartB':
+      if (!state.charts['chartB']) return null;
+      return {
+        datasets: buildChartBDatasets(),
+        options: {
+          ...buildChartOptions({
+            x: xAxis(720, 1920, 120),
+            y: yAxis(0, 0.55, 0.05)
+          }),
+          responsive: false,
+          maintainAspectRatio: false,
+          animation: false,
+        }
+      };
+    case 'chartC':
+      if (!state.charts['chartC']) return null;
+      return {
+        datasets: buildChartCDatasets(),
+        options: {
+          ...buildChartOptions(chartCScales()),
+          responsive: false,
+          maintainAspectRatio: false,
+          animation: false,
+        }
+      };
+    default:
+      return null;
   }
+}
 
-  const srcW = canvas.width;
-  const srcH = canvas.height;
-  if (!srcW || !srcH) return null;
+/** Offscreen chart render for PDF — does not resize or restyle on-screen charts */
+function captureChartForPdf(chartId) {
+  const spec = withPdfChartColors(() => pdfChartSnapshotSpec(chartId));
+  if (!spec?.datasets?.length) return null;
+
+  const baseW = 960;
+  const baseH = 480;
+  const canvas = document.createElement('canvas');
+  canvas.width = baseW;
+  canvas.height = baseH;
+
+  const chart = new Chart(canvas.getContext('2d'), {
+    type: 'scatter',
+    data: { datasets: spec.datasets },
+    options: spec.options,
+  });
+  chart.update('none');
 
   const scale = 2.5;
   const out = document.createElement('canvas');
-  out.width = Math.round(srcW * scale);
-  out.height = Math.round(srcH * scale);
+  out.width = Math.round(baseW * scale);
+  out.height = Math.round(baseH * scale);
   const ctx = out.getContext('2d');
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, out.width, out.height);
   ctx.imageSmoothingEnabled = true;
   ctx.imageSmoothingQuality = 'high';
   ctx.drawImage(canvas, 0, 0, out.width, out.height);
+  chart.destroy();
 
   return {
     data: out.toDataURL('image/png', 1.0),
@@ -5629,7 +5770,18 @@ function dismissLoginOverlay() {
 }
 
 function setAppShell(active) {
+  document.documentElement.classList.toggle('app-shell-active', !!active);
   document.body.classList.toggle('app-shell-active', !!active);
+}
+
+function focusMissionScroll(event) {
+  const mission = document.getElementById('mission-scroll');
+  const tutorial = document.querySelector('.tutorial-body');
+  const target = (mission && mission.offsetParent !== null) ? mission : tutorial;
+  if (!target) return;
+  if (event) event.preventDefault();
+  target.focus({ preventScroll: true });
+  target.scrollTo({ top: 0, behavior: 'auto' });
 }
 
 function showTutorialPanel() {
@@ -6975,25 +7127,9 @@ async function generateFinalReport(triggerBtn) {
 
   await new Promise(r => setTimeout(r, 100));
 
-  const prevTheme = document.documentElement.getAttribute('data-theme');
-  const restoreTheme = prevTheme !== 'light';
-  if (restoreTheme) {
-    document.documentElement.setAttribute('data-theme', 'light');
-    applyChartTheme();
-    updateThemeToggleLabel();
-  }
-  refreshChartTC();
-  refreshChartA();
-  if (state.charts['chartB']) updateChartB();
-  refreshChartC();
   Object.values(state.charts || {}).forEach(ch => {
-    if (ch) {
-      applyChartThemeOptions(ch);
-      ch.resize();
-      ch.update('none');
-    }
+    ch?.tooltip?.setActiveElements([], { x: 0, y: 0 });
   });
-  await new Promise(r => setTimeout(r, 150));
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
@@ -7307,12 +7443,6 @@ async function generateFinalReport(triggerBtn) {
   );
 
   drawPageFooter();
-
-  if (restoreTheme) {
-    document.documentElement.setAttribute('data-theme', prevTheme);
-    applyChartTheme();
-    updateThemeToggleLabel();
-  }
 
   // ===== SAVE PDF =====
   const idSlug = String(state.employeeId || 'AGENT').replace(/\s+/g,'_');
