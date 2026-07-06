@@ -111,6 +111,7 @@
     --layout-gutter: 2rem;
     --right-panel-width: 360px;
     --right-panel-gap: 1rem;
+    --layout-right-rail: calc(var(--right-panel-width) + var(--right-panel-gap) + var(--layout-gutter));
     --right-panel-top: 80px;
     --right-panel-height: clamp(320px, 52vh, 560px);
     --right-panel-right: max(var(--layout-gutter), calc((100vw - var(--layout-max-width)) / 2 + var(--layout-gutter)));
@@ -337,6 +338,7 @@
 
   .header-inner {
     max-width: var(--layout-max-width);
+    width: 100%;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -345,12 +347,17 @@
     height: auto;
     gap: 0.75rem;
     padding: 0.45rem 0;
+    box-sizing: border-box;
+    min-width: 0;
   }
 
   .logo {
     display: flex;
     align-items: center;
     gap: 1rem;
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
   }
 
   .logo-icon {
@@ -369,7 +376,12 @@
     object-fit: contain;
   }
 
-  .logo-text { display: flex; flex-direction: column; }
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+  }
   .logo-main {
     font-family: 'Orbitron', monospace;
     font-size: 16px;
@@ -383,14 +395,9 @@
     font-size: 10px;
     color: var(--text-secondary);
     letter-spacing: 4px;
-  }
-
-  .header-status {
-    display: flex;
-    align-items: center;
-    gap: 0.55rem;
-    flex-wrap: wrap;
-    justify-content: flex-end;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .header-action-btn {
@@ -398,38 +405,74 @@
     align-items: center;
     justify-content: center;
     gap: 0.45rem;
-    min-height: 32px;
-    padding: 5px 10px;
-    font-size: 9px;
-    letter-spacing: 1.2px;
+    min-height: 34px;
+    padding: 6px 11px;
+    font-size: 10px;
+    letter-spacing: 1px;
   }
 
-  .header-status .theme-toggle-btn {
-    min-height: 32px;
-    padding: 5px 10px;
-    font-size: 9px;
-    letter-spacing: 1.2px;
+  .right-rail-toolbar .theme-toggle-btn {
+    min-height: 34px;
+    padding: 6px 11px;
+    font-size: 10px;
+    letter-spacing: 1px;
   }
 
-  .header-status .theme-toggle-btn--icon {
+  .right-rail-toolbar .theme-toggle-btn--icon {
     width: auto;
-    height: 32px;
-    min-width: 32px;
+    height: 34px;
+    min-width: 34px;
     border-radius: 4px;
-    padding: 0 10px;
-    font-size: 13px;
+    padding: 0;
+    font-size: 14px;
     line-height: 1;
   }
 
-  .header-status .theme-toggle-btn:hover,
-  .header-status .header-action-btn:hover {
+  .right-rail-toolbar .theme-toggle-btn:hover,
+  .right-rail-toolbar .header-action-btn:hover,
+  .right-rail-toolbar .calc-fab:hover {
     transform: none;
     box-shadow: none;
+  }
+
+  .right-rail-toolbar .theme-toggle-btn,
+  .right-rail-toolbar .header-action-btn,
+  .right-rail-toolbar .calc-fab {
+    flex-shrink: 0;
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    padding: 6px 11px;
+    min-height: 34px;
+    font-size: 10px;
+    letter-spacing: 1px;
+  }
+
+  .right-rail-toolbar .theme-toggle-btn--icon {
+    min-width: 34px;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    justify-content: center;
   }
 
   .header-save-btn {
     white-space: nowrap;
     display: none;
+  }
+
+  .header-logout-btn {
+    white-space: nowrap;
+    display: none;
+    color: var(--accent-amber);
+    border-color: var(--accent-amber-dim);
+  }
+
+  .header-logout-btn:hover {
+    color: var(--accent-amber);
+    border-color: var(--accent-amber);
+    background: var(--accent-amber-dim);
   }
 
   .card-header-info {
@@ -571,13 +614,70 @@
     flex-shrink: 0;
   }
 
+  body.app-shell-active .header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--right-panel-width);
+    column-gap: var(--right-panel-gap);
+    padding-right: var(--layout-gutter);
+    align-items: center;
+  }
+
+  .right-rail-toolbar {
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.3rem;
+    flex-wrap: nowrap;
+    width: 100%;
+    min-width: 0;
+    grid-column: 2;
+    align-self: center;
+  }
+
+  body.app-shell-active .right-rail-toolbar {
+    display: flex;
+  }
+
+  .toolbar-spacer {
+    flex: 1 1 auto;
+    min-width: 0.2rem;
+    height: 1px;
+  }
+
+  .right-rail-toolbar #calc-fab-label {
+    display: inline;
+  }
+
+  .right-rail-toolbar .header-logout-btn {
+    flex-shrink: 0;
+  }
+
+  .right-rail-toolbar .header-action-btn,
+  .right-rail-toolbar .calc-fab,
+  .right-rail-toolbar .theme-toggle-btn {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+  }
+
+  .right-rail-toolbar .header-action-btn:hover,
+  .right-rail-toolbar .calc-fab:hover,
+  .right-rail-toolbar .theme-toggle-btn:hover {
+    background: var(--accent-cyan-dim);
+    border-color: var(--border-bright);
+  }
+
+  .right-rail-toolbar .header-logout-btn:hover {
+    background: var(--accent-amber-dim);
+  }
+
   .main {
     position: relative;
     z-index: 5;
     max-width: var(--layout-max-width);
     margin: 0 auto;
     padding: 1rem var(--layout-gutter) 1rem var(--layout-gutter);
-    padding-right: calc(var(--right-panel-width) + var(--right-panel-gap) + var(--layout-gutter));
+    padding-right: var(--layout-right-rail);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
@@ -618,8 +718,6 @@
   #main-content-card.panel-visible {
     display: flex;
   }
-
-  /* === OBJECTIVE NAV (legacy — removed from UI) === */
 
   /* === CONTENT CARD === */
   .content-card {
@@ -1874,20 +1972,6 @@
     flex-shrink: 0;
   }
 
-  .login-theme-toggle {
-    position: absolute;
-    top: 0.85rem;
-    right: 0.85rem;
-    z-index: 2;
-    background: var(--bg-card);
-    box-shadow: 0 0 12px var(--accent-cyan-dim);
-  }
-
-  .login-theme-toggle:hover {
-    box-shadow: 0 0 16px var(--accent-cyan-dim);
-    transform: scale(1.05);
-  }
-
   .tutorial-header-right {
     display: flex;
     align-items: center;
@@ -1937,10 +2021,6 @@
       width: 100%;
       justify-content: flex-end;
       flex-wrap: wrap;
-    }
-    .theme-toggle-btn--tutorial {
-      font-size: 9px;
-      padding: 5px 10px;
     }
     .progress-slot {
       width: 100%;
@@ -2215,19 +2295,33 @@
 
   .calc-btn.fn:hover { background: var(--calc-btn-fn-hover); border-color: var(--accent-cyan); }
 
+  /* === RIGHT RAIL — NIBBLES column === */
+  .right-rail {
+    display: none;
+    position: fixed;
+    top: var(--right-panel-top);
+    right: var(--right-panel-right);
+    width: var(--right-panel-width);
+    z-index: 910;
+    box-sizing: border-box;
+  }
+
+  body.app-shell-active .right-rail {
+    display: block;
+  }
+
   /* === RIGHT PANEL — HAMMOND === */
   .right-panel {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    position: fixed;
-    top: var(--right-panel-top);
+    position: relative;
+    top: auto;
     bottom: auto;
-    right: var(--right-panel-right);
-    width: var(--right-panel-width);
+    right: auto;
+    width: 100%;
     height: var(--right-panel-height);
     overflow: hidden;
-    z-index: 910;
   }
 
   .hammond-panel {
@@ -2699,6 +2793,19 @@
   /* responsive */
   @media (max-width: 1100px) {
     .main { padding-right: 2rem; height: auto; overflow: visible; }
+    body.app-shell-active .header-inner {
+      display: flex;
+      flex-wrap: wrap;
+      row-gap: 0.5rem;
+      padding-right: 0;
+    }
+    .right-rail-toolbar {
+      width: 100%;
+      grid-column: 1 / -1;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
     html.app-shell-active,
     body.app-shell-active { overflow: auto; height: auto; }
     .left-panel { overflow: visible; }
@@ -2707,7 +2814,12 @@
     .content-card { display: block; }
     .mission-scroll,
     .tutorial-body { overflow: visible; max-height: none; }
-    .right-panel { position: static; width: 100%; max-height: none; }
+    .right-rail {
+      position: static;
+      width: 100%;
+      margin-top: 1rem;
+    }
+    .right-panel { width: 100%; max-height: none; height: auto; }
     .calc-popout {
       top: auto;
       bottom: 1rem;
@@ -2720,11 +2832,10 @@
       width: 64px;
       height: 64px;
     }
-    .header-status {
-      width: 100%;
-      justify-content: flex-end;
-    }
     .header-inner { height: auto; min-height: 76px; padding: 0.5rem 0; }
+    .right-rail-toolbar {
+      flex-wrap: nowrap;
+    }
     .card-header-info {
       width: 100%;
       justify-content: flex-end;
@@ -2745,11 +2856,14 @@
       display: none;
     }
     .header-action-btn,
-    .header-status .theme-toggle-btn,
+    .right-rail-toolbar .theme-toggle-btn,
+    .right-rail-toolbar .header-action-btn,
+    .right-rail-toolbar .calc-fab,
     .header-save-btn,
+    .header-logout-btn,
     .calc-fab {
-      padding: 5px 8px;
-      font-size: 8px;
+      padding: 6px 9px;
+      font-size: 9px;
     }
   }
 
@@ -2778,6 +2892,392 @@
   .save-toast.show {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
+  }
+
+  /* === LOGOUT — temporal disconnect sequence === */
+  #logout-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10050;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease;
+  }
+
+  #logout-overlay.logout-overlay--active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .logout-scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.14),
+      rgba(0, 0, 0, 0.14) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #logout-overlay.logout-overlay--active .logout-scanlines {
+    opacity: 0.45;
+    animation: logoutScanFlicker 1.6s steps(4) 0.35s forwards;
+  }
+
+  @keyframes logoutScanFlicker {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.55; }
+  }
+
+  .logout-hud {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: clamp(3rem, 12vh, 6rem);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(11px, 1.2vw, 14px);
+    color: var(--accent-cyan);
+    text-shadow: 0 0 12px var(--accent-cyan-dim);
+    letter-spacing: 0.5px;
+  }
+
+  .logout-hud-inner {
+    min-width: min(420px, 90vw);
+    border: 1px solid var(--accent-cyan-dim);
+    background: rgba(5, 14, 26, 0.82);
+    padding: 1rem 1.25rem;
+    box-shadow: 0 0 40px var(--accent-cyan-dim);
+  }
+
+  .logout-hud-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 0.65rem;
+    color: var(--text-secondary);
+  }
+
+  .logout-hud-line--ok { color: var(--color-positive); }
+  .logout-hud-line--warn { color: var(--accent-amber); }
+
+  .logout-crt-line {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 3px;
+    margin-top: -1px;
+    background: var(--accent-cyan);
+    box-shadow:
+      0 0 24px var(--accent-cyan),
+      0 0 80px var(--accent-cyan-dim),
+      0 0 120px #fff;
+    opacity: 0;
+    transform: scaleX(1);
+    z-index: 2;
+  }
+
+  #logout-overlay.logout-overlay--crt .logout-crt-line {
+    animation: logoutCrtShutdown 0.95s ease-in forwards;
+  }
+
+  @keyframes logoutCrtShutdown {
+    0% { opacity: 0; height: 3px; transform: scaleX(0.2); }
+    18% { opacity: 1; height: 5px; transform: scaleX(1); }
+    55% { opacity: 1; height: 2px; }
+    100% { opacity: 0; height: 1px; transform: scaleX(0.01); }
+  }
+
+  .logout-blackout {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    opacity: 0;
+    z-index: 3;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: clamp(1.25rem, 4vh, 2.5rem);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(12px, 1.35vw, 15px);
+    line-height: 1.55;
+    color: #33ff33;
+  }
+
+  #logout-overlay.logout-overlay--blackout .logout-blackout {
+    opacity: 1;
+    transition: opacity 0.35s ease;
+  }
+
+  body.logout-derezzing > .header,
+  body.logout-derezzing > .main,
+  body.logout-derezzing > .right-rail {
+    animation: logoutDerez 1.35s ease-in forwards 0.25s;
+    transform-origin: center center;
+  }
+
+  @keyframes logoutDerez {
+    0% {
+      opacity: 1;
+      filter: none;
+      transform: none;
+    }
+    12% {
+      opacity: 0.95;
+      filter: contrast(1.35) saturate(1.2);
+      transform: translateX(-4px) skewX(-0.6deg);
+    }
+    24% {
+      opacity: 0.88;
+      filter: hue-rotate(25deg) blur(0.5px);
+      transform: translateX(4px) skewX(0.6deg);
+    }
+    42% {
+      opacity: 0.65;
+      filter: blur(2px) brightness(1.35);
+      transform: scale(1.01);
+    }
+    68% {
+      opacity: 0.25;
+      filter: blur(6px) brightness(1.8) saturate(0.4);
+      transform: scaleY(0.08) scaleX(1.05);
+    }
+    100% {
+      opacity: 0;
+      filter: blur(14px) brightness(2.2);
+      transform: scaleY(0.01) scaleX(1.15);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body.logout-derezzing > .header,
+    body.logout-derezzing > .main,
+    body.logout-derezzing > .right-rail {
+      animation: none;
+      opacity: 0;
+    }
+    .logout-crt-line { animation: none !important; opacity: 0 !important; }
+    #logout-overlay.logout-overlay--blackout .logout-blackout { opacity: 1; }
+  }
+
+  /* === AXIOM SCREEN TRANSITIONS — shared 80s terminal routing === */
+  #axiom-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 10100;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  #axiom-transition.axiom-transition--active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .axiom-trans-scanlines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.14),
+      rgba(0, 0, 0, 0.14) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #axiom-transition.axiom-transition--active .axiom-trans-scanlines {
+    opacity: 0.45;
+    animation: axiomTransScanFlicker 0.9s steps(3) forwards;
+  }
+
+  @keyframes axiomTransScanFlicker {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.5; }
+  }
+
+  .axiom-trans-beam {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 2px;
+    top: -4%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--accent-cyan-dim) 15%,
+      var(--accent-cyan) 50%,
+      var(--accent-cyan-dim) 85%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 18px var(--accent-cyan),
+      0 0 48px var(--accent-cyan-dim),
+      0 -8px 32px var(--accent-cyan-dim);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .axiom-trans-beam--sweep {
+    animation: axiomTransBeamSweep 0.85s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  #axiom-transition.axiom-transition--light .axiom-trans-beam--sweep {
+    animation-duration: 0.55s;
+  }
+
+  @keyframes axiomTransBeamSweep {
+    0% { top: -4%; opacity: 0; }
+    8% { opacity: 1; }
+    92% { opacity: 1; }
+    100% { top: 104%; opacity: 0; }
+  }
+
+  .axiom-trans-flash {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(86, 180, 233, 0.22) 0%, transparent 68%);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  #axiom-transition.axiom-transition--flash .axiom-trans-flash {
+    animation: axiomTransFlash 0.18s ease-out forwards;
+  }
+
+  @keyframes axiomTransFlash {
+    0% { opacity: 0; }
+    35% { opacity: 1; }
+    100% { opacity: 0; }
+  }
+
+  .axiom-trans-vignette {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: 0;
+  }
+
+  #axiom-transition.axiom-transition--active .axiom-trans-vignette {
+    opacity: 1;
+  }
+
+  #axiom-transition.axiom-transition--light .axiom-trans-vignette {
+    background: rgba(0, 0, 0, 0.28);
+  }
+
+  .axiom-trans-hud {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: clamp(2rem, 12vh, 5rem);
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .axiom-trans-hud-inner {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(11px, 1.2vw, 13px);
+    line-height: 1.6;
+    color: var(--accent-cyan);
+    text-align: center;
+    text-shadow: 0 0 12px var(--accent-cyan-dim);
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  #axiom-transition.axiom-transition--active .axiom-trans-hud-inner {
+    animation: axiomTransHudIn 0.4s ease-out 0.12s forwards;
+  }
+
+  @keyframes axiomTransHudIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .axiom-trans-hud-title {
+    font-family: 'Orbitron', monospace;
+    font-size: clamp(10px, 1.1vw, 12px);
+    letter-spacing: 2px;
+    margin-bottom: 0.35rem;
+  }
+
+  .axiom-trans-hud-line {
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+    font-size: clamp(10px, 1vw, 12px);
+  }
+
+  .workspace-card--materialize {
+    animation: workspaceCardIn 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  @keyframes workspaceCardIn {
+    0% {
+      opacity: 0;
+      transform: perspective(800px) rotateX(7deg) scale(0.93);
+      filter: blur(5px) brightness(1.25);
+      clip-path: inset(40% 18% 40% 18% round 10px);
+    }
+    40% {
+      opacity: 0.65;
+      clip-path: inset(10% 3% 10% 3% round 10px);
+      filter: blur(1px) brightness(1.1);
+    }
+    100% {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      clip-path: inset(0 0 0 0 round 10px);
+    }
+  }
+
+  .tut-station.active.tut-station--enter {
+    animation: tutStationIn 0.48s ease-out forwards;
+  }
+
+  @keyframes tutStationIn {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+      filter: blur(2px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+      filter: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #axiom-transition { display: none !important; }
+    .workspace-card--materialize,
+    .tut-station.active.tut-station--enter,
+    .login-card--screen-swap {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+      clip-path: none !important;
+    }
   }
 
   .mission-flow-banner {
@@ -2836,8 +3336,8 @@
     list-style: decimal;
     list-style-position: outside;
     text-align: left;
-    max-width: 520px;
-    margin: 0 auto 0;
+    max-width: none;
+    margin: 0;
     padding-left: 1.35rem;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
@@ -2869,6 +3369,40 @@
     color: var(--text-secondary);
     margin: 0 0 0.85rem;
     line-height: 1.5;
+    text-align: left;
+  }
+
+  .final-report-banner {
+    margin-top: 1rem;
+    background: var(--bg-panel);
+    border: 1px solid var(--accent-amber);
+    border-radius: 10px;
+    padding: 1.5rem 2rem;
+    text-align: left;
+  }
+
+  .final-report-banner-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    color: var(--accent-amber);
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    text-align: left;
+  }
+
+  .mission-complete-download-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .mission-complete-download-step {
+    margin-top: 0.15rem;
+  }
+
+  .mission-complete-download-step .final-report-btn {
+    margin-top: 0.5rem;
+    display: inline-flex;
   }
 
   .mission-complete-sublist {
@@ -2884,19 +3418,11 @@
     color: var(--text-secondary);
   }
 
-  .mission-complete-download-step {
-    margin-top: 0.15rem;
-  }
-
   .mission-complete-download-note {
     margin: 0.35rem 0 0.85rem;
     font-size: 10px;
     color: var(--text-dim);
     line-height: 1.55;
-  }
-
-  .mission-complete-download-step .final-report-btn {
-    margin-top: 0.15rem;
   }
 
   .mission-complete-download-step #final-report-status {
@@ -3003,20 +3529,267 @@
     background: var(--bg-deep);
     z-index: 1000;
     display: flex; align-items: center; justify-content: center;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.4s ease, background 0.5s ease;
   }
   #login-overlay.fade-out { opacity: 0; pointer-events: none; }
 
-  .login-card {
+  #login-overlay.login-overlay--dos {
+    align-items: stretch;
+    justify-content: stretch;
+    background: #000;
+  }
+
+  .login-theme-toggle {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 1002;
+    background: var(--bg-card);
+    box-shadow: 0 0 12px var(--accent-cyan-dim);
+    opacity: 0.35;
+    transition: opacity 0.3s ease;
+  }
+
+  #login-overlay.login-overlay--welcome .login-theme-toggle {
+    opacity: 1;
+  }
+
+  .login-theme-toggle:hover {
+    box-shadow: 0 0 16px var(--accent-cyan-dim);
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  /* Phase 1 — full-screen DOS boot (blank phosphor terminal) */
+  .login-dos-screen {
+    position: absolute;
+    inset: 0;
+    background: #000;
+    padding: clamp(1.25rem, 4vh, 2.5rem) clamp(1.25rem, 4vw, 2.5rem);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(12px, 1.35vw, 15px);
+    line-height: 1.55;
+    color: #33ff33;
+    text-align: left;
+    overflow: hidden;
+    transition: opacity 0.55s ease;
+    z-index: 1;
+  }
+
+  .login-dos-screen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.12),
+      rgba(0, 0, 0, 0.12) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+    opacity: 0.35;
+  }
+
+  .login-dos-screen--done {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .login-dos-screen.login-dos-screen--post-logout {
+    transition: opacity 0.9s ease;
+  }
+
+  .login-dos-console {
     position: relative;
+    z-index: 1;
+    max-width: 52rem;
+  }
+
+  .login-dos-line--dim { color: #1f9f1f; }
+  .login-dos-line--bright { color: #66ff66; }
+  .login-dos-line--sub { color: #2db82d; padding-left: 2ch; font-size: 0.94em; }
+  .login-dos-line--acronym { color: #4dff4d; letter-spacing: 0.08em; }
+  .login-dos-line--prompt { color: #33ff33; margin-top: 0.35rem; }
+
+  .login-dos-cursor {
+    display: inline-block;
+    color: #33ff33;
+    animation: loginDosBlink 1s step-end infinite;
+  }
+
+  @keyframes loginDosBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  /* Phase 2 — welcome + credentials */
+  .login-scan-beam {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 2px;
+    top: -4%;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--accent-cyan-dim) 15%,
+      var(--accent-cyan) 50%,
+      var(--accent-cyan-dim) 85%,
+      transparent 100%
+    );
+    box-shadow:
+      0 0 18px var(--accent-cyan),
+      0 0 48px var(--accent-cyan-dim),
+      0 -8px 32px var(--accent-cyan-dim);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 4;
+  }
+
+  .login-scan-beam--active {
+    animation: loginScanSweep 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  @keyframes loginScanSweep {
+    0% { top: -4%; opacity: 0; }
+    8% { opacity: 1; }
+    92% { opacity: 1; }
+    100% { top: 104%; opacity: 0; }
+  }
+
+  .login-stage {
+    position: relative;
+    width: min(400px, calc(100vw - 3rem));
+    pointer-events: none;
+    z-index: 2;
+    perspective: 900px;
+  }
+
+  #login-overlay.login-overlay--welcome .login-stage {
+    pointer-events: auto;
+  }
+
+  .login-card-shell {
+    position: relative;
+  }
+
+  .login-hud-corner {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 2px solid transparent;
+    opacity: 0;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .login-hud-corner--tl { top: -6px; left: -6px; border-top-color: var(--accent-cyan); border-left-color: var(--accent-cyan); }
+  .login-hud-corner--tr { top: -6px; right: -6px; border-top-color: var(--accent-cyan); border-right-color: var(--accent-cyan); }
+  .login-hud-corner--bl { bottom: -6px; left: -6px; border-bottom-color: var(--accent-cyan); border-left-color: var(--accent-cyan); }
+  .login-hud-corner--br { bottom: -6px; right: -6px; border-bottom-color: var(--accent-cyan); border-right-color: var(--accent-cyan); }
+
+  .login-card-shell--active .login-hud-corner--tl { animation: loginHudIn 0.45s ease-out 0.38s forwards; }
+  .login-card-shell--active .login-hud-corner--tr { animation: loginHudIn 0.45s ease-out 0.46s forwards; }
+  .login-card-shell--active .login-hud-corner--bl { animation: loginHudIn 0.45s ease-out 0.54s forwards; }
+  .login-card-shell--active .login-hud-corner--br { animation: loginHudIn 0.45s ease-out 0.62s forwards; }
+
+  @keyframes loginHudIn {
+    0% { opacity: 0; transform: scale(1.55); filter: drop-shadow(0 0 6px var(--accent-cyan)); }
+    100% { opacity: 1; transform: scale(1); filter: drop-shadow(0 0 2px var(--accent-cyan-dim)); }
+  }
+
+  .login-card {
     background: var(--bg-panel);
     border: 1px solid var(--border-bright);
     border-radius: 10px;
-    padding: 2.5rem 3rem;
-    max-width: 480px; width: 100%;
+    padding: 2rem 2.5rem;
     text-align: center;
     box-shadow: 0 0 60px var(--panel-glow), 0 0 0 1px var(--panel-ring);
-    display: flex; flex-direction: column; gap: 1.2rem;
+    display: flex; flex-direction: column; gap: 1rem;
+    box-sizing: border-box;
+    width: 100%;
+    opacity: 0;
+    transform: perspective(900px) rotateX(9deg) scale(0.9);
+    filter: blur(7px) brightness(1.35);
+    clip-path: inset(45% 28% 45% 28% round 10px);
+    will-change: transform, opacity, filter, clip-path;
+  }
+
+  .login-card--materialize {
+    animation: loginCardMaterialize 1.05s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .login-card--ready {
+    opacity: 1;
+    transform: perspective(900px) rotateX(0) scale(1);
+    filter: none;
+    clip-path: inset(0 0 0 0 round 10px);
+    box-shadow: 0 0 60px var(--panel-glow), 0 0 0 1px var(--panel-ring);
+  }
+
+  @keyframes loginCardMaterialize {
+    0% {
+      opacity: 0;
+      transform: perspective(900px) rotateX(10deg) scale(0.88);
+      filter: blur(8px) brightness(1.5);
+      clip-path: inset(48% 32% 48% 32% round 10px);
+      box-shadow: 0 0 0 transparent, 0 0 0 1px transparent;
+    }
+    30% {
+      opacity: 0.55;
+      filter: blur(4px) brightness(1.25);
+      clip-path: inset(18% 10% 18% 10% round 10px);
+    }
+    55% {
+      opacity: 0.95;
+      transform: perspective(900px) rotateX(-1.5deg) scale(1.015);
+      filter: blur(0) brightness(1.08);
+      clip-path: inset(0 0 0 0 round 10px);
+      box-shadow: 0 0 80px var(--accent-cyan-dim), 0 0 0 1px var(--accent-cyan);
+    }
+    75% {
+      transform: perspective(900px) rotateX(0.5deg) scale(0.995);
+      box-shadow: 0 0 50px var(--panel-glow), 0 0 0 1px var(--panel-ring);
+    }
+    100% {
+      opacity: 1;
+      transform: perspective(900px) rotateX(0) scale(1);
+      filter: blur(0) brightness(1);
+      clip-path: inset(0 0 0 0 round 10px);
+      box-shadow: 0 0 60px var(--panel-glow), 0 0 0 1px var(--panel-ring);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .login-scan-beam { display: none; }
+    .login-hud-corner { opacity: 1; animation: none !important; }
+    .login-card--materialize,
+    .login-card--ready {
+      animation: none;
+      opacity: 1;
+      transform: none;
+      filter: none;
+      clip-path: none;
+    }
+  }
+
+  .login-card--screen-swap {
+    animation: loginScreenSwap 0.42s ease-out forwards;
+  }
+
+  @keyframes loginScreenSwap {
+    0% { filter: brightness(1); opacity: 1; }
+    38% { filter: brightness(1.35) blur(2px); opacity: 0.25; }
+    100% { filter: none; opacity: 1; }
+  }
+
+  .login-welcome-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--accent-cyan);
+    margin: 0;
   }
 
   [data-theme="light"] .login-logo {
@@ -3040,13 +3813,14 @@
   .login-avatar path.visor-accent { fill: none; }
   .login-avatar .visor-shade { fill: var(--hammond-visor-shade); }
   .login-avatar .visor-badge { fill: var(--hammond-visor-badge-bg); stroke: var(--hammond-accent); }
-  .login-hammond-msg {
+  .login-hammond-msg,
+  .login-nibbles-msg {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px; color: var(--text-secondary);
-    line-height: 1.6;
+    font-size: 11px; color: var(--text-secondary);
+    line-height: 1.55;
     background: var(--bg-card);
     border-left: 3px solid var(--accent-cyan);
-    padding: 0.75rem 1rem;
+    padding: 0.65rem 0.85rem;
     border-radius: 0 6px 6px 0;
     text-align: left;
   }
@@ -3074,8 +3848,9 @@
   }
   .login-btn:hover { background: var(--accent-cyan-dim); }
   .login-hint {
-    font-size: 10px; color: var(--text-dim);
+    font-size: 9px; color: var(--text-dim);
     font-family: 'IBM Plex Mono', monospace;
+    line-height: 1.45;
   }
   .login-choice-wrap { display: flex; flex-direction: column; gap: 0.75rem; }
   .login-choice-btn {
@@ -3230,11 +4005,29 @@
 <!-- ============================================================
      LOGIN OVERLAY
      ============================================================ -->
-<div id="login-overlay" role="dialog" aria-modal="true" aria-labelledby="login-dialog-title" aria-describedby="login-boot-msg">
-  <div class="login-card">
-    <button type="button" class="theme-toggle-btn theme-toggle-btn--icon login-theme-toggle" id="login-theme-toggle-btn" onclick="toggleTheme()" title="Switch light / dark mode" aria-label="Switch between light and dark display mode">☀</button>
+<div id="login-overlay" class="login-overlay--dos" role="dialog" aria-modal="true" aria-labelledby="login-dialog-title" aria-describedby="login-nibbles-msg">
+  <button type="button" class="theme-toggle-btn theme-toggle-btn--icon login-theme-toggle" id="login-theme-toggle-btn" onclick="toggleTheme()" title="Switch light / dark mode" aria-label="Switch between light and dark display mode">☀</button>
+
+  <!-- Phase 1: full-screen DOS boot -->
+  <div class="login-dos-screen" id="login-boot-screen" aria-hidden="false" aria-label="AXIOM system boot">
+    <div class="login-dos-console" id="login-boot-console" aria-live="polite" aria-atomic="true">
+      <div id="login-boot-lines"></div>
+      <span class="login-dos-cursor" id="login-boot-cursor" aria-hidden="true">_</span>
+    </div>
+  </div>
+
+  <!-- Phase 2: welcome + credentials -->
+  <div class="login-scan-beam" id="login-scan-beam" aria-hidden="true"></div>
+  <div class="login-stage" id="login-stage">
+    <div class="login-card-shell" id="login-card-shell">
+      <span class="login-hud-corner login-hud-corner--tl" aria-hidden="true"></span>
+      <span class="login-hud-corner login-hud-corner--tr" aria-hidden="true"></span>
+      <span class="login-hud-corner login-hud-corner--bl" aria-hidden="true"></span>
+      <span class="login-hud-corner login-hud-corner--br" aria-hidden="true"></span>
+      <div class="login-card" id="login-card" aria-hidden="true" inert>
     <h1 class="login-logo" id="login-dialog-title">⬡ AXIOM TERMINAL</h1>
     <div class="login-subtitle">WHEELER &amp; PACE TEMPORAL ADVISORY DIVISION</div>
+    <p class="login-welcome-title" id="login-welcome-headline">WELCOME, AGENT</p>
     <svg class="login-avatar" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <ellipse cx="50" cy="65" rx="28" ry="22" fill="#c8a882"/>
       <circle cx="50" cy="42" r="24" fill="#d4b896"/>
@@ -3256,15 +4049,13 @@
 
     <!-- Screen 1: ID entry -->
     <div id="login-screen-id">
-      <div class="login-hammond-msg" id="login-boot-msg" aria-live="polite" aria-atomic="true">
-        <span id="login-boot-text"></span>
-      </div>
+      <div class="login-nibbles-msg" id="login-nibbles-msg">*adjusts tiny goggles* N.I.B.B.L.E.S. is online. Enter your instructor-assigned 4-digit agent ID to access the terminal.</div>
       <label class="visually-hidden" for="login-id-input">Employee ID (4 digits)</label>
-      <input id="login-id-input" class="login-input" type="text" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="4-DIGIT ID" autocomplete="off" aria-describedby="login-error login-hint-text" style="opacity:0;transition:opacity 0.4s" onkeydown="if(event.key==='Enter') submitLogin()" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4)">
+      <input id="login-id-input" class="login-input" type="text" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="4-DIGIT ID" autocomplete="off" aria-describedby="login-error login-hint-text" onkeydown="if(event.key==='Enter') submitLogin()" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,4)">
       <div id="login-error" role="alert" aria-live="polite" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent-red);min-height:16px;"></div>
-      <div id="login-btn-wrap" style="opacity:0;transition:opacity 0.4s;display:flex;flex-direction:column;gap:0.5rem">
+      <div id="login-btn-wrap" style="display:flex;flex-direction:column;gap:0.5rem">
         <button type="button" class="login-btn" onclick="submitLogin()">▶ LOG IN</button>
-        <div class="login-hint" id="login-hint-text">Enter the four-digit ID assigned by your instructor. Complete mandatory terminal training before starting the mission. You can save progress and return later with your save file.</div>
+        <div class="login-hint" id="login-hint-text">Complete mandatory training before the mission. Use ⬇ SAVE or ⏻ LOG OUT to download a checkpoint file and resume later.</div>
       </div>
     </div>
 
@@ -3279,6 +4070,8 @@
         <div id="login-upload-error" role="alert" aria-live="polite" style="color:var(--accent-red); margin-top:1rem; font-size:12px; text-align:center;"></div>
       </div>
     </div>
+  </div>
+  </div>
   </div>
 </div>
 
@@ -3315,13 +4108,15 @@
         <span class="logo-sub">WHEELER & PACE · TEMPORAL ADVISORY DIVISION</span>
       </div>
     </div>
-    <div class="header-status">
+    <div class="right-rail-toolbar" aria-label="Session tools">
       <button type="button" class="theme-toggle-btn theme-toggle-btn--icon header-action-btn" id="theme-toggle-btn" onclick="toggleTheme()" aria-label="Switch between light and dark display mode">☀</button>
-      <button type="button" class="calc-fab header-action-btn" onclick="toggleCalc()" id="calc-fab" aria-label="Open Field Calculator" aria-expanded="false" aria-controls="calc-popout">
+      <button type="button" class="calc-fab header-action-btn" onclick="toggleCalc()" id="calc-fab" aria-label="Open Field Calculator" aria-expanded="false" aria-controls="calc-popout" title="Field Calculator">
         <span class="calc-fab-icon" aria-hidden="true">⊞</span>
         <span id="calc-fab-label">CALCULATOR</span>
       </button>
-      <button type="button" class="export-btn header-save-btn header-action-btn" id="header-save-btn" onclick="saveCheckpoint()" aria-label="Save mission checkpoint to file" title="Download save file before exiting — progress is lost without it">⬇ SAVE CHECKPOINT</button>
+      <button type="button" class="export-btn header-save-btn header-action-btn" id="header-save-btn" onclick="saveCheckpoint()" aria-label="Save mission checkpoint to file" title="Download a .json save file before exiting — progress is lost without it">⬇ SAVE</button>
+      <span class="toolbar-spacer" aria-hidden="true"></span>
+      <button type="button" class="export-btn header-logout-btn header-action-btn" id="header-logout-btn" onclick="logoutAgent()" aria-label="Log out and download checkpoint" title="Downloads your .json save file, then ends your session">⏻ LOG OUT</button>
     </div>
   </div>
 </header>
@@ -3340,7 +4135,6 @@
         <div class="tutorial-header">
           <div class="tutorial-title">⬡ AXIOM TERMINAL — AGENT TRAINING</div>
           <div class="tutorial-header-right">
-            <button type="button" class="theme-toggle-btn theme-toggle-btn--icon theme-toggle-btn--tutorial" onclick="toggleTheme()" aria-label="Switch between light and dark display mode">☀</button>
             <div class="progress-slot" id="progress-slot-tutorial">
               <div class="progress-panel progress-panel--top" id="progress-panel" role="group" aria-labelledby="progress-title">
                 <div class="progress-title" id="progress-title">▸ MISSION PROGRESS</div>
@@ -3379,7 +4173,7 @@
                   <li>After several wrong attempts, N.I.B.B.L.E.S. will point you back to the Field Briefing — watch for the briefing button to <span class="instr-highlight">pulse</span>.</li>
                   <li>A gentle <span class="instr-highlight">pulse</span> on an input field marks where to work next in the mission.</li>
                   <li>Steps and charts unlock as you verify work — you cannot skip ahead.</li>
-                  <li>The <span class="instr-highlight">⊞ CALCULATOR</span> in the mission header is always available for arithmetic.</li>
+                  <li>The <span class="instr-highlight">⊞ CALCULATOR</span> in the session toolbar (top right) is always available for arithmetic.</li>
                 </ul>
                 <div id="tut-s1-done" style="display:none;margin-top:0.5rem">
                   <span class="tut-complete-badge">✓ BRIEFING READ</span>
@@ -3440,7 +4234,7 @@
             <div class="tut-station-title">▸ STATION 4 — THE FIELD CALCULATOR</div>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-4"></div>
-              <div class="tut-nibbles-bubble">*pats abacus fondly* See the <span class="instr-highlight">⊞ CALCULATOR</span> button in the mission header? It is always there. Open it, do the calculation inside it, then type the result into the answer field here. Try it now — if I received 1.27 treats a day for a whole week, how many treats will I get in a week?</div>
+              <div class="tut-nibbles-bubble">*pats abacus fondly* See the <span class="instr-highlight">⊞ CALCULATOR</span> button in the session toolbar? It is always there. Open it, do the calculation inside it, then type the result into the answer field here. Try it now — if I received 1.27 treats a day for a whole week, how many treats will I get in a week?</div>
             </div>
             <div class="input-group" style="max-width:300px">
               <label class="input-label" for="tut-inp-treats">TOTAL TREATS (1.27 × 7)</label>
@@ -3490,9 +4284,10 @@
               <div class="instr-panel-body">
                 <ul>
                   <li>The mission has several steps across the terminal and Canvas. You may not finish in one sitting.</li>
-                  <li>Click <span class="instr-highlight">⬇ SAVE CHECKPOINT</span> in the mission header at any time — a <strong>.json save file</strong> downloads automatically, named by your current step and Employee ID.</li>
+                  <li>Click <span class="instr-highlight">⬇ SAVE</span> in the session toolbar at any time — a <strong>.json save file</strong> downloads automatically, named by your current step and Employee ID.</li>
+                  <li>Click <span class="instr-highlight">⏻ LOG OUT</span> when you are done for the day — your save file downloads automatically before the session ends.</li>
                   <li>To resume: return to this terminal, log in with your ID, then click <span class="instr-highlight">⬆ RESUME — UPLOAD CHECKPOINT</span> and select your file. All verified work restores exactly.</li>
-                  <li><strong>If you leave without downloading your save file, your progress will be lost.</strong> You would need to start the terminal from the beginning.</li>
+                  <li><strong>If you leave without a save file, your progress will be lost.</strong> Use ⬇ SAVE or ⏻ LOG OUT — both download your checkpoint.</li>
                   <li>The save file is tied to your Employee ID — it cannot be used by another agent.</li>
                 </ul>
               </div>
@@ -3570,7 +4365,7 @@
 
             <div class="briefing-station" id="briefing-station-3" style="display:none">
               <div class="briefing-station-label">Briefing checkpoint 3 of 3</div>
-              <p style="margin:0"><strong>Save checkpoint before exit:</strong> if you leave the AXIOM terminal without downloading your save file, your progress is lost and you must restart. Use <strong>⬇ SAVE CHECKPOINT</strong> before closing the browser.</p>
+              <p style="margin:0"><strong>Save checkpoint before exit:</strong> if you leave without a save file, your progress is lost and you must restart. Use <strong>⬇ SAVE</strong> anytime, or <strong>⏻ LOG OUT</strong> to download your checkpoint automatically before the session ends.</p>
               <div class="briefing-station-actions">
                 <button type="button" class="check-btn briefing-ack-btn" id="briefing-ack-btn-3" onclick="ackBriefingStep(3)">✓ UNDERSTOOD</button>
               </div>
@@ -3581,7 +4376,7 @@
 
           <div class="mission-callout mission-callout--save" id="save-reminder-strip" style="display:none" role="note">
             <div class="mission-callout-label">▸ Save your progress</div>
-            <p>If you leave the AXIOM terminal without downloading your save file, your progress will be lost and you will need to start from the beginning. Use <strong>⬇ SAVE CHECKPOINT</strong> before closing the browser.</p>
+            <p>If you leave the AXIOM terminal without a save file, your progress will be lost and you will need to start from the beginning. Use <strong>⬇ SAVE</strong> anytime, or <strong>⏻ LOG OUT</strong> to download your checkpoint before closing.</p>
           </div>
 
           <!-- STEP 1: CLASSIFY (RADIO BUTTONS) -->
@@ -3701,7 +4496,7 @@
               </ul>
 
               <h4>Before You Exit</h4>
-              <p>If you need to leave before finishing, click <span class="instr-highlight">⬇ SAVE CHECKPOINT</span> in the mission header and download your save file.</p>
+              <p>If you need to leave before finishing, click <span class="instr-highlight">⬇ SAVE</span> in the session toolbar, or <span class="instr-highlight">⏻ LOG OUT</span> to download your save file automatically.</p>
 
               <h4>After This Step — Canvas</h4>
               <p>Use your verified baseline values to answer <strong>questions 3 through 5</strong> in the mission memo.</p>
@@ -3790,7 +4585,7 @@
               </ul>
 
               <h4>Before You Exit</h4>
-              <p>Download your save file if you plan to return later — progress is not stored automatically.</p>
+              <p>Download your save file if you plan to return later — use <span class="instr-highlight">⬇ SAVE</span> or <span class="instr-highlight">⏻ LOG OUT</span>. Progress is not stored automatically.</p>
 
               <h4>After This Step — Canvas</h4>
               <p>Use your completed cost table to answer <strong>questions 6 through 7</strong> in the mission memo.</p>
@@ -4101,8 +4896,8 @@
               ✦ TERMINAL ANALYSIS COMPLETE — Objectives 1 &amp; 2 verified. Finish in Canvas using the steps below.
             </div>
 
-            <div id="final-report-banner" style="margin-top:1rem;background:var(--bg-panel);border:1px solid var(--accent-amber);border-radius:10px;padding:1.5rem 2rem;text-align:center">
-              <div style="font-family:'Orbitron',monospace;font-size:13px;color:var(--accent-amber);letter-spacing:2px;margin-bottom:0.5rem">⬡ FINAL MISSION REPORT</div>
+            <div id="final-report-banner" class="final-report-banner">
+              <div class="final-report-banner-title">⬡ FINAL MISSION REPORT</div>
               <p class="mission-complete-intro">Complete these steps in order:</p>
               <ol class="mission-complete-checklist" id="mission-complete-checklist">
                 <li id="mcc-step-1">Answer <strong>questions 19 through 20</strong> in Canvas</li>
@@ -4136,8 +4931,9 @@
 
 </main><!-- /main -->
 
-<!-- RIGHT: HAMMOND PANEL — fixed, outside main so no stacking context can hide it -->
-<aside class="right-panel" aria-label="N.I.B.B.L.E.S. assistance panel">
+<!-- RIGHT RAIL — NIBBLES column -->
+<div class="right-rail" id="right-rail">
+  <aside class="right-panel" aria-label="N.I.B.B.L.E.S. assistance panel">
 
     <!-- HAMMOND AI -->
     <div class="hammond-panel" role="region" aria-labelledby="hammond-panel-title">
@@ -4193,9 +4989,39 @@
       </div>
     </div>
 
-</aside><!-- /right-panel -->
+  </aside><!-- /right-panel -->
+</div><!-- /right-rail -->
 
 <div id="save-toast" class="save-toast" role="status" aria-live="polite"></div>
+
+<!-- LOGOUT — temporal disconnect overlay -->
+<div id="logout-overlay" aria-hidden="true" aria-live="assertive">
+  <div class="logout-scanlines" aria-hidden="true"></div>
+  <div class="logout-hud">
+    <div class="logout-hud-inner">
+      <div class="logout-hud-title">▸ TEMPORAL DISCONNECT PROTOCOL</div>
+      <div id="logout-hud-lines"></div>
+    </div>
+  </div>
+  <div class="logout-crt-line" id="logout-crt-line" aria-hidden="true"></div>
+  <div class="logout-blackout" id="logout-blackout" aria-hidden="true">
+    <div id="logout-terminal-lines"></div>
+  </div>
+</div>
+
+<!-- AXIOM — shared screen routing overlay -->
+<div id="axiom-transition" aria-hidden="true" aria-live="polite">
+  <div class="axiom-trans-vignette" aria-hidden="true"></div>
+  <div class="axiom-trans-scanlines" aria-hidden="true"></div>
+  <div class="axiom-trans-flash" id="axiom-trans-flash" aria-hidden="true"></div>
+  <div class="axiom-trans-beam" id="axiom-trans-beam" aria-hidden="true"></div>
+  <div class="axiom-trans-hud">
+    <div class="axiom-trans-hud-inner">
+      <div class="axiom-trans-hud-title" id="axiom-trans-title">▸ SYSTEM ROUTING</div>
+      <div class="axiom-trans-hud-line" id="axiom-trans-line"></div>
+    </div>
+  </div>
+</div>
 
 <!-- CALCULATOR POPOUT WINDOW -->
 <div class="calc-popout" id="calc-popout" role="dialog" aria-modal="true" aria-labelledby="calc-dialog-title" aria-hidden="true">
@@ -4305,8 +5131,6 @@ let state = {
   charts: {}
 };
 
-let totalVerifiable = 0;
-let verifiedCount = 0;
 let savedProgressCount = 0;
 
 // ============================================================
@@ -4436,7 +5260,7 @@ const HAMMOND_INTRO = [
   `*static crackle* Field Agent Hammond reporting in. Made it through the chimney — barely. Ledger data secured. Transmitting to terminal now.`,
   `*transmission ends* This is N.I.B.B.L.E.S. — Neural Intelligence Built for Briefings, Logistics & Economic Support. I have received Hammond's field data and loaded it into the AXIOM terminal.`,
   `You will complete Objectives 1 and 2 here in the terminal. After each step, return to the mission memo in Canvas to answer the matching questions. When terminal work is complete, follow the numbered checklist: Canvas questions 19 through 33, then download your final report and upload the PDF on question 34.`,
-  `Start with Objective 1, Step 1 — classify each expense as Fixed or Variable. If you need to leave, download a save file with ⬇ SAVE CHECKPOINT before you exit.`
+  `Start with Objective 1, Step 1 — classify each expense as Fixed or Variable. If you need to leave, use ⬇ SAVE or ⏻ LOG OUT — both download your checkpoint file.`
 ];
 
 const SUCCESS_MSGS = [
@@ -5408,7 +6232,6 @@ function buildCostTable() {
         wide: true
       })}</td>`;
     tbody.appendChild(tr);
-    totalVerifiable++;
   });
 }
 
@@ -5475,7 +6298,6 @@ function buildAvgTable() {
       <td class="col-group-end">${tableFieldHtml({ inputId: `atc-${i}`, statusId: `avg-status-atc-${i}`, ariaLabel: `Average total cost at output ${row.q}` })}</td>
       <td class="col-mc avg-mc-empty" aria-hidden="true"></td>`;
     tbody.appendChild(tr);
-    totalVerifiable += 3;
 
     const interval = MC_INTERVALS[i];
     if (interval) {
@@ -5494,7 +6316,6 @@ function buildAvgTable() {
           </div>
         </td>`;
       tbody.appendChild(bridge);
-      totalVerifiable += 1;
     }
   });
 }
@@ -5649,7 +6470,6 @@ function buildProfitTable() {
         wide: true
       })}</td>`;
     tbody.appendChild(tr);
-    totalVerifiable += 2; // TR + Profit each count
   });
 }
 
@@ -5932,11 +6752,17 @@ function updateHeaderLastSave() {
 }
 
 function updateHeaderSaveButton() {
-  const btn = document.getElementById('header-save-btn');
+  const saveBtn = document.getElementById('header-save-btn');
+  const logoutBtn = document.getElementById('header-logout-btn');
+  const tutorial = document.getElementById('tutorial-page')?.classList.contains('panel-visible');
   const missionCard = document.getElementById('main-content-card');
-  if (!btn || !missionCard) return;
-  const visible = state.tutorialComplete && missionCard.classList.contains('panel-visible');
-  btn.style.display = visible ? 'inline-flex' : 'none';
+  const mission = missionCard?.classList.contains('panel-visible');
+  if (saveBtn) {
+    saveBtn.style.display = state.tutorialComplete && mission ? 'inline-flex' : 'none';
+  }
+  if (logoutBtn) {
+    logoutBtn.style.display = (tutorial || mission) ? 'inline-flex' : 'none';
+  }
   syncRightPanelTop();
 }
 
@@ -6237,24 +7063,6 @@ function smoothDs(label, color, data, borderWidth, dash, tension = 0.4) {
   };
 }
 
-// Verified table rows → scatter overlay (optional comparison markers)
-function avgPoints(field) {
-  if (field === 'mc') {
-    return MC_INTERVALS
-      .map((interval, j) => {
-        if (!mcIntervalDone(j)) return null;
-        return { x: interval.to, y: interval.mc };
-      })
-      .filter(Boolean);
-  }
-  return AVG_TABLE
-    .map((r, i) => {
-      if (!avgCostsRowDone(i)) return null;
-      return { x: r.q, y: r[field] };
-    })
-    .filter(Boolean);
-}
-
 function isAvgSeriesComplete(field) {
   if (field === 'mc') {
     return MC_INTERVALS.every((_, j) => mcIntervalDone(j));
@@ -6516,37 +7324,346 @@ function captureChartForPdf(chartId) {
 
 
 // ============================================================
+// AXIOM SCREEN TRANSITIONS
+// ============================================================
+
+let axiomTransitionTimers = [];
+
+function prefersReducedMotion() {
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
+function clearAxiomTransitionTimers() {
+  axiomTransitionTimers.forEach(t => clearTimeout(t));
+  axiomTransitionTimers = [];
+}
+
+function materializeWorkspacePanel(panelId) {
+  const panel = document.getElementById(panelId);
+  if (!panel) return;
+  const card = panel.querySelector('.content-card, .tutorial-card');
+  if (!card || prefersReducedMotion()) return;
+  card.classList.remove('workspace-card--materialize');
+  void card.offsetWidth;
+  card.classList.add('workspace-card--materialize');
+}
+
+function runAxiomTransition(opts = {}) {
+  const {
+    title = '▸ SYSTEM ROUTING',
+    line = '',
+    intensity = 'full',
+    onMid = null,
+    onComplete = null,
+    duration = null
+  } = opts;
+
+  if (prefersReducedMotion()) {
+    if (onMid) onMid();
+    if (onComplete) onComplete();
+    return Promise.resolve();
+  }
+
+  const overlay = document.getElementById('axiom-transition');
+  const titleEl = document.getElementById('axiom-trans-title');
+  const lineEl = document.getElementById('axiom-trans-line');
+  const beam = document.getElementById('axiom-trans-beam');
+
+  if (!overlay) {
+    if (onMid) onMid();
+    if (onComplete) onComplete();
+    return Promise.resolve();
+  }
+
+  clearAxiomTransitionTimers();
+  overlay.classList.remove('axiom-transition--light', 'axiom-transition--active', 'axiom-transition--flash');
+  if (titleEl) titleEl.textContent = title;
+  if (lineEl) lineEl.textContent = line;
+
+  const dur = duration || (intensity === 'light' ? 620 : 1080);
+  const midAt = Math.round(dur * 0.48);
+
+  return new Promise(resolve => {
+    overlay.setAttribute('aria-hidden', 'false');
+    if (intensity === 'light') overlay.classList.add('axiom-transition--light');
+
+    requestAnimationFrame(() => {
+      overlay.classList.add('axiom-transition--active');
+      if (beam) {
+        beam.classList.remove('axiom-trans-beam--sweep');
+        void beam.offsetWidth;
+        beam.classList.add('axiom-trans-beam--sweep');
+      }
+    });
+
+    if (onMid) {
+      axiomTransitionTimers.push(setTimeout(() => {
+        overlay.classList.add('axiom-transition--flash');
+        onMid();
+        axiomTransitionTimers.push(setTimeout(() => {
+          overlay.classList.remove('axiom-transition--flash');
+        }, 140));
+      }, midAt));
+    }
+
+    axiomTransitionTimers.push(setTimeout(() => {
+      overlay.classList.remove('axiom-transition--active', 'axiom-transition--light', 'axiom-transition--flash');
+      overlay.setAttribute('aria-hidden', 'true');
+      if (onComplete) onComplete();
+      resolve();
+    }, dur));
+  });
+}
+
+// ============================================================
 // LOGIN
 // ============================================================
 
-// Boot sequence typewriter effect on login screen
-function runBootSequence() {
-  const lines = [
-    { text: 'AXIOM TERMINAL v2.6 — WHEELER & PACE CONSULTING', delay: 0 },
-    { text: 'INITIALIZING AI MODULE...', delay: 400 },
-    { text: 'LOADING: Neural Intelligence Built for Briefings, Logistics & Economic Support', delay: 900 },
-    { text: '> N.I.B.B.L.E.S. ONLINE', delay: 1500, highlight: true },
-    { text: '*adjusts tiny goggles* AXIOM Terminal online, Agent. Enter your instructor-assigned ID. Complete mandatory training, then work through the terminal and mission memo in Canvas together.', delay: 2100 },
-  ];
-  const el = document.getElementById('login-boot-text');
+// Boot sequence — terminal console, then reveal login card
+let loginBootTimer = null;
+let bootLineTimers = [];
+
+function clearBootLineTimers() {
+  bootLineTimers.forEach(t => clearTimeout(t));
+  bootLineTimers = [];
+}
+
+function resetLoginScreen() {
+  clearTimeout(loginBootTimer);
+  clearBootLineTimers();
+  const overlay = document.getElementById('login-overlay');
+  const bootScreen = document.getElementById('login-boot-screen');
+  const loginCard = document.getElementById('login-card');
+  const cardShell = document.getElementById('login-card-shell');
+  const scanBeam = document.getElementById('login-scan-beam');
+  const linesEl = document.getElementById('login-boot-lines');
+  const cursor = document.getElementById('login-boot-cursor');
+  if (overlay) {
+    overlay.classList.add('login-overlay--dos');
+    overlay.classList.remove('login-overlay--welcome');
+  }
+  if (bootScreen) {
+    bootScreen.classList.remove('login-dos-screen--done', 'login-dos-screen--post-logout');
+    bootScreen.setAttribute('aria-hidden', 'false');
+  }
+  if (loginCard) {
+    loginCard.classList.remove('login-card--materialize', 'login-card--ready', 'login-card--screen-swap');
+    loginCard.setAttribute('aria-hidden', 'true');
+    loginCard.setAttribute('inert', '');
+  }
+  if (cardShell) cardShell.classList.remove('login-card-shell--active');
+  if (scanBeam) scanBeam.classList.remove('login-scan-beam--active');
+  if (linesEl) linesEl.innerHTML = '';
+  if (cursor) cursor.style.display = '';
+  document.getElementById('login-screen-id').style.display = '';
+  document.getElementById('login-screen-choice').style.display = 'none';
+  const inp = document.getElementById('login-id-input');
+  if (inp) inp.value = '';
+  const err = document.getElementById('login-error');
+  if (err) err.textContent = '';
+}
+
+function revealLoginCard() {
+  const overlay = document.getElementById('login-overlay');
+  const bootScreen = document.getElementById('login-boot-screen');
+  const loginCard = document.getElementById('login-card');
+  const cardShell = document.getElementById('login-card-shell');
+  const scanBeam = document.getElementById('login-scan-beam');
+  const cursor = document.getElementById('login-boot-cursor');
   const idInput = document.getElementById('login-id-input');
-  const btnWrap = document.getElementById('login-btn-wrap');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (cursor) cursor.style.display = 'none';
+  if (bootScreen) {
+    bootScreen.classList.add('login-dos-screen--done');
+    bootScreen.setAttribute('aria-hidden', 'true');
+  }
+  if (overlay) {
+    overlay.classList.remove('login-overlay--dos');
+    overlay.classList.add('login-overlay--welcome');
+  }
+  if (!loginCard || !idInput) return;
+  loginCard.setAttribute('aria-hidden', 'false');
+  loginCard.removeAttribute('inert');
   const returning = localStorage.getItem('axiom-agent-id');
-  idInput.style.opacity = '1';
-  btnWrap.style.opacity = '1';
   if (returning) idInput.value = returning;
-  idInput.focus();
-  let html = '';
-  lines.forEach(line => {
-    setTimeout(() => {
-      if (line.highlight) {
-        html += `<span style="color:var(--color-positive);font-weight:bold">${line.text}</span><br>`;
-      } else {
-        html += `${line.text}<br>`;
-      }
-      el.innerHTML = html;
-    }, line.delay);
+
+  const finishReveal = () => {
+    loginCard.classList.add('login-card--ready');
+    idInput.focus();
+  };
+
+  if (reducedMotion) {
+    loginCard.classList.add('login-card--materialize', 'login-card--ready');
+    if (cardShell) cardShell.classList.add('login-card-shell--active');
+    finishReveal();
+    return;
+  }
+
+  if (scanBeam) {
+    scanBeam.classList.remove('login-scan-beam--active');
+    void scanBeam.offsetWidth;
+    scanBeam.classList.add('login-scan-beam--active');
+  }
+  requestAnimationFrame(() => {
+    loginCard.classList.add('login-card--materialize');
+    if (cardShell) cardShell.classList.add('login-card-shell--active');
   });
+  loginBootTimer = setTimeout(finishReveal, 1050);
+}
+
+function appendBootLines(linesEl, lines) {
+  if (!linesEl) return;
+  lines.forEach(line => {
+    bootLineTimers.push(setTimeout(() => {
+      if (!line.text) {
+        linesEl.appendChild(document.createElement('br'));
+        return;
+      }
+      const row = document.createElement('div');
+      if (line.cls) row.className = line.cls;
+      row.textContent = line.text;
+      linesEl.appendChild(row);
+    }, line.delay));
+  });
+}
+
+function nibblesBootLines(d, relink) {
+  const head = relink ? 'RE-LINKING N.I.B.B.L.E.S. CORE ...... START' : 'BOOTSTRAP N.I.B.B.L.E.S. MODULE ..... START';
+  const done = relink ? 'N.I.B.B.L.E.S. LINK ................. RESTORED' : 'N.I.B.B.L.E.S. CORE ................. ONLINE';
+  return [
+    { text: head, delay: d.n0, cls: 'login-dos-line--bright' },
+    { text: '  N.I.B.B.L.E.S. = NEURAL INTELLIGENCE BUILT FOR', delay: d.n1, cls: 'login-dos-line--acronym' },
+    { text: '  BRIEFINGS, LOGISTICS & ECONOMIC SUPPORT', delay: d.n2, cls: 'login-dos-line--acronym' },
+    { text: '  [BRIEFINGS] ....................... ACTIVE', delay: d.n3, cls: 'login-dos-line--sub' },
+    { text: '  [LOGISTICS] ....................... ACTIVE', delay: d.n4, cls: 'login-dos-line--sub' },
+    { text: '  [ECONOMIC SUPPORT] ................ ACTIVE', delay: d.n5, cls: 'login-dos-line--sub' },
+    { text: done, delay: d.n6, cls: 'login-dos-line--bright' },
+  ];
+}
+
+function runBootSequence() {
+  resetLoginScreen();
+  const linesEl = document.getElementById('login-boot-lines');
+  const bootScreen = document.getElementById('login-boot-screen');
+  const priorLogout = sessionStorage.getItem('axiom-logout');
+  if (priorLogout !== null) sessionStorage.removeItem('axiom-logout');
+  const postLogout = !!priorLogout;
+
+  if (bootScreen) bootScreen.classList.toggle('login-dos-screen--post-logout', postLogout);
+
+  const d = postLogout
+    ? { h: 0, c: 500, s: 1400, sg: 1400, r: 2200, i: 3000, n0: 3450, n1: 3700, n2: 3950, n3: 4200, n4: 4450, n5: 4700, n6: 4950, a: 5300, g: 5300, p: 5800, reveal: 7000 }
+    : { h: 0, c: 220, i: 450, n0: 680, n1: 900, n2: 1120, n3: 1340, n4: 1560, n5: 1780, n6: 2000, a: 2280, g: 2280, p: 2580, reveal: 3100 };
+
+  const lines = [
+    { text: 'WHEELER & PACE TEMPORAL ADVISORY DIVISION', delay: d.h, cls: 'login-dos-line--bright' },
+    { text: '(C) AXIOM BIOS v2.6', delay: d.c, cls: 'login-dos-line--dim' },
+    { text: '', delay: d.c },
+  ];
+  if (postLogout) {
+    lines.push({ text: `PREVIOUS SESSION CLOSED — AGENT ${priorLogout}`, delay: d.s, cls: 'login-dos-line--dim' });
+    lines.push({ text: '', delay: d.sg });
+    lines.push({ text: 'REBOOTING SECURE TERMINAL ...........', delay: d.r, cls: 'login-dos-line--bright' });
+    lines.push({ text: '', delay: d.r });
+  }
+  lines.push(
+    { text: 'INITIALIZING TEMPORAL SYNC .......... OK', delay: d.i, cls: 'login-dos-line--bright' },
+    ...nibblesBootLines(d, postLogout),
+    { text: 'SECURE ACCESS LAYER ................. READY', delay: d.a, cls: 'login-dos-line--dim' },
+    { text: '', delay: d.g },
+    { text: 'C:\\AXIOM> HANDOFF TO CREDENTIAL SCREEN', delay: d.p, cls: 'login-dos-line--prompt' }
+  );
+  appendBootLines(linesEl, lines);
+  loginBootTimer = setTimeout(revealLoginCard, d.reveal);
+}
+
+// ============================================================
+// LOGOUT — secure checkpoint + temporal disconnect
+// ============================================================
+let logoutInProgress = false;
+let logoutTimers = [];
+
+function clearLogoutTimers() {
+  logoutTimers.forEach(t => clearTimeout(t));
+  logoutTimers = [];
+}
+
+function appendLogoutHudLine(text, cls) {
+  const el = document.getElementById('logout-hud-lines');
+  if (!el || !text) return;
+  const row = document.createElement('div');
+  if (cls) row.className = cls;
+  row.textContent = text;
+  el.appendChild(row);
+}
+
+function resetLogoutOverlay() {
+  const overlay = document.getElementById('logout-overlay');
+  const hud = document.getElementById('logout-hud-lines');
+  const term = document.getElementById('logout-terminal-lines');
+  if (overlay) {
+    overlay.classList.remove('logout-overlay--active', 'logout-overlay--crt', 'logout-overlay--blackout');
+    overlay.setAttribute('aria-hidden', 'true');
+  }
+  if (hud) hud.innerHTML = '';
+  if (term) term.innerHTML = '';
+  document.body.classList.remove('logout-derezzing');
+}
+
+async function logoutAgent() {
+  if (logoutInProgress) return;
+  logoutInProgress = true;
+  clearLogoutTimers();
+
+  const calcPop = document.getElementById('calc-popout');
+  if (calcPop?.classList.contains('open')) toggleCalc();
+
+  const overlay = document.getElementById('logout-overlay');
+  const agentId = state.employeeId || 'UNKNOWN';
+  resetLogoutOverlay();
+  overlay.classList.add('logout-overlay--active');
+  overlay.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('logout-derezzing');
+
+  appendLogoutHudLine('INITIATING TEMPORAL DISCONNECT...', 'logout-hud-line--warn');
+  logoutTimers.push(setTimeout(() => {
+    appendLogoutHudLine(`AGENT ${agentId} — SESSION TERMINATE`, '');
+  }, 320));
+  logoutTimers.push(setTimeout(() => {
+    appendLogoutHudLine('SECURING CHECKPOINT TO LOCAL DRIVE...', '');
+  }, 680));
+
+  const saved = state.employeeId ? await saveCheckpoint(false, { silent: true }) : false;
+  appendLogoutHudLine(
+    saved ? 'CHECKPOINT ENCRYPTED AND DOWNLOADED' : 'CHECKPOINT SKIPPED — NO AGENT ID',
+    saved ? 'logout-hud-line--ok' : 'logout-hud-line--warn'
+  );
+  logoutTimers.push(setTimeout(() => {
+    appendLogoutHudLine('DISENGAGING NEURAL LINK...', '');
+  }, 200));
+
+  logoutTimers.push(setTimeout(() => {
+    overlay.classList.add('logout-overlay--crt');
+  }, 900));
+
+  logoutTimers.push(setTimeout(() => {
+    const term = document.getElementById('logout-terminal-lines');
+    if (term) {
+      term.innerHTML = [
+        '<div>CONNECTION TERMINATED</div>',
+        `<div>AGENT ${agentId} LOGGED OUT</div>`,
+        '<div></div>',
+        '<div>STANDBY FOR REBOOT...</div>',
+        '<div class="login-dos-line--dim">_</div>'
+      ].join('');
+    }
+    overlay.classList.add('logout-overlay--blackout');
+  }, 2150));
+
+  logoutTimers.push(setTimeout(() => {
+    sessionStorage.setItem('axiom-logout', agentId);
+    location.reload();
+  }, 3400));
 }
 
 function submitLogin() {
@@ -6565,11 +7682,18 @@ function submitLogin() {
   state.employeeId = val;
   localStorage.setItem('axiom-agent-id', val);
   updateHeaderAgent();
-  // Swap to choice screen
+  const card = document.getElementById('login-card');
   document.getElementById('login-screen-id').style.display = 'none';
   document.getElementById('login-welcome-msg').textContent =
     `Identity confirmed — Agent ${val}. Hammond is already deployed in the field. Is this your first time on the terminal, or are you resuming a previous session?`;
   document.getElementById('login-screen-choice').style.display = 'block';
+  if (card && !prefersReducedMotion()) {
+    card.classList.remove('login-card--screen-swap');
+    void card.offsetWidth;
+    card.classList.add('login-card--screen-swap');
+    setTimeout(() => card.classList.remove('login-card--screen-swap'), 450);
+  }
+  card?.classList.add('login-card--ready');
 }
 
 function releaseLoginFocusTrap() {
@@ -6579,12 +7703,16 @@ function releaseLoginFocusTrap() {
   }
 }
 
-function dismissLoginOverlay() {
+function hideLoginOverlayImmediate() {
   const overlay = document.getElementById('login-overlay');
   releaseLoginFocusTrap();
   overlay.setAttribute('aria-hidden', 'true');
-  overlay.classList.add('fade-out');
-  setTimeout(() => { overlay.style.display = 'none'; }, 420);
+  overlay.style.display = 'none';
+  overlay.classList.remove('fade-out');
+}
+
+function dismissLoginOverlay() {
+  hideLoginOverlayImmediate();
 }
 
 function setAppShell(active) {
@@ -6674,32 +7802,49 @@ function mountProgressPanel(slotId) {
 function startNewSession() {
   state.tutorialComplete = false;
   state.briefingAcks = { 1: false, 2: false, 3: false };
-  dismissLoginOverlay();
-  showTutorialPanel();
-  mountProgressPanel('progress-slot-tutorial');
-  updateHeaderAgent();
-  document.getElementById('progress-title').textContent = '▸ TRAINING · STATION 1 / 6';
-  setMissionProgressPct(0, 'Station 1 of 6');
-  // Clear idle placeholder and fire welcome immediately
-  const idle = document.getElementById('nibbles-idle-msg');
-  if (idle) idle.remove();
-  hammondMsg(`*salutes with tiny paw* Agent ${state.employeeId} — N.I.B.B.L.E.S. online. Watch this panel throughout training. I will narrate each station and send hints if you get stuck.`, 'info', 0);
-  setTimeout(() => initTutorial(), 600);
+  runAxiomTransition({
+    title: '▸ AGENT AUTHENTICATED',
+    line: 'INITIALIZING TRAINING PROTOCOL...',
+    onMid: () => {
+      hideLoginOverlayImmediate();
+      showTutorialPanel();
+      mountProgressPanel('progress-slot-tutorial');
+      updateHeaderAgent();
+      document.getElementById('progress-title').textContent = '▸ TRAINING · STATION 1 / 6';
+      setMissionProgressPct(0, 'Station 1 of 6');
+      materializeWorkspacePanel('tutorial-page');
+    },
+    onComplete: () => {
+      const idle = document.getElementById('nibbles-idle-msg');
+      if (idle) idle.remove();
+      hammondMsg(`*salutes with tiny paw* Agent ${state.employeeId} — N.I.B.B.L.E.S. online. Watch this panel throughout training. I will narrate each station and send hints if you get stuck.`, 'info', 0);
+      setTimeout(() => initTutorial(), 200);
+    }
+  });
 }
 
 function completeTutorial(skippedTraining) {
-  state.tutorialComplete = true;
-  clearTutActionPulse();
-  showMissionPanel();
-  mountProgressPanel('progress-slot-mission');
-  document.getElementById('progress-title').textContent = '▸ MISSION PROGRESS';
-  updateProgress();
-  startHammondIntro();
-  if (skippedTraining) {
-    const introEnd = 300 + HAMMOND_INTRO.length * 1500 + 500;
-    setTimeout(() => hammondMsg('*adjusts tiny headset* You skipped training — read the three briefing checkpoints before Step 1.', 'warning', 900), introEnd);
-  }
-  setTimeout(() => updateFieldPulse(), 1200);
+  runAxiomTransition({
+    title: '▸ TRAINING COMPLETE',
+    line: skippedTraining ? 'SKIPPING TO MISSION INTERFACE...' : 'DEPLOYING FIELD MISSION...',
+    onMid: () => {
+      state.tutorialComplete = true;
+      clearTutActionPulse();
+      showMissionPanel();
+      mountProgressPanel('progress-slot-mission');
+      document.getElementById('progress-title').textContent = '▸ MISSION PROGRESS';
+      updateProgress();
+      materializeWorkspacePanel('main-content-card');
+    },
+    onComplete: () => {
+      startHammondIntro();
+      if (skippedTraining) {
+        const introEnd = 300 + HAMMOND_INTRO.length * 1500 + 500;
+        setTimeout(() => hammondMsg('*adjusts tiny headset* You skipped training — read the three briefing checkpoints before Step 1.', 'warning', 900), introEnd);
+      }
+      setTimeout(() => updateFieldPulse(), 1200);
+    }
+  });
 }
 
 // ============================================================
@@ -6722,7 +7867,7 @@ const TUT_BIN_CONFIG = [
 ];
 
 function initTutorial() {
-  setTutStation(1);
+  setTutStation(1, { animate: false });
   initTutClassifyLedger();
 }
 
@@ -6760,9 +7905,18 @@ const TUT_STATION_MSGS = [
   `*taps clipboard* Station 1 — every step has a Field Briefing panel. Open it before you start. Click OPEN FIELD BRIEFING on the left to try one now.`,
   `*leans forward* Station 2 — classification practice. Same flow as mission Step 1: radio buttons, sorted lists below, VERIFY when every item is classified. Wrong picks get cleared.`,
   `*ready at keyboard* Station 3 — type a value, press VERIFY or Enter. Arrow keys move between fields in the mission. Green locks in; red means try again.`,
-  `*points at header* Station 4 — the Field Calculator. The ⊞ CALCULATOR button in the mission header is always available. Calculate inside it, then enter the result in the answer field.`,
+  `*points at toolbar* Station 4 — the Field Calculator. The ⊞ CALCULATOR button in the session toolbar is always available. Calculate inside it, then enter the result in the answer field.`,
   `*gestures at this panel* Station 5 — I send escalating hints when you miss. In the mission I will not give away answers — and I will pulse the Field Briefing button if you are stuck.`,
-  `*holds up tiny USB drive* Station 6 — save files let you pause mid-mission. Download before you exit. When terminal analysis is complete, follow the numbered steps: Canvas 19 through 33, download your final report, upload the PDF on question 34, and keep the .json backup.`,
+  `*holds up tiny USB drive* Station 6 — save files let you pause mid-mission. Use ⬇ SAVE anytime, or ⏻ LOG OUT to download your checkpoint before you exit. When terminal analysis is complete, follow the numbered steps: Canvas 19 through 33, download your final report, upload the PDF on question 34, and keep the .json backup.`,
+];
+
+const TUT_STATION_LABELS = [
+  'FIELD BRIEFINGS',
+  'CLASSIFICATION',
+  'ENTERING & VERIFYING',
+  'FIELD CALCULATOR',
+  'HINT ESCALATION',
+  'CHECKPOINT & DEPLOY'
 ];
 
 const TUT_TOTAL = 6;
@@ -6855,17 +8009,45 @@ function updateTutActionPulse() {
   }
 }
 
-function setTutStation(n) {
+function applyTutStation(n) {
   tutStation = n;
   document.querySelectorAll('.tut-station').forEach((el, i) => {
     el.classList.toggle('active', i + 1 === n);
+    el.classList.remove('tut-station--enter');
   });
+  const active = document.getElementById(`tut-s${n}`);
+  if (active && !prefersReducedMotion()) {
+    void active.offsetWidth;
+    active.classList.add('tut-station--enter');
+  }
   const pct = ((n - 1) / TUT_TOTAL) * 100;
   document.getElementById('progress-title').textContent = `▸ TRAINING · STATION ${n} / ${TUT_TOTAL}`;
   setMissionProgressPct(pct, `Station ${n} of ${TUT_TOTAL}`);
-  // Fire Nibbles message for this station
   if (TUT_STATION_MSGS[n - 1]) hammondMsg(TUT_STATION_MSGS[n - 1], 'info', 300);
   updateTutActionPulse();
+  const tutorialBody = document.querySelector('.tutorial-body');
+  if (tutorialBody) tutorialBody.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+function setTutStation(n, options = {}) {
+  const { animate = true } = options;
+  const prev = tutStation;
+  if (prev === n) {
+    applyTutStation(n);
+    return;
+  }
+  if (!animate) {
+    applyTutStation(n);
+    return;
+  }
+  const label = TUT_STATION_LABELS[n - 1] || `STATION ${n}`;
+  runAxiomTransition({
+    intensity: 'light',
+    title: `▸ STATION ${n} / ${TUT_TOTAL}`,
+    line: label,
+    onMid: () => applyTutStation(n),
+    duration: 640
+  });
 }
 
 function advanceTutStation() {
@@ -7027,7 +8209,7 @@ function tutAckCheckpoint() {
   document.getElementById('tut-s6-done').style.display = 'block';
   document.getElementById('progress-title').textContent = '▸ TRAINING COMPLETE';
   setMissionProgressPct(100, 'Training complete');
-  hammondMsg(`*logs training record* Confirmed. Mid-mission: ⬇ SAVE CHECKPOINT before you leave. At mission complete, follow the numbered steps: Canvas questions 19 through 20, Objective 3 (21 through 33), download the final report, upload the PDF on question 34, and keep the .json backup.`, 'success', 300);
+  hammondMsg(`*logs training record* Confirmed. Mid-mission: use ⬇ SAVE or ⏻ LOG OUT before you leave — both download your checkpoint. At mission complete, follow the numbered steps: Canvas questions 19 through 20, Objective 3 (21 through 33), download the final report, upload the PDF on question 34, and keep the .json backup.`, 'success', 300);
   updateTutActionPulse();
 }
 
@@ -7107,6 +8289,7 @@ function base64ToBuf(b64) {
 }
 
 function currentStepLabel() {
+  if (!state.tutorialComplete) return `Training_Station_${tutStation}`;
   if (!state.classifyVerified) return 'Obj1_Step1';
   if (!state.verified?.tc)     return 'Obj1_Step2';
   if (state.obj1Step < 2)      return 'Obj1_Step2';
@@ -7117,7 +8300,8 @@ function currentStepLabel() {
   return 'Complete';
 }
 
-async function saveCheckpoint(isFinal = false) {
+async function saveCheckpoint(isFinal = false, options = {}) {
+  const { silent = false } = options;
   const stepLabel = currentStepLabel();
   const fileLabel = isFinal ? 'FINAL' : stepLabel;
   const inputValues = collectInputValues();
@@ -7130,7 +8314,7 @@ async function saveCheckpoint(isFinal = false) {
     employeeId:       state.employeeId,
     state: {
       employeeId:       state.employeeId,
-      tutorialComplete: true,
+      tutorialComplete: state.tutorialComplete,
       briefingAcks:     state.briefingAcks,
       classifyVerified: state.classifyVerified,
       verified:         state.verified,
@@ -7172,13 +8356,17 @@ async function saveCheckpoint(isFinal = false) {
     localStorage.setItem('axiom-last-save', state.lastSaveTime.toISOString());
     updateHeaderLastSave();
     markProgressSaved();
-    if (!isFinal) {
+    if (!isFinal && !silent) {
       showSaveToast(`✓ Saved ${filename}`);
-      hammondMsg(`*stamps checkpoint seal* Checkpoint saved at ${stepLabel.replace(/_/g,' ')}. Keep this file — upload it at login to resume exactly where you left off. If you exit without saving, progress is lost.`, 'success', 400);
+      hammondMsg(`*stamps checkpoint seal* Checkpoint saved at ${stepLabel.replace(/_/g,' ')}. Keep this file — upload it at login to resume exactly where you left off. You can also use ⏻ LOG OUT to download before ending your session.`, 'success', 400);
     }
+    return true;
   } catch(err) {
-    hammondMsg('*frowns at terminal* Checkpoint save failed — browser crypto unavailable. Try a different browser.', 'error', 400);
+    if (!silent) {
+      hammondMsg('*frowns at terminal* Checkpoint save failed — browser crypto unavailable. Try a different browser.', 'error', 400);
+    }
     console.error('saveCheckpoint encryption error:', err);
+    return false;
   }
 }
 
@@ -7252,52 +8440,48 @@ function loadCheckpoint(event) {
 
 // Shared restore logic — called by both v1 and v2 load paths
 function _applyCheckpointData(data, event) {
-  // Restore state
   Object.assign(state, data.state);
   if (data.employeeId) state.employeeId = data.employeeId;
   state.tutorialComplete = true;
 
-  // Dismiss login overlay
-  releaseLoginFocusTrap();
-  const loginOverlay = document.getElementById('login-overlay');
-  loginOverlay.setAttribute('aria-hidden', 'true');
-  loginOverlay.style.display = 'none';
-  const idle = document.getElementById('nibbles-idle-msg');
-  if (idle) idle.remove();
-  showMissionPanel();
-  mountProgressPanel('progress-slot-mission');
   updateHeaderAgent();
   if (data.exported) {
     state.lastSaveTime = new Date(data.exported);
     updateHeaderLastSave();
   }
-  document.getElementById('progress-title').textContent = '▸ MISSION PROGRESS';
-  updateProgress();
-  markProgressSaved();
 
-  // Restore input values
   const vals = data.inputValues || {};
   Object.entries(vals).forEach(([id, val]) => {
     const el = document.getElementById(id);
     if (el && !el.disabled) el.value = val;
   });
-  // Legacy checkpoint: mc-1…mc-4 → mc-interval-0…3
   for (let i = 1; i < AVG_TABLE.length; i++) {
     const legacy = vals[`mc-${i}`];
     const modern = document.getElementById(`mc-interval-${i - 1}`);
     if (legacy != null && modern && !modern.value) modern.value = legacy;
   }
 
-  // Re-run all verifications to restore visual state
   restoreVerifiedState(data.state);
-
-  // Reset file input
   if (event && event.target) event.target.value = '';
 
-  startHammondIntro();
-  setTimeout(() => {
-    hammondMsg(`*reads checkpoint seal* Welcome back, Agent ${state.employeeId || ''}. Resuming from ${(data.step || 'your saved progress').replace(/_/g,' ')}. All verified work has been restored.`, 'success', 400);
-  }, HAMMOND_INTRO.length * 1500 + 600);
+  runAxiomTransition({
+    title: '▸ CHECKPOINT VERIFIED',
+    line: `RESTORING AGENT ${state.employeeId || ''} SESSION...`,
+    onMid: () => {
+      hideLoginOverlayImmediate();
+      const idle = document.getElementById('nibbles-idle-msg');
+      if (idle) idle.remove();
+      showMissionPanel();
+      mountProgressPanel('progress-slot-mission');
+      document.getElementById('progress-title').textContent = '▸ MISSION PROGRESS';
+      updateProgress();
+      markProgressSaved();
+      materializeWorkspacePanel('main-content-card');
+    },
+    onComplete: () => {
+      hammondMsg(`*reads checkpoint seal* Welcome back, Agent ${state.employeeId || ''}. Resuming from ${(data.step || 'your saved progress').replace(/_/g,' ')}. All verified work has been restored.`, 'success', 0);
+    }
+  });
 }
 
 function restoreVerifiedState(savedState) {
@@ -7708,6 +8892,8 @@ function devGoLogin() {
   overlay.style.opacity = '1';
   overlay.classList.remove('fade-out');
   overlay.removeAttribute('aria-hidden');
+  resetLoginScreen();
+  runBootSequence();
   releaseLoginFocusTrap();
   loginFocusTrap = createFocusTrap(overlay);
   loginFocusTrap.activate();
