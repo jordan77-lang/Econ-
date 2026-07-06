@@ -339,7 +339,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    min-height: 70px;
+    min-height: 88px;
     height: auto;
     gap: 0.75rem;
     padding: 0.45rem 0;
@@ -352,8 +352,8 @@
   }
 
   .logo-icon {
-    width: 56px;
-    height: 56px;
+    width: 80px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2550,14 +2550,14 @@
 
   @media (max-width: 768px) {
     .logo-icon {
-      width: 50px;
-      height: 50px;
+      width: 64px;
+      height: 64px;
     }
     .header-status {
       width: 100%;
       justify-content: flex-end;
     }
-    .header-inner { height: auto; min-height: 70px; padding: 0.5rem 0; }
+    .header-inner { height: auto; min-height: 76px; padding: 0.5rem 0; }
     .card-header-info {
       width: 100%;
       justify-content: flex-end;
@@ -2666,24 +2666,75 @@
   .mission-callout strong { color: var(--text-primary); }
 
   .mission-complete-checklist {
-    list-style: none;
+    list-style: decimal;
+    list-style-position: outside;
     text-align: left;
-    max-width: 420px;
-    margin: 0 auto 1.25rem;
+    max-width: 520px;
+    margin: 0 auto 0;
+    padding-left: 1.35rem;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
     color: var(--text-secondary);
     line-height: 1.8;
   }
 
-  .mission-complete-checklist li::before {
-    content: '○ ';
-    color: var(--accent-amber);
+  .mission-complete-checklist > li {
+    padding-left: 0.35rem;
+    margin-bottom: 0.35rem;
   }
 
-  .mission-complete-checklist li.done::before {
-    content: '✓ ';
+  .mission-complete-checklist > li::before {
+    content: none;
+  }
+
+  .mission-complete-checklist > li.done {
     color: var(--color-positive);
+  }
+
+  .mission-complete-checklist > li.done::marker {
+    color: var(--color-positive);
+    font-weight: 700;
+  }
+
+  .mission-complete-intro {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin: 0 0 0.85rem;
+    line-height: 1.5;
+  }
+
+  .mission-complete-sublist {
+    list-style: disc;
+    margin: 0.35rem 0 0 1rem;
+    padding: 0;
+    font-size: 10px;
+    line-height: 1.65;
+    color: var(--text-dim);
+  }
+
+  .mission-complete-sublist strong {
+    color: var(--text-secondary);
+  }
+
+  .mission-complete-download-step {
+    margin-top: 0.15rem;
+  }
+
+  .mission-complete-download-note {
+    margin: 0.35rem 0 0.85rem;
+    font-size: 10px;
+    color: var(--text-dim);
+    line-height: 1.55;
+  }
+
+  .mission-complete-download-step .final-report-btn {
+    margin-top: 0.15rem;
+  }
+
+  .mission-complete-download-step #final-report-status {
+    text-align: left;
+    margin-top: 0.85rem;
   }
 
   .tut-skip-btn {
@@ -3077,7 +3128,7 @@
   <div class="dev-bar-sep"></div>
   <span class="dev-bar-label" style="font-size:9px;color:#ff888888">FILL</span>
   <button class="dev-btn" onclick="devFillStep1()">S1 Classify</button>
-  <button class="dev-btn" onclick="devFillStep2()">S2 Baseline</button>
+  <button class="dev-btn" onclick="devFillStep2()">S2 Baseline Costs</button>
   <button class="dev-btn" onclick="devFillStep3()">S3 TC Table</button>
   <button class="dev-btn" onclick="devFillStep4()">S4 Avg/MC</button>
   <button class="dev-btn" onclick="devFillObj2Step1()">O2 MR</button>
@@ -3161,7 +3212,7 @@
                   <li>After several wrong attempts, N.I.B.B.L.E.S. will point you back to the Field Briefing — watch for the briefing button to <span class="instr-highlight">pulse</span>.</li>
                   <li>A gentle <span class="instr-highlight">pulse</span> on an input field marks where to work next in the mission.</li>
                   <li>Steps and charts unlock as you verify work — you cannot skip ahead.</li>
-                  <li>The <span class="instr-highlight">⊞ CALCULATOR</span> (bottom right) is always available for arithmetic.</li>
+                  <li>The <span class="instr-highlight">⊞ CALCULATOR</span> in the mission header is always available for arithmetic.</li>
                 </ul>
                 <div id="tut-s1-done" style="display:none;margin-top:0.5rem">
                   <span class="tut-complete-badge">✓ BRIEFING READ</span>
@@ -3222,7 +3273,7 @@
             <div class="tut-station-title">▸ STATION 4 — THE FIELD CALCULATOR</div>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-4"></div>
-              <div class="tut-nibbles-bubble">*pats abacus fondly* See the ⊞ CALCULATOR button fixed to the bottom right of the screen? It is always there. Open it, do the calculation inside it, then type the result into the answer field here. Try it now — if I received 1.27 treats a day for a whole week, how many treats will I get in a week?</div>
+              <div class="tut-nibbles-bubble">*pats abacus fondly* See the <span class="instr-highlight">⊞ CALCULATOR</span> button in the mission header? It is always there. Open it, do the calculation inside it, then type the result into the answer field here. Try it now — if I received 1.27 treats a day for a whole week, how many treats will I get in a week?</div>
             </div>
             <div class="input-group" style="max-width:300px">
               <label class="input-label" for="tut-inp-treats">TOTAL TREATS (1.27 × 7)</label>
@@ -3284,15 +3335,13 @@
               <div class="instr-panel-header">⬡ PART B — FINAL MISSION REPORT</div>
               <div class="instr-panel-body">
                 <ul>
-                  <li>When you complete <strong>Objectives 1 and 2</strong> in the terminal, a <span class="instr-highlight" style="color:var(--accent-amber)">▼ DOWNLOAD FINAL REPORT</span> button appears at the bottom of the mission.</li>
-                  <li>Clicking it downloads <strong>two files</strong>:
-                    <ul style="margin-top:0.4rem">
-                      <li>A <span class="instr-highlight">PDF report</span> — your completed tables and charts. <strong>Upload this PDF to Canvas on question 34.</strong></li>
-                      <li>A <span class="instr-highlight">final checkpoint .json</span> — a save file at mission-complete state. Keep this as a backup.</li>
-                    </ul>
-                  </li>
-                  <li>After downloading, complete <strong>Objective 3</strong> in the mission memo (questions 21–33) using your terminal tables and charts.</li>
-                  <li>Work in both places: complete each terminal step, answer matching Canvas questions, then continue.</li>
+                <ol class="mission-complete-checklist" style="margin:0.75rem 0 0 1.1rem;padding-left:1.25rem;line-height:1.7">
+                  <li>Answer <strong>questions 19–20</strong> in Canvas</li>
+                  <li>Complete <strong>Objective 3</strong> questions <strong>21–33</strong> in Canvas (use Chart C for Steps 1–2)</li>
+                  <li>Download your <strong>final report</strong> in the terminal</li>
+                  <li>Upload the <strong>PDF</strong> on <strong>question 34</strong></li>
+                  <li>Keep the <strong>.json</strong> checkpoint file as a backup</li>
+                </ol>
                   <li>The PDF cannot be easily edited — it is your official mission record.</li>
                 </ul>
               </div>
@@ -3310,7 +3359,7 @@
             </div>
           </div>
 
-          <div class="tut-skip"><button type="button" class="tut-skip-btn" onclick="completeTutorial()">Already familiar with the system? Skip training →</button></div>
+          <div class="tut-skip"><button type="button" class="tut-skip-btn" onclick="completeTutorial(true)">Already familiar with the system? Skip training →</button></div>
 
         </div><!-- /tutorial-body -->
       </div><!-- /tutorial-card -->
@@ -3338,7 +3387,7 @@
           <div class="briefing-stations" id="briefing-stations">
             <div class="briefing-station" id="briefing-station-1">
               <div class="briefing-station-label">Briefing checkpoint 1 of 3</div>
-              <p style="margin:0">► FIELD REPORT — Hammond has returned from the 1885 perfumery with ledger data.<br>Your investigation has <strong>three objectives</strong>: analyze production costs, compare costs and revenue to evaluate profitability, and recommend a strategy for long-run survival. Objective 1 begins here in the AXIOM terminal; strategy questions (Objective 3) are completed in <strong>Canvas</strong> after you download your final report.</p>
+              <p style="margin:0">► FIELD REPORT — Hammond has returned from the 1885 perfumery with ledger data.<br>Your investigation has <strong>three objectives</strong>: analyze production costs, compare costs and revenue to evaluate profitability, and recommend a strategy for long-run survival. Objectives 1 and 2 are completed here in the AXIOM terminal; Objective 3 strategy questions are answered in <strong>Canvas</strong> using your terminal data.</p>
               <div class="briefing-station-actions">
                 <button type="button" class="check-btn briefing-ack-btn" id="briefing-ack-btn-1" onclick="ackBriefingStep(1)">✓ UNDERSTOOD</button>
               </div>
@@ -3369,7 +3418,7 @@
           </div>
 
           <!-- STEP 1: CLASSIFY (RADIO BUTTONS) -->
-          <h2 class="step-title" id="step1-title">▸ Objective 1 · Step 1 — Fixed vs Variable Cost Classification</h2>
+          <h2 class="step-title" id="step1-title">▸ Objective 1 · Step 1 — Identify Fixed and Variable Costs</h2>
 
           <!-- Step 1 Instructions toggle -->
           <button class="step-instructions-btn" id="instr-btn-1" onclick="toggleInstructions(1)">
@@ -3377,7 +3426,7 @@
           </button>
           <div class="step-instructions-panel" id="instr-panel-1">
             <div class="instr-panel-header">
-              ⬡ Objective 1 · Step 1 — Fixed vs Variable Cost Classification
+              ⬡ Objective 1 · Step 1 — Identify Fixed and Variable Costs
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
@@ -3448,7 +3497,7 @@
 
           <!-- STEP 2: BASELINE TOTALS (hidden until Step 1 complete) -->
           <div id="step2-section" style="display:none">
-          <h2 class="step-title">▸ Objective 1 · Step 2 — Baseline Totals @ 960 Bottles/Month</h2>
+          <h2 class="step-title" id="step2-title">▸ Objective 1 · Step 2 — Calculate Various Costs at the Baseline Output Level</h2>
 
           <!-- Step 2 Instructions toggle -->
           <button class="step-instructions-btn" id="instr-btn-2" onclick="toggleInstructions(2)">
@@ -3456,7 +3505,7 @@
           </button>
           <div class="step-instructions-panel" id="instr-panel-2">
             <div class="instr-panel-header">
-              ⬡ Objective 1 · Step 2 — Baseline Totals @ 960 Bottles/Month
+              ⬡ Objective 1 · Step 2 — Calculate Various Costs at the Baseline Output Level
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
@@ -3492,7 +3541,7 @@
 
               <div class="instr-tip">
                 <span>⬡</span>
-                <span><strong>N.I.B.B.L.E.S. tip:</strong> Scroll back to Step 1 and use the <em>calculator</em> (⊞ button, bottom-right) to add up your fixed expenses and your variable expenses separately. Do not guess — every figure here carries forward into Step 3.</span>
+                <span><strong>N.I.B.B.L.E.S. tip:</strong> Scroll back to Step 1 and use the <span class="instr-highlight">⊞ CALCULATOR</span> in the header to add up your fixed expenses and your variable expenses separately. Do not guess — every figure here carries forward into Step 3.</span>
               </div>
             </div>
           </div>
@@ -3526,7 +3575,7 @@
           </div>
 
           <div class="input-group baseline-input-card">
-            <label class="input-label" for="inp-output">BASELINE MONTHLY OUTPUT (bottles/month)</label>
+            <label class="input-label" for="inp-output">BASELINE OUTPUT (BOTTLES PER MONTH)</label>
             <div class="input-row">
               <input class="data-input" id="inp-output" type="text" inputmode="numeric" placeholder="0" autocomplete="off">
               <button type="button" class="check-btn" onclick="checkInput('output')" aria-label="Verify baseline output">VERIFY</button>
@@ -3543,7 +3592,7 @@
           </div>
 
           <!-- STEP 3: COST PER OUTPUT TABLE -->
-          <h2 class="step-title" id="step3-title" style="display:none">▸ Objective 1 · Step 3 — Total Cost Per Output Level</h2>
+          <h2 class="step-title" id="step3-title" style="display:none">▸ Objective 1 · Step 3 — Calculate Total Cost Across Output Levels</h2>
 
           <!-- Step 3 Instructions toggle -->
           <button class="step-instructions-btn" id="instr-btn-3" onclick="toggleInstructions(3)" style="display:none">
@@ -3551,7 +3600,7 @@
           </button>
           <div class="step-instructions-panel" id="instr-panel-3">
             <div class="instr-panel-header">
-              ⬡ Objective 1 · Step 3 — Total Cost Per Output Level
+              ⬡ Objective 1 · Step 3 — Calculate Total Cost Across Output Levels
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
@@ -3570,7 +3619,7 @@
                 <li>Click into the TC cell for any row, type your answer, and press <span class="instr-highlight">Enter</span> to verify.</li>
                 <li>You can work through the rows in any order.</li>
                 <li>Round to 2 decimal places (e.g., 233.00).</li>
-                <li>All 5 rows must be correct before Step 4 unlocks.</li>
+                <li>All 5 rows must be correct before Steps 4–6 unlock.</li>
               </ul>
 
               <h4>Before You Exit</h4>
@@ -3581,7 +3630,7 @@
 
               <div class="instr-tip">
                 <span>⬡</span>
-                <span><strong>N.I.B.B.L.E.S. tip:</strong> This is the simplest formula in this step — just addition. Use the calculator if needed. When all five rows are verified, <span class="instr-highlight">Chart TC</span> unlocks below — compare your table values to the total cost curve.</span>
+                <span><strong>N.I.B.B.L.E.S. tip:</strong> This is the simplest formula in this step — just addition. Use the <span class="instr-highlight">⊞ CALCULATOR</span> in the header if needed. When all five rows are verified, <span class="instr-highlight">Chart TC</span> unlocks below — compare your table values to the total cost curve.</span>
               </div>
             </div>
           </div>
@@ -3625,11 +3674,11 @@
 
           <div class="mission-callout mission-callout--canvas" id="canvas-prompt-3" style="display:none" role="status">
             <div class="mission-callout-label">▸ Return to Canvas</div>
-            <p>Use your completed total cost table to answer <strong>questions 6 and 7</strong> in the mission memo. Then continue to Objective 1, Step 4 in the terminal.</p>
+            <p>Use your completed total cost table to answer <strong>questions 6 and 7</strong> in the mission memo. Then continue to Objective 1, Steps 4–6 in the terminal.</p>
           </div>
 
           <!-- STEP 4: AFC AVC ATC MC TABLE -->
-          <h2 class="step-title" id="step4-title" style="display:none">▸ Objective 1 · Step 4 — Average, Marginal &amp; Cost Patterns</h2>
+          <h2 class="step-title" id="step4-title" style="display:none">▸ Objective 1 · Steps 4–6 — Average Cost, Marginal Cost, and Cost Patterns</h2>
 
           <!-- Step 4 Instructions toggle -->
           <button class="step-instructions-btn" id="instr-btn-4" onclick="toggleInstructions(4)" style="display:none">
@@ -3637,11 +3686,11 @@
           </button>
           <div class="step-instructions-panel" id="instr-panel-4">
             <div class="instr-panel-header">
-              ⬡ Objective 1 · Step 4 — Average, Marginal &amp; Cost Patterns
+              ⬡ Objective 1 · Steps 4–6 — Average Cost, Marginal Cost, and Cost Patterns
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>This step combines the mission memo's <strong>Steps 4–6</strong>: calculate average fixed, average variable, and average total cost; calculate marginal cost; then use Chart A to interpret how costs change across output levels. <span class="instr-highlight">Round all answers to 3 decimal places.</span></p>
+              <p>This section covers <strong>mission memo Steps 4–6</strong> in one terminal workspace: calculate measures of average cost (AFC, AVC, ATC), calculate marginal cost (MC), then use Chart A to interpret cost patterns across output levels. <span class="instr-highlight">Round all answers to 3 decimal places.</span></p>
 
               <h4>The Four Formulas</h4>
               <div class="instr-example">
@@ -3737,7 +3786,7 @@
           <div class="section-intro">
             ► <strong>Objective 2</strong> — Compare costs and revenue to evaluate profitability. Wheeler &amp; Pace operates in a <strong>perfectly competitive</strong> market. The firm is a price taker: it cannot influence the market price. Field reports confirm the prevailing market price is <span class="instr-highlight">$0.25 per bottle</span>. In perfect competition, <strong>Marginal Revenue (MR) = Market Price</strong> at every output level. Complete both steps here, then answer the matching Canvas questions before starting Objective 3.
           </div>
-          <h2 class="step-title">▸ Objective 2 · Step 1 — Marginal Revenue (MR)</h2>
+          <h2 class="step-title">▸ Objective 2 · Step 1 — Compare Marginal Cost to Marginal Revenue</h2>
 
           <!-- Obj2 Step 1 Instructions toggle -->
           <button class="step-instructions-btn" id="instr-btn-5" onclick="toggleInstructions(5)">
@@ -3745,11 +3794,11 @@
           </button>
           <div class="step-instructions-panel" id="instr-panel-5">
             <div class="instr-panel-header">
-              ⬡ Objective 2 · Step 1 — Marginal Revenue (MR)
+              ⬡ Objective 2 · Step 1 — Compare Marginal Cost to Marginal Revenue
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>Wheeler &amp; Pace operates in a <span class="instr-highlight">perfectly competitive market</span>. Your job is to find and enter the market price per bottle — this is also the firm's Marginal Revenue (MR).</p>
+              <p>Wheeler &amp; Pace operates in a <span class="instr-highlight">perfectly competitive market</span>. Begin by entering the market price per bottle — this is the firm's <span class="instr-highlight">Marginal Revenue (MR)</span>. After MR is verified, use Chart B to compare MC and MR at each output (Canvas questions 16–18).</p>
 
               <h4>Key Concept</h4>
               <ul>
@@ -3800,7 +3849,7 @@
             <p>Use <strong>Chart B</strong> and your marginal cost values to answer <strong>questions 16 through 18</strong> in the mission memo. Then continue to Objective 2, Step 2 in the terminal.</p>
           </div>
 
-          <h2 class="step-title" id="step-profit-title" style="display:none">▸ Objective 2 · Step 2 — Total Revenue & Profit</h2>
+          <h2 class="step-title" id="step-profit-title" style="display:none">▸ Objective 2 · Step 2 — Calculate Profit at Different Outputs</h2>
 
           <!-- Obj2 Step 2 Instructions toggle -->
           <button class="step-instructions-btn" id="instr-btn-6" onclick="toggleInstructions(6)" style="display:none">
@@ -3808,7 +3857,7 @@
           </button>
           <div class="step-instructions-panel" id="instr-panel-6">
             <div class="instr-panel-header">
-              ⬡ Objective 2 · Step 2 — Total Revenue &amp; Profit
+              ⬡ Objective 2 · Step 2 — Calculate Profit at Different Outputs
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
@@ -3889,42 +3938,33 @@
             <!-- Mission complete banner -->
           <div id="mission-complete-wrap" style="display:none">
             <div class="unlock-banner">
-              ✦ TERMINAL ANALYSIS COMPLETE — All Objectives 1 &amp; 2 verified. Download your final report, then finish Objective 3 in Canvas.
-            </div>
-
-            <div class="mission-callout mission-callout--canvas" id="canvas-prompt-6" style="display:block" role="status">
-              <div class="mission-callout-label">▸ Return to Canvas — Objective 2 wrap-up</div>
-              <p>Use your total revenue and profit table to answer <strong>questions 19 and 20</strong> in the mission memo if you have not already.</p>
-            </div>
-
-            <div class="mission-callout mission-callout--canvas" id="canvas-prompt-obj3" style="display:block;margin-top:0.75rem" role="status">
-              <div class="mission-callout-label">▸ Objective 3 — Answer in Canvas</div>
-              <p>Complete <strong>Objective 3</strong> in the mission memo using your terminal data and charts:</p>
-              <ul style="margin:0.5rem 0 0 1.1rem;padding:0;line-height:1.7">
-                <li><strong>Step 1:</strong> Short-run shutdown (questions 21–24) — use Chart C</li>
-                <li><strong>Step 2:</strong> Long-run exit (questions 25–26) — use Chart C</li>
-                <li><strong>Step 3:</strong> Profit comparison (questions 27–28)</li>
-                <li><strong>Step 4:</strong> Expansion decision (questions 29–31)</li>
-                <li><strong>Step 5:</strong> Production strategy (questions 32–33); upload your PDF on <strong>question 34</strong></li>
-              </ul>
+              ✦ TERMINAL ANALYSIS COMPLETE — Objectives 1 &amp; 2 verified. Finish in Canvas using the steps below.
             </div>
 
             <div id="final-report-banner" style="margin-top:1rem;background:var(--bg-panel);border:1px solid var(--accent-amber);border-radius:10px;padding:1.5rem 2rem;text-align:center">
               <div style="font-family:'Orbitron',monospace;font-size:13px;color:var(--accent-amber);letter-spacing:2px;margin-bottom:0.5rem">⬡ FINAL MISSION REPORT</div>
-              <ul class="mission-complete-checklist" id="mission-complete-checklist">
-                <li>Answer Canvas questions 19–20 (if not done) and Objective 3 questions 21–33 using your tables and charts</li>
-                <li>Download your PDF report and checkpoint save file below</li>
-                <li>Upload the PDF to Canvas on question 34</li>
-                <li>Keep the .json save file as a backup</li>
-              </ul>
-              <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-secondary);margin-bottom:1.25rem;line-height:1.6">
-                Clicking <strong>▼ DOWNLOAD FINAL REPORT</strong> gives you two files:<br>
-                a <strong style="color:var(--text-primary)">PDF report</strong> (tables + charts for Canvas submission) and a <strong style="color:var(--text-primary)">checkpoint .json</strong> (to resume in the terminal if needed).
-              </div>
-              <button type="button" class="final-report-btn" onclick="generateFinalReport(this)">
-                ▼ DOWNLOAD FINAL REPORT
-              </button>
-              <div id="final-report-status" style="display:none;margin-top:1rem;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-positive);line-height:1.7"></div>
+              <p class="mission-complete-intro">Complete these steps in order:</p>
+              <ol class="mission-complete-checklist" id="mission-complete-checklist">
+                <li id="mcc-step-1">Answer <strong>questions 19–20</strong> in Canvas</li>
+                <li id="mcc-step-2">Complete <strong>Objective 3</strong> questions <strong>21–33</strong> in Canvas
+                  <ul class="mission-complete-sublist">
+                    <li><strong>Steps 1–2</strong> (Q21–26): short-run shutdown &amp; long-run exit — use <strong>Chart C</strong></li>
+                    <li><strong>Step 3</strong> (Q27–28): profit comparison</li>
+                    <li><strong>Step 4</strong> (Q29–31): expansion decision</li>
+                    <li><strong>Step 5</strong> (Q32–33): production strategy</li>
+                  </ul>
+                </li>
+                <li id="mcc-step-3" class="mission-complete-download-step">
+                  <span class="mission-complete-download-label">Download your final report here</span>
+                  <p class="mission-complete-download-note">Downloads two files: a <strong>PDF</strong> for Canvas submission and a <strong>.json</strong> checkpoint backup.</p>
+                  <button type="button" class="final-report-btn" onclick="generateFinalReport(this)">
+                    ▼ DOWNLOAD FINAL REPORT
+                  </button>
+                  <div id="final-report-status" style="display:none;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--color-positive);line-height:1.7"></div>
+                </li>
+                <li id="mcc-step-4">Upload the <strong>PDF</strong> on <strong>question 34</strong></li>
+                <li id="mcc-step-5">Keep the <strong>.json</strong> file as a backup</li>
+              </ol>
             </div>
           </div>
 
@@ -4227,7 +4267,7 @@ updateThemeToggleLabel();
 const HAMMOND_INTRO = [
   `*static crackle* Field Agent Hammond reporting in. Made it through the chimney — barely. Ledger data secured. Transmitting to terminal now.`,
   `*transmission ends* This is N.I.B.B.L.E.S. — Neural Intelligence Built for Briefings, Logistics & Economic Support. I have received Hammond's field data and loaded it into the AXIOM terminal.`,
-  `You will complete Objectives 1 and 2 here in the terminal. After each step, return to the mission memo in Canvas to answer the matching questions. Objective 3 is completed entirely in Canvas after you download your final report.`,
+  `You will complete Objectives 1 and 2 here in the terminal. After each step, return to the mission memo in Canvas to answer the matching questions. When terminal work is complete, follow the numbered checklist: Canvas questions 19–33, then download your final report and upload the PDF on question 34.`,
   `Start with Objective 1, Step 1 — classify each expense as Fixed or Variable. If you need to leave, download a save file with ⬇ SAVE CHECKPOINT before you exit.`
 ];
 
@@ -4492,14 +4532,14 @@ const HAMMOND_HINTS = {
       "The Fixed Cost total is the sum of all costs classified as 'fixed' in Step 1: the obligations Wheeler & Pace owes regardless of production. Think about which items from the ledger are contractual commitments — leases, salaries, and standing fees — and add only those dollar amounts together.",
       "*consults abacus* Add up all four items in your Fixed Cost column from Step 1: shop rent, kettle lease, shopkeeper's salary, and printer's fee. Each card shows a dollar amount — sum those four values.",
       "*points at Step 1 bins* Open your Fixed Cost list from classification. You should see exactly four expenses there. Add the dollar amount shown on each card — no variable-cost items belong in this total.",
-      "*steady field voice* Operation: sum the four amounts in your Fixed Cost column. Use the ⊞ calculator if needed. Enter only that total here — do not include any variable inputs."
+      "*steady field voice* Operation: sum the four amounts in your Fixed Cost column. Use the ⊞ CALCULATOR in the header if needed. Enter only that total here — do not include any variable inputs."
     ],
     vc: [
       "*sniffs variable cost column* Variable Cost is the total of all the expenses that change based on how much the perfumery produces. You already sorted those items in Step 1 — look back at the column you labeled Variable Costs. Add up the dollar amounts for every item you placed there.",
       "Variable costs are the inputs that get consumed during production — materials, fuel, and task-based labor. In Step 1 you identified five of them from the ledger. Sum all five dollar values from your Variable Cost column.",
       "*consults abacus* The five variable cost items from Step 1 are: apprentices & laborers, chopped wood, the flower harvest, glass bottles & corks, and herbs & oils. Locate each in your variable column and add their amounts.",
       "*points at Step 1 bins* Your Variable Cost column should list exactly five expenses. Add the dollar amount on each card — nothing from the fixed column belongs in this sum.",
-      "*steady field voice* Operation: sum the five amounts in your Variable Cost column. Use the calculator. This total is variable cost at the baseline output level shown in Step 2."
+      "*steady field voice* Operation: sum the five amounts in your Variable Cost column. Use the ⊞ CALCULATOR in the header. This total is variable cost at the baseline output level shown in Step 2."
     ],
     tc: [
       "*examines total column* Total Cost is everything the perfumery spends in a month — every single expense from the ledger. It has exactly two components: the costs that never change regardless of output, and the costs that rise and fall with production. You already have both of those totals from Step 2. How do you combine them?",
@@ -4953,7 +4993,7 @@ function checkClassification() {
     hammondMsg("*ecstatic hamster chatter* PERFECT! All 9 expenses correctly classified! Fixed costs stay constant; variable costs move with output. Now let's quantify them.", 'success', 400);
     revealMissionCallout('canvas-prompt-1');
     showSaveReminderStrip();
-    setTimeout(() => hammondMsg("Step 2 is unlocked. Answer questions 1–2 in Canvas when ready, then enter baseline totals at 960 bottles/month here.", 'info'), 2200);
+    setTimeout(() => hammondMsg("Objective 1, Step 2 is unlocked. Answer questions 1–2 in Canvas when ready, then calculate FC, VC, TC, and baseline output (960 bottles per month).", 'info'), 2200);
     updateFieldPulse();
   } else {
     const attempt = (state.checks['classify'] || 0) + 1;
@@ -5138,7 +5178,7 @@ function checkInput(field) {
       refreshChartA();
       scrollToUnlock('step-profit-title');
       revealMissionCallout('canvas-prompt-5');
-      hammondMsg('*nods at Chart B* MR verified. Answer questions 16–18 in Canvas, then complete the revenue and profit table in Step 2.', 'info', 700);
+      hammondMsg('*nods at Chart B* MR verified. Answer questions 16–18 in Canvas, then continue to Step 2 — calculate profit at different outputs.', 'info', 700);
     }
     updateFieldPulse();
     return true;
@@ -5164,7 +5204,7 @@ function checkBaselineComplete() {
     document.getElementById('step3-section').style.display = 'block';
     scrollToUnlock('step3-title');
     revealMissionCallout('canvas-prompt-2');
-    hammondMsg("*spins excited wheel* Baseline confirmed! Answer questions 3–5 in Canvas, then fill in total cost for each output level in Step 3.", 'info', 600);
+    hammondMsg("*spins excited wheel* Baseline costs confirmed at 960 bottles per month. Answer questions 3–5 in Canvas, then continue to Step 3 — calculate total cost across output levels.", 'info', 600);
     updateFieldPulse();
   }
 }
@@ -5229,8 +5269,8 @@ function checkTCTableComplete() {
     initChartA();
     scrollToUnlock('step4-title');
     revealMissionCallout('canvas-prompt-3');
-    hammondMsg("*gleeful hamster chatter* TC table complete! Answer questions 6–7 in Canvas, then continue with average and marginal costs in Step 4.", 'success', 600);
-    setTimeout(() => hammondMsg("Step 4 covers average costs, marginal cost, and cost patterns for Canvas questions 8–15. Round to 3 decimal places. MC for Q = 960 is N/A.", 'info'), 2200);
+    hammondMsg("*gleeful hamster chatter* TC table complete! Answer questions 6–7 in Canvas, then continue to Steps 4–6 — average cost, marginal cost, and cost patterns.", 'success', 600);
+    setTimeout(() => hammondMsg("Steps 4–6 cover average costs, marginal cost, and Chart A patterns for Canvas questions 8–15. Round to 3 decimal places. MC for Q = 960 is N/A.", 'info'), 2200);
     updateFieldPulse();
   }
 }
@@ -5428,7 +5468,7 @@ function checkProfitRow(i) {
 function checkProfitTableComplete() {
   if (Object.keys(state.profitVerified).length === PROFIT_TABLE.length) {
     hammondMsg("*scans the completed profit column* All revenue and profit values verified. Terminal Objectives 1 and 2 are complete.", 'success', 600);
-    setTimeout(() => hammondMsg("Answer questions 19–20 in Canvas, then download your final report below. Use your tables and Chart C for Objective 3 questions 21–33 in Canvas.", 'info'), 2500);
+    setTimeout(() => hammondMsg("Follow the numbered steps below: answer questions 19–20 in Canvas, complete Objective 3 (21–33), then download your final report.", 'info'), 2500);
     setTimeout(() => {
       document.getElementById('mission-complete-wrap').style.display = 'block';
       scrollToUnlock('mission-complete-wrap');
@@ -6377,7 +6417,7 @@ function startNewSession() {
   setTimeout(() => initTutorial(), 600);
 }
 
-function completeTutorial() {
+function completeTutorial(skippedTraining) {
   state.tutorialComplete = true;
   clearTutActionPulse();
   showMissionPanel();
@@ -6385,6 +6425,10 @@ function completeTutorial() {
   document.getElementById('progress-title').textContent = '▸ MISSION PROGRESS';
   updateProgress();
   startHammondIntro();
+  if (skippedTraining) {
+    const introEnd = 300 + HAMMOND_INTRO.length * 1500 + 500;
+    setTimeout(() => hammondMsg('*adjusts tiny headset* You skipped training — read the three briefing checkpoints before Step 1.', 'warning', 900), introEnd);
+  }
   setTimeout(() => updateFieldPulse(), 1200);
 }
 
@@ -6446,9 +6490,9 @@ const TUT_STATION_MSGS = [
   `*taps clipboard* Station 1 — every step has a Field Briefing panel. Open it before you start. Click OPEN FIELD BRIEFING on the left to try one now.`,
   `*leans forward* Station 2 — classification practice. Same flow as mission Step 1: radio buttons, sorted lists below, VERIFY when every item is classified. Wrong picks get cleared.`,
   `*ready at keyboard* Station 3 — type a value, press VERIFY or Enter. Arrow keys move between fields in the mission. Green locks in; red means try again.`,
-  `*points at bottom-right corner* Station 4 — the Field Calculator. The ⊞ button is always available. Calculate inside it, then enter the result in the answer field.`,
+  `*points at header* Station 4 — the Field Calculator. The ⊞ CALCULATOR button in the mission header is always available. Calculate inside it, then enter the result in the answer field.`,
   `*gestures at this panel* Station 5 — I send escalating hints when you miss. In the mission I will not give away answers — and I will pulse the Field Briefing button if you are stuck.`,
-  `*holds up tiny USB drive* Station 6 — save files let you pause mid-mission. Download before you exit. When the terminal analysis is complete, download your final PDF for Canvas question 34 and finish Objective 3 in the mission memo.`,
+  `*holds up tiny USB drive* Station 6 — save files let you pause mid-mission. Download before you exit. When terminal analysis is complete, follow the numbered steps: Canvas 19–33, download your final report, upload the PDF on question 34, and keep the .json backup.`,
 ];
 
 const TUT_TOTAL = 6;
@@ -6667,12 +6711,12 @@ function tutCheckTreats() {
     inp.classList.add('correct'); inp.disabled = true;
     status.innerHTML = '<span style="color:var(--color-positive)">✓ VERIFIED</span>';
     document.getElementById('tut-s4-done').style.display = 'block';
-    hammondMsg('*pats calculator fondly* 1.27 \u00d7 7 = 8.89. Correct! Keep that calculator handy — the \u229e button is always in the bottom right.', 'success', 300);
+    hammondMsg('*pats calculator fondly* 1.27 \u00d7 7 = 8.89. Correct! Keep that calculator handy — the ⊞ CALCULATOR button is always in the header.', 'success', 300);
     updateTutActionPulse();
   } else {
     inp.classList.add('incorrect'); setTimeout(() => inp.classList.remove('incorrect'), 500);
     status.innerHTML = '<span style="color:var(--accent-red)">✗</span>';
-    hammondMsg('*taps abacus* Open the ⊞ CALCULATOR button at the bottom right. Enter 1.27 × 7 and use that result. Round to 2 decimal places.', 'warning', 300);
+    hammondMsg('*taps abacus* Open the ⊞ CALCULATOR button in the header. Enter 1.27 × 7 and use that result. Round to 2 decimal places.', 'warning', 300);
     updateTutActionPulse();
   }
 }
@@ -6713,7 +6757,7 @@ function tutAckCheckpoint() {
   document.getElementById('tut-s6-done').style.display = 'block';
   document.getElementById('progress-title').textContent = '▸ TRAINING COMPLETE';
   setMissionProgressPct(100, 'Training complete');
-  hammondMsg(`*logs training record* Confirmed. Mid-mission: ⬇ SAVE CHECKPOINT before you leave — progress is lost without your save file. When Objectives 1 and 2 are complete, ▼ DOWNLOAD FINAL REPORT gives you a PDF for Canvas (question 34) plus a .json backup. Then complete Objective 3 in the mission memo.`, 'success', 300);
+  hammondMsg(`*logs training record* Confirmed. Mid-mission: ⬇ SAVE CHECKPOINT before you leave. At mission complete, follow the numbered steps: Canvas questions 19–20, Objective 3 (21–33), download the final report, upload the PDF on question 34, and keep the .json backup.`, 'success', 300);
   updateTutActionPulse();
 }
 
@@ -7929,9 +7973,11 @@ async function generateFinalReport(triggerBtn) {
   text('Report contents', margin + 4, y + 7);
   setFont(7.5, 'normal', ink);
   const contents = [
-    '· Fixed vs. variable cost classification',
-    '· Baseline totals and cost per output level',
-    '· Average & marginal costs · Revenue & profit',
+    '· Identify fixed and variable costs',
+    '· Various costs at the baseline output level',
+    '· Total cost across output levels',
+    '· Average & marginal costs and cost patterns',
+    '· Compare MC to MR · Profit at different outputs',
     '· Cost and revenue charts',
   ];
   let cy = y + 13;
@@ -7941,7 +7987,7 @@ async function generateFinalReport(triggerBtn) {
   newPage();
 
   sectionTitle(
-    'Objective 1 · Step 1 — Fixed vs Variable Classification',
+    'Objective 1 · Step 1 — Identify Fixed and Variable Costs',
     'Monthly expenses sorted into fixed costs (constant regardless of output) and variable costs (vary with production).'
   );
   const fixedItems = EXPENSE_CARDS.filter(c => (classifySelections[c.id] || c.category) === 'fixed');
@@ -7958,7 +8004,7 @@ async function generateFinalReport(triggerBtn) {
   y += 6;
 
   sectionTitle(
-    'Objective 1 · Step 2 — Baseline Totals @ 960 Bottles/Month',
+    'Objective 1 · Step 2 — Calculate Various Costs at the Baseline Output Level',
     'Summary values at 960 bottles per month (current operating level).'
   );
   const bW = [colW * 0.55, colW * 0.45];
@@ -7968,13 +8014,12 @@ async function generateFinalReport(triggerBtn) {
     ['Variable cost (VC)', fmtMoney(inpVal('inp-vc'))],
     ['Total cost (TC)', fmtMoney(inpVal('inp-tc'))],
     ['Monthly output (Q)', inpVal('inp-output') + (inpVal('inp-output') !== '—' ? ' bottles' : '')],
-    ['Market price / MR', fmtMoney(inpVal('inp-mr'))],
   ];
   baselineRows.forEach(row => tableRow(row, bW, false));
   y += 6;
 
   sectionTitle(
-    'Objective 1 · Step 3 — Total Cost Per Output Level',
+    'Objective 1 · Step 3 — Calculate Total Cost Across Output Levels',
     'Total cost (TC = FC + VC) at each production quantity.'
   );
   const tcW = [colW * 0.2, colW * 0.2, colW * 0.3, colW * 0.3];
@@ -7993,7 +8038,7 @@ async function generateFinalReport(triggerBtn) {
   y += 2;
 
   sectionTitle(
-    'Objective 1 · Step 4 — Average, Marginal & Cost Patterns',
+    'Objective 1 · Steps 4–6 — Average Cost, Marginal Cost, and Cost Patterns',
     'Per-unit costs rounded to three decimal places. MC is not defined at Q = 960.'
   );
   const avW = [colW * 0.14, colW * 0.215, colW * 0.215, colW * 0.215, colW * 0.215];
@@ -8021,7 +8066,14 @@ async function generateFinalReport(triggerBtn) {
   y += 2;
 
   sectionTitle(
-    'Objective 2 · Step 2 — Total Revenue & Profit',
+    'Objective 2 · Step 1 — Compare Marginal Cost to Marginal Revenue',
+    'Market price equals marginal revenue in perfect competition. Chart B compares MC and MR at each output.'
+  );
+  tableRow(['Marginal revenue (MR)', fmtMoney(inpVal('inp-mr'))], [colW * 0.55, colW * 0.45], false);
+  y += 6;
+
+  sectionTitle(
+    'Objective 2 · Step 2 — Calculate Profit at Different Outputs',
     'Total revenue (TR = price × Q) and profit (TR − TC) at each output level.'
   );
   const prW = [colW * 0.18, colW * 0.27, colW * 0.27, colW * 0.28];
@@ -8079,20 +8131,19 @@ async function generateFinalReport(triggerBtn) {
   // ===== POST-DOWNLOAD MESSAGE =====
   setTimeout(() => {
     const statusEl = document.getElementById('final-report-status');
-    const checklist = document.getElementById('mission-complete-checklist');
-    if (checklist) checklist.querySelectorAll('li').forEach(li => li.classList.add('done'));
+    const downloadStep = document.getElementById('mcc-step-3');
+    if (downloadStep) downloadStep.classList.add('done');
     statusEl.style.display = 'block';
     statusEl.innerHTML = `
-      ✓ <strong>wheeler_pace_FINAL_${idSlug}.pdf</strong> — upload to Canvas on question 34<br>
-      ✓ <strong>wheeler_pace_FINAL_${idSlug}.json</strong> — your save file (use this to return to this checkpoint)<br><br>
-      Complete Objective 3 questions 21–33 in the mission memo, then submit the PDF on question 34.
+      ✓ <strong>wheeler_pace_FINAL_${idSlug}.pdf</strong> — upload on Canvas question 34 (step 4)<br>
+      ✓ <strong>wheeler_pace_FINAL_${idSlug}.json</strong> — keep as backup (step 5)
     `;
     if (btn) {
       btn.textContent = '✓ REPORT DOWNLOADED';
       if (btn.closest('#final-report-banner')) btn.style.background = 'var(--color-positive)';
       else btn.disabled = false;
     }
-    hammondMsg(`*stamps mission seal* Two files downloaded: your final PDF report and a save file. Upload the PDF on Canvas question 34. Complete Objective 3 in the mission memo using your tables and charts.`, 'success', 200);
+    hammondMsg(`*stamps mission seal* Report downloaded. Upload the PDF on Canvas question 34 and keep the .json file as a backup.`, 'success', 200);
   }, 800);
 }
 
