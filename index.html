@@ -901,6 +901,30 @@
     min-width: 144px;
   }
 
+  .briefing-nibbles-pending {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.6px;
+    color: var(--accent-cyan);
+    animation: briefingNibblesPulse 1.4s ease-in-out infinite;
+  }
+
+  .briefing-nibbles-verified {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.6px;
+    color: var(--color-positive);
+    padding: 6px 12px;
+    border: 1px solid var(--color-positive);
+    border-radius: 5px;
+    background: var(--color-positive-bg);
+  }
+
+  @keyframes briefingNibblesPulse {
+    0%, 100% { opacity: 0.55; }
+    50% { opacity: 1; }
+  }
+
   .briefing-complete-banner {
     display: none;
     background: linear-gradient(90deg, var(--color-positive-bg), transparent);
@@ -4298,8 +4322,8 @@
               <div class="instr-panel-body">
                 <ul>
                 <ol class="mission-complete-checklist" style="margin:0.75rem 0 0 1.1rem;padding-left:1.25rem;line-height:1.7">
-                  <li>Answer <strong>questions 19 through 20</strong> in Canvas</li>
-                  <li>Complete <strong>Objective 3</strong> questions <strong>21 through 33</strong> in Canvas (use Chart C for Steps 1 through 2)</li>
+                  <li>Answer <strong>questions 19 and 20</strong> in Canvas</li>
+                  <li>Complete <strong>Objective 3</strong> questions <strong>21 through 33</strong> in Canvas (use Chart C for Steps 1 and 2)</li>
                   <li>Download your <strong>final report</strong> in the terminal</li>
                   <li>Upload the <strong>PDF</strong> on <strong>question 34</strong></li>
                   <li>Keep the <strong>.json</strong> checkpoint file as a backup</li>
@@ -4350,25 +4374,19 @@
             <div class="briefing-station" id="briefing-station-1">
               <div class="briefing-station-label">Briefing checkpoint 1 of 3</div>
               <p style="margin:0">► FIELD REPORT — Hammond has returned from Parfum du coeur with ledger data.<br>Your investigation has <strong>three objectives</strong>: analyze production costs, compare costs and revenue to evaluate profitability, and recommend a strategy for long-run survival. Objectives 1 and 2 are completed here in the AXIOM terminal; Objective 3 strategy questions are answered in <strong>Canvas</strong> using your terminal data.</p>
-              <div class="briefing-station-actions">
-                <button type="button" class="check-btn briefing-ack-btn" id="briefing-ack-btn-1" onclick="ackBriefingStep(1)">✓ UNDERSTOOD</button>
-              </div>
+              <div class="briefing-station-actions" id="briefing-station-status-1" aria-live="polite"></div>
             </div>
 
             <div class="briefing-station" id="briefing-station-2" style="display:none">
               <div class="briefing-station-label">Briefing checkpoint 2 of 3</div>
               <p style="margin:0"><strong>Terminal + Canvas workflow:</strong> Complete each step below and verify your work in the terminal. Then return to the <strong>mission memo in Canvas</strong> to answer the matching questions before moving on.</p>
-              <div class="briefing-station-actions">
-                <button type="button" class="check-btn briefing-ack-btn" id="briefing-ack-btn-2" onclick="ackBriefingStep(2)">✓ UNDERSTOOD</button>
-              </div>
+              <div class="briefing-station-actions" id="briefing-station-status-2" aria-live="polite"></div>
             </div>
 
             <div class="briefing-station" id="briefing-station-3" style="display:none">
               <div class="briefing-station-label">Briefing checkpoint 3 of 3</div>
               <p style="margin:0"><strong>Save checkpoint before exit:</strong> if you leave without a save file, your progress is lost and you must restart. Use <strong>⬇ SAVE</strong> anytime, or <strong>⏻ LOG OUT</strong> to download your checkpoint automatically before the session ends.</p>
-              <div class="briefing-station-actions">
-                <button type="button" class="check-btn briefing-ack-btn" id="briefing-ack-btn-3" onclick="ackBriefingStep(3)">✓ UNDERSTOOD</button>
-              </div>
+              <div class="briefing-station-actions" id="briefing-station-status-3" aria-live="polite"></div>
             </div>
           </div>
 
@@ -4423,7 +4441,7 @@
               </ul>
 
               <h4>After This Step — Canvas</h4>
-              <p>When classification is verified, use your completed fixed and variable lists to answer <strong>questions 1 through 2</strong> in the mission memo before continuing in the terminal.</p>
+              <p>When classification is verified, use your completed fixed and variable lists to answer <strong>questions 1 and 2</strong> in the mission memo before continuing in the terminal.</p>
 
               <div class="instr-tip">
                 <span>⬡</span>
@@ -4454,7 +4472,7 @@
 
           <div class="mission-callout mission-callout--canvas" id="canvas-prompt-1" style="display:none" role="status">
             <div class="mission-callout-label">▸ Return to Canvas</div>
-            <p>Use your completed fixed and variable cost classifications to answer <strong>questions 1 through 2</strong> in the mission memo. When finished, continue to Objective 1, Step 2 in the terminal below.</p>
+            <p>Use your completed fixed and variable cost classifications to answer <strong>questions 1 and 2</strong> in the mission memo. When finished, continue to Objective 1, Step 2 in the terminal below.</p>
           </div>
 
           <!-- STEP 2: BASELINE TOTALS (hidden until Step 1 complete) -->
@@ -4588,7 +4606,7 @@
               <p>Download your save file if you plan to return later — use <span class="instr-highlight">⬇ SAVE</span> or <span class="instr-highlight">⏻ LOG OUT</span>. Progress is not stored automatically.</p>
 
               <h4>After This Step — Canvas</h4>
-              <p>Use your completed cost table to answer <strong>questions 6 through 7</strong> in the mission memo.</p>
+              <p>Use your completed cost table to answer <strong>questions 6 and 7</strong> in the mission memo.</p>
 
               <div class="instr-tip">
                 <span>⬡</span>
@@ -4635,7 +4653,7 @@
 
           <div class="mission-callout mission-callout--canvas" id="canvas-prompt-3" style="display:none" role="status">
             <div class="mission-callout-label">▸ Return to Canvas</div>
-            <p>Use your completed total cost table to answer <strong>questions 6 through 7</strong> in the mission memo. Then continue to Objective 1, Steps 4 through 6 in the terminal.</p>
+            <p>Use your completed total cost table to answer <strong>questions 6 and 7</strong> in the mission memo. Then continue to Objective 1, Steps 4 through 6 in the terminal.</p>
           </div>
 
           <!-- STEP 4: AFC AVC ATC MC TABLE -->
@@ -4838,7 +4856,7 @@
               </ul>
 
               <h4>After This Step — Canvas</h4>
-              <p>When your profit table is complete, answer <strong>questions 19 through 20</strong> in the mission memo. Objective 3 strategy questions (<strong>21 through 33</strong>) are answered entirely in Canvas using your terminal tables and charts.</p>
+              <p>When your profit table is complete, answer <strong>questions 19 and 20</strong> in the mission memo. Objective 3 strategy questions (<strong>21 through 33</strong>) are answered entirely in Canvas using your terminal tables and charts.</p>
 
               <h4>How to Enter Answers</h4>
               <ul>
@@ -4900,13 +4918,13 @@
               <div class="final-report-banner-title">⬡ FINAL MISSION REPORT</div>
               <p class="mission-complete-intro">Complete these steps in order:</p>
               <ol class="mission-complete-checklist" id="mission-complete-checklist">
-                <li id="mcc-step-1">Answer <strong>questions 19 through 20</strong> in Canvas</li>
+                <li id="mcc-step-1">Answer <strong>questions 19 and 20</strong> in Canvas</li>
                 <li id="mcc-step-2">Complete <strong>Objective 3</strong> questions <strong>21 through 33</strong> in Canvas
                   <ul class="mission-complete-sublist">
-                    <li><strong>Steps 1 through 2</strong> (Q21 through 26): short-run shutdown &amp; long-run exit — use <strong>Chart C</strong></li>
-                    <li><strong>Step 3</strong> (Q27 through 28): profit comparison</li>
+                    <li><strong>Steps 1 and 2</strong> (Q21 through 26): short-run shutdown &amp; long-run exit — use <strong>Chart C</strong></li>
+                    <li><strong>Step 3</strong> (Q27 and 28): profit comparison</li>
                     <li><strong>Step 4</strong> (Q29 through 31): expansion decision</li>
-                    <li><strong>Step 5</strong> (Q32 through 33): production strategy</li>
+                    <li><strong>Step 5</strong> (Q32 and 33): production strategy</li>
                   </ul>
                 </li>
                 <li id="mcc-step-3" class="mission-complete-download-step">
@@ -5260,7 +5278,19 @@ const HAMMOND_INTRO = [
   `*static crackle* Field Agent Hammond reporting in. Made it through the chimney — barely. Ledger data secured. Transmitting to terminal now.`,
   `*transmission ends* This is N.I.B.B.L.E.S. — Neural Intelligence Built for Briefings, Logistics & Economic Support. I have received Hammond's field data and loaded it into the AXIOM terminal.`,
   `You will complete Objectives 1 and 2 here in the terminal. After each step, return to the mission memo in Canvas to answer the matching questions. When terminal work is complete, follow the numbered checklist: Canvas questions 19 through 33, then download your final report and upload the PDF on question 34.`,
-  `Start with Objective 1, Step 1 — classify each expense as Fixed or Variable. If you need to leave, use ⬇ SAVE or ⏻ LOG OUT — both download your checkpoint file.`
+  `Stand by — I will run three briefing checkpoints above Step 1 to confirm you understand the mission workflow before we begin.`
+];
+
+const BRIEFING_CHECKPOINTS = [
+  {
+    nibbles: `*taps clipboard* <strong>Briefing checkpoint 1 of 3.</strong> Hammond returned from Parfum du coeur with ledger data. Your investigation has three objectives: analyze production costs, compare costs and revenue for profitability, and recommend a long-run strategy. Objectives 1 and 2 happen here; Objective 3 is answered in Canvas using your terminal work.`
+  },
+  {
+    nibbles: `*nods* <strong>Briefing checkpoint 2 of 3.</strong> Terminal + Canvas workflow: complete each step below and verify your work in the terminal. Then return to the mission memo in Canvas to answer the matching questions before moving on.`
+  },
+  {
+    nibbles: `*holds up tiny USB drive* <strong>Briefing checkpoint 3 of 3.</strong> If you leave without a save file, your progress is lost. Use ⬇ SAVE anytime, or ⏻ LOG OUT to download your checkpoint automatically before the session ends.`
+  }
 ];
 
 const SUCCESS_MSGS = [
@@ -5985,7 +6015,7 @@ function checkClassification() {
     hammondMsg("*ecstatic hamster chatter* PERFECT! All 9 expenses correctly classified! Fixed costs stay constant; variable costs move with output. Now let's quantify them.", 'success', 400);
     revealMissionCallout('canvas-prompt-1');
     showSaveReminderStrip();
-    setTimeout(() => hammondMsg("Objective 1, Step 2 is unlocked. Answer questions 1 through 2 in Canvas when ready, then calculate FC, VC, TC, and baseline output (960 bottles per month).", 'info'), 2200);
+    setTimeout(() => hammondMsg("Objective 1, Step 2 is unlocked. Answer questions 1 and 2 in Canvas when ready, then calculate FC, VC, TC, and baseline output (960 bottles per month).", 'info'), 2200);
     updateFieldPulse();
   } else {
     const attempt = (state.checks['classify'] || 0) + 1;
@@ -6011,12 +6041,15 @@ function checkClassification() {
 // ============================================================
 // INTRO SEQUENCE
 // ============================================================
-function startHammondIntro() {
+function startHammondIntro(onComplete) {
   let delay = 300;
   HAMMOND_INTRO.forEach(msg => {
     setTimeout(() => hammondMsg(msg, '', 600), delay);
     delay += 1500;
   });
+  if (typeof onComplete === 'function') {
+    setTimeout(onComplete, delay + 700);
+  }
 }
 
 window.addEventListener('load', () => {
@@ -6277,7 +6310,7 @@ function checkTCTableComplete() {
     initChartA();
     scrollToUnlock('step4-title');
     revealMissionCallout('canvas-prompt-3');
-    hammondMsg("*gleeful hamster chatter* TC table complete! Answer questions 6 through 7 in Canvas, then continue to Steps 4 through 6 — average cost, marginal cost, and cost patterns.", 'success', 600);
+    hammondMsg("*gleeful hamster chatter* TC table complete! Answer questions 6 and 7 in Canvas, then continue to Steps 4 through 6 — average cost, marginal cost, and cost patterns.", 'success', 600);
     setTimeout(() => hammondMsg("Steps 4 through 6 cover average costs, marginal cost, and Chart A patterns for Canvas questions 8 through 15. Round to 3 decimal places. Enter MC in the MC column on each › line between output rows.", 'info'), 2200);
     updateFieldPulse();
   }
@@ -6550,7 +6583,7 @@ function checkProfitRow(i) {
 function checkProfitTableComplete() {
   if (Object.keys(state.profitVerified).length === PROFIT_TABLE.length) {
     hammondMsg("*scans the completed profit column* All revenue and profit values verified. Terminal Objectives 1 and 2 are complete.", 'success', 600);
-    setTimeout(() => hammondMsg("Follow the numbered steps below: answer questions 19 through 20 in Canvas, complete Objective 3 (21 through 33), then download your final report.", 'info'), 2500);
+    setTimeout(() => hammondMsg("Follow the numbered steps below: answer questions 19 and 20 in Canvas, complete Objective 3 (21 through 33), then download your final report.", 'info'), 2500);
     setTimeout(() => {
       document.getElementById('mission-complete-wrap').style.display = 'block';
       scrollToUnlock('mission-complete-wrap');
@@ -6634,6 +6667,19 @@ function updateBriefingIndicator() {
   el.style.display = 'inline-flex';
 }
 
+function renderBriefingStationStatus(step, nextStep) {
+  const statusEl = document.getElementById(`briefing-station-status-${step}`);
+  if (!statusEl) return;
+  normalizeBriefingAcks();
+  if (state.briefingAcks[step]) {
+    statusEl.innerHTML = '<span class="briefing-nibbles-verified">✓ UNDERSTOOD — N.I.B.B.L.E.S.</span>';
+  } else if (nextStep === step) {
+    statusEl.innerHTML = '<span class="briefing-nibbles-pending">▸ N.I.B.B.L.E.S. verifying understanding…</span>';
+  } else {
+    statusEl.innerHTML = '';
+  }
+}
+
 function renderBriefingStations() {
   normalizeBriefingAcks();
   const wrap = document.getElementById('briefing-stations');
@@ -6645,25 +6691,84 @@ function renderBriefingStations() {
       const station = document.getElementById(`briefing-station-${i}`);
       if (!station) continue;
       station.style.display = nextStep === i ? 'block' : 'none';
+      renderBriefingStationStatus(i, nextStep);
     }
     wrap.style.display = nextStep <= 3 ? 'block' : 'none';
   }
 
-  if (doneBanner) doneBanner.style.display = 'none';
+  if (doneBanner) doneBanner.style.display = briefingComplete() ? 'block' : 'none';
 
   updateBriefingIndicator();
 }
 
-function ackBriefingStep(step) {
+let briefingSequenceTimer = null;
+
+function clearBriefingSequenceTimer() {
+  if (briefingSequenceTimer) {
+    clearTimeout(briefingSequenceTimer);
+    briefingSequenceTimer = null;
+  }
+}
+
+function completeBriefingStep(step) {
   normalizeBriefingAcks();
   const nextStep = currentBriefingStep();
   if (step !== nextStep) return;
   state.briefingAcks[step] = true;
+  renderBriefingStationStatus(step, step + 1);
   updateProgress();
-  if (step === 3) {
-    setTimeout(() => snapMissionToStep1('smooth'), 120);
-    hammondMsg('*acknowledges mission brief* Intro checkpoints complete. Proceed to Objective 1, Step 1.', 'info', 250);
+}
+
+function finishBriefingSequence(announce) {
+  clearBriefingSequenceTimer();
+  renderBriefingStations();
+  if (!briefingComplete()) return;
+  setTimeout(() => snapMissionToStep1('smooth'), 120);
+  if (announce !== false) {
+    hammondMsg('*stamps briefing seal* All checkpoints verified. Proceed to Objective 1, Step 1.', 'success', 300);
   }
+  setTimeout(() => updateFieldPulse(), 600);
+}
+
+function runNibblesBriefingSequence() {
+  clearBriefingSequenceTimer();
+  normalizeBriefingAcks();
+  syncBriefingFromMissionProgress();
+  if (briefingComplete()) {
+    renderBriefingStations();
+    updateFieldPulse();
+    return;
+  }
+
+  if (prefersReducedMotion()) {
+    while (currentBriefingStep() <= 3) {
+      const step = currentBriefingStep();
+      renderBriefingStations();
+      const cp = BRIEFING_CHECKPOINTS[step - 1];
+      if (cp) hammondMsg(cp.nibbles, 'info', 0);
+      completeBriefingStep(step);
+    }
+    finishBriefingSequence();
+    return;
+  }
+
+  const step = currentBriefingStep();
+  if (step > 3) return;
+
+  renderBriefingStations();
+  scrollWorkAreaToElement(document.getElementById(`briefing-station-${step}`), 'smooth', 20);
+
+  const cp = BRIEFING_CHECKPOINTS[step - 1];
+  if (cp) hammondMsg(cp.nibbles, 'info', 350);
+
+  briefingSequenceTimer = setTimeout(() => {
+    completeBriefingStep(step);
+    if (step < 3) {
+      briefingSequenceTimer = setTimeout(() => runNibblesBriefingSequence(), 650);
+    } else {
+      finishBriefingSequence();
+    }
+  }, 2400);
 }
 
 function missionStepSubtitle() {
@@ -7837,12 +7942,14 @@ function completeTutorial(skippedTraining) {
       materializeWorkspacePanel('main-content-card');
     },
     onComplete: () => {
-      startHammondIntro();
+      startHammondIntro(() => {
+        if (!briefingComplete()) runNibblesBriefingSequence();
+        else updateFieldPulse();
+      });
       if (skippedTraining) {
-        const introEnd = 300 + HAMMOND_INTRO.length * 1500 + 500;
-        setTimeout(() => hammondMsg('*adjusts tiny headset* You skipped training — read the three briefing checkpoints before Step 1.', 'warning', 900), introEnd);
+        const introEnd = 300 + HAMMOND_INTRO.length * 1500 + 1200;
+        setTimeout(() => hammondMsg('*adjusts tiny headset* You skipped training — I will walk you through the three briefing checkpoints now.', 'info', 400), introEnd);
       }
-      setTimeout(() => updateFieldPulse(), 1200);
     }
   });
 }
@@ -8209,7 +8316,7 @@ function tutAckCheckpoint() {
   document.getElementById('tut-s6-done').style.display = 'block';
   document.getElementById('progress-title').textContent = '▸ TRAINING COMPLETE';
   setMissionProgressPct(100, 'Training complete');
-  hammondMsg(`*logs training record* Confirmed. Mid-mission: use ⬇ SAVE or ⏻ LOG OUT before you leave — both download your checkpoint. At mission complete, follow the numbered steps: Canvas questions 19 through 20, Objective 3 (21 through 33), download the final report, upload the PDF on question 34, and keep the .json backup.`, 'success', 300);
+  hammondMsg(`*logs training record* Confirmed. Mid-mission: use ⬇ SAVE or ⏻ LOG OUT before you leave — both download your checkpoint. At mission complete, follow the numbered steps: Canvas questions 19 and 20, Objective 3 (21 through 33), download the final report, upload the PDF on question 34, and keep the .json backup.`, 'success', 300);
   updateTutActionPulse();
 }
 
@@ -8480,6 +8587,11 @@ function _applyCheckpointData(data, event) {
     },
     onComplete: () => {
       hammondMsg(`*reads checkpoint seal* Welcome back, Agent ${state.employeeId || ''}. Resuming from ${(data.step || 'your saved progress').replace(/_/g,' ')}. All verified work has been restored.`, 'success', 0);
+      setTimeout(() => {
+        syncBriefingFromMissionProgress();
+        if (!briefingComplete()) runNibblesBriefingSequence();
+        else updateFieldPulse();
+      }, 900);
     }
   });
 }
