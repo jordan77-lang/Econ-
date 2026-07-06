@@ -698,8 +698,16 @@
     grid-area: title;
   }
 
-  h1.card-title, h2.step-title {
+  h1.card-title {
     font-size: inherit;
+    font-weight: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    text-shadow: inherit;
+    margin: 0;
+  }
+
+  h2.step-title {
     font-weight: inherit;
     letter-spacing: inherit;
     color: inherit;
@@ -809,10 +817,10 @@
 
   .step-title {
     font-family: 'Exo 2', sans-serif;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 700;
-    letter-spacing: 0.4px;
-    line-height: 1.35;
+    letter-spacing: 0.3px;
+    line-height: 1.4;
     color: var(--accent-amber);
     text-transform: none;
     margin-top: 2rem;
@@ -820,6 +828,13 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+  }
+
+  @media (max-width: 720px) {
+    .step-title {
+      font-size: 16px;
+      line-height: 1.35;
+    }
   }
 
   .section-intro + .step-title {
