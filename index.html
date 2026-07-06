@@ -2285,10 +2285,62 @@
     transform: translateX(-50%) translateY(0);
   }
 
+  .mission-flow-banner {
+    background: var(--bg-card);
+    border: 1px solid var(--border-bright);
+    border-left: 3px solid var(--accent-cyan);
+    border-radius: 0 8px 8px 0;
+    padding: 0.9rem 1.1rem;
+    margin-bottom: 1.5rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  .mission-flow-banner strong { color: var(--text-primary); }
+
+  .mission-callout {
+    display: none;
+    margin: 1.25rem 0;
+    padding: 0.85rem 1rem;
+    border-radius: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+
+  .mission-callout-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+  }
+
+  .mission-callout--canvas {
+    background: var(--instr-tip-bg);
+    border: 1px solid var(--instr-tip-border);
+  }
+
+  .mission-callout--canvas .mission-callout-label { color: var(--accent-cyan); }
+
+  .mission-callout--save {
+    background: var(--accent-amber-dim);
+    border: 1px solid var(--accent-amber);
+  }
+
+  .mission-callout--save .mission-callout-label { color: var(--accent-amber); }
+
+  .mission-callout p { margin: 0; }
+
+  .mission-callout strong { color: var(--text-primary); }
+
   .mission-complete-checklist {
     list-style: none;
     text-align: left;
-    max-width: 360px;
+    max-width: 420px;
     margin: 0 auto 1.25rem;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
@@ -2666,7 +2718,7 @@
       <div id="login-error" role="alert" aria-live="polite" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent-red);min-height:16px;"></div>
       <div id="login-btn-wrap" style="opacity:0;transition:opacity 0.4s;display:flex;flex-direction:column;gap:0.5rem">
         <button type="button" class="login-btn" onclick="submitLogin()">▶ LOG IN</button>
-        <div class="login-hint" id="login-hint-text">Your Employee ID is a 4-digit number. Contact your instructor if you have not been issued one.</div>
+        <div class="login-hint" id="login-hint-text">Enter the four-digit ID assigned by your instructor. Complete mandatory terminal training before starting the mission. You can save progress and return later with your save file.</div>
       </div>
     </div>
 
@@ -2884,10 +2936,11 @@
               <div class="instr-panel-header">⬡ PART A — MID-MISSION CHECKPOINTS</div>
               <div class="instr-panel-body">
                 <ul>
-                  <li>The mission has several steps. You may not finish in one sitting.</li>
-                  <li>Click <span class="instr-highlight">⬇ SAVE CHECKPOINT</span> in the mission header at any time — a <strong>.json file</strong> downloads automatically, named by your current step and Employee ID.</li>
-                  <li>To resume: return to this terminal, log in, then click <span class="instr-highlight">⬆ RESUME — UPLOAD CHECKPOINT</span> and select your file. All verified work restores exactly.</li>
-                  <li>The checkpoint file is tied to your Employee ID — it cannot be used by another agent.</li>
+                  <li>The mission has several steps across the terminal and Canvas. You may not finish in one sitting.</li>
+                  <li>Click <span class="instr-highlight">⬇ SAVE CHECKPOINT</span> in the mission header at any time — a <strong>.json save file</strong> downloads automatically, named by your current step and Employee ID.</li>
+                  <li>To resume: return to this terminal, log in with your ID, then click <span class="instr-highlight">⬆ RESUME — UPLOAD CHECKPOINT</span> and select your file. All verified work restores exactly.</li>
+                  <li><strong>If you leave without downloading your save file, your progress will be lost.</strong> You would need to start the terminal from the beginning.</li>
+                  <li>The save file is tied to your Employee ID — it cannot be used by another agent.</li>
                 </ul>
               </div>
             </div>
@@ -2896,14 +2949,15 @@
               <div class="instr-panel-header">⬡ PART B — FINAL MISSION REPORT</div>
               <div class="instr-panel-body">
                 <ul>
-                  <li>When you complete <strong>all terminal objectives</strong>, a <span class="instr-highlight" style="color:var(--accent-amber)">▼ DOWNLOAD FINAL REPORT</span> button appears at the bottom of the mission.</li>
-                  <li>Clicking it downloads <strong>two files simultaneously</strong>:
+                  <li>When you complete <strong>Objectives 1 and 2</strong> in the terminal, a <span class="instr-highlight" style="color:var(--accent-amber)">▼ DOWNLOAD FINAL REPORT</span> button appears at the bottom of the mission.</li>
+                  <li>Clicking it downloads <strong>two files</strong>:
                     <ul style="margin-top:0.4rem">
-                      <li>A <span class="instr-highlight">PDF report</span> — your completed tables and charts. <strong>Submit this PDF to Canvas.</strong></li>
+                      <li>A <span class="instr-highlight">PDF report</span> — your completed tables and charts. <strong>Upload this PDF to Canvas on question 34.</strong></li>
                       <li>A <span class="instr-highlight">final checkpoint .json</span> — a save file at mission-complete state. Keep this as a backup.</li>
                     </ul>
                   </li>
-                  <li>After downloading, complete the <strong>Objective 3 decision questions in Canvas</strong> using your tables and charts.</li>
+                  <li>After downloading, complete <strong>Objective 3</strong> in the mission memo (questions 21–33) using your terminal tables and charts.</li>
+                  <li>Work in both places: complete each terminal step, answer matching Canvas questions, then continue.</li>
                   <li>The PDF cannot be easily edited — it is your official mission record.</li>
                 </ul>
               </div>
@@ -2933,7 +2987,7 @@
         <h1 class="card-title" id="card-title"><span class="card-title--full">AXIOM ANALYSIS — WHEELER &amp; PACE PERFUMERY</span><span class="card-title--short">AXIOM ANALYSIS</span></h1>
         <div class="card-header-actions">
           <button type="button" class="theme-toggle-btn theme-toggle-btn--icon" id="theme-toggle-btn" onclick="toggleTheme()" aria-label="Switch between light and dark display mode">☀</button>
-          <button type="button" class="export-btn" onclick="saveCheckpoint()" aria-label="Save mission checkpoint to file">⬇ SAVE CHECKPOINT</button>
+          <button type="button" class="export-btn" onclick="saveCheckpoint()" aria-label="Save mission checkpoint to file" title="Download save file before exiting — progress is lost without it">⬇ SAVE CHECKPOINT</button>
         </div>
       </div>
       <div class="card-body">
@@ -2943,7 +2997,16 @@
         <div id="obj-1">
           <div class="section-intro">
             ► FIELD REPORT — Hammond has returned from the 1885 perfumery with ledger data.<br>
-            Agent, your mission: classify expenses, calculate costs, and build the perfumery's cost model.
+            Your investigation has <strong>three objectives</strong>: analyze production costs, compare costs and revenue to evaluate profitability, and recommend a strategy for long-run survival. Objective 1 begins here in the AXIOM terminal; strategy questions (Objective 3) are completed in <strong>Canvas</strong> after you download your final report.
+          </div>
+
+          <div class="mission-flow-banner" id="mission-flow-banner">
+            <strong>Terminal + Canvas workflow:</strong> Complete each step below and verify your work in the terminal. Then return to the <strong>mission memo in Canvas</strong> to answer the matching questions before moving on. Click <strong>⬇ SAVE CHECKPOINT</strong> in the header before you exit — if you leave without your save file, progress is lost.
+          </div>
+
+          <div class="mission-callout mission-callout--save" id="save-reminder-strip" style="display:none" role="note">
+            <div class="mission-callout-label">▸ Save your progress</div>
+            <p>If you leave the AXIOM terminal without downloading your save file, your progress will be lost and you will need to start from the beginning. Use <strong>⬇ SAVE CHECKPOINT</strong> before closing the browser.</p>
           </div>
 
           <!-- STEP 1: CLASSIFY (RADIO BUTTONS) -->
@@ -2989,6 +3052,9 @@
                 <li>Once all 9 are correctly classified, Step 2 will unlock automatically.</li>
               </ul>
 
+              <h4>After This Step — Canvas</h4>
+              <p>When classification is verified, use your completed fixed and variable lists to answer <strong>questions 1 and 2</strong> in the mission memo before continuing in the terminal.</p>
+
               <div class="instr-tip">
                 <span>⬡</span>
                 <span><strong>N.I.B.B.L.E.S. tip:</strong> Think about whether the expense is a <em>contract or commitment</em> (fixed) versus a <em>consumable input</em> that gets used up during production (variable). Contracts don't care how busy you are — raw materials do.</span>
@@ -3016,6 +3082,11 @@
             </div>
           </div>
 
+          <div class="mission-callout mission-callout--canvas" id="canvas-prompt-1" style="display:none" role="status">
+            <div class="mission-callout-label">▸ Return to Canvas</div>
+            <p>Use your completed fixed and variable cost classifications to answer <strong>questions 1 and 2</strong> in the mission memo. When finished, continue to Objective 1, Step 2 in the terminal below.</p>
+          </div>
+
           <!-- STEP 2: BASELINE TOTALS (hidden until Step 1 complete) -->
           <div id="step2-section" style="display:none">
           <h2 class="step-title">▸ OBJECTIVE 1 · STEP 2 — BASELINE TOTALS @ 960 BOTTLES/MONTH</h2>
@@ -3030,7 +3101,8 @@
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>Using the classified expenses from Step 1, calculate the <span class="instr-highlight">total Fixed Cost, total Variable Cost, Total Cost</span>, and confirm the <span class="instr-highlight">baseline monthly output</span> for Wheeler & Pace's perfumery.</p>
+              <p>After classifying expenses in Step 1, calculate how much the perfumery spent to produce its <span class="instr-highlight">baseline output of 960 bottles per month</span> — the operating level just before the firm expanded production.</p>
+              <p>Using your fixed and variable classifications, calculate <span class="instr-highlight">fixed cost (FC)</span>, <span class="instr-highlight">variable cost (VC)</span>, and <span class="instr-highlight">total cost (TC = FC + VC)</span>, and confirm monthly output from the production schedule.</p>
 
               <h4>The Four Fields</h4>
               <ul>
@@ -3052,6 +3124,12 @@
                 <li>Green ✓ means correct. Red ✗ means try again — N.I.B.B.L.E.S. will guide you.</li>
                 <li>All four fields must be verified before Step 3 unlocks.</li>
               </ul>
+
+              <h4>Before You Exit</h4>
+              <p>If you need to leave before finishing, click <span class="instr-highlight">⬇ SAVE CHECKPOINT</span> in the mission header and download your save file.</p>
+
+              <h4>After This Step — Canvas</h4>
+              <p>Use your verified baseline values to answer <strong>questions 3 through 5</strong> in the mission memo.</p>
 
               <div class="instr-tip">
                 <span>⬡</span>
@@ -3100,6 +3178,11 @@
 
           </div><!-- end step2-section -->
 
+          <div class="mission-callout mission-callout--canvas" id="canvas-prompt-2" style="display:none" role="status">
+            <div class="mission-callout-label">▸ Return to Canvas</div>
+            <p>Use your verified fixed cost, variable cost, and total cost at 960 bottles to answer <strong>questions 3 through 5</strong> in the mission memo. Then continue to Objective 1, Step 3 in the terminal.</p>
+          </div>
+
           <!-- STEP 3: COST PER OUTPUT TABLE -->
           <h2 class="step-title" id="step3-title" style="display:none">▸ OBJECTIVE 1 · STEP 3 — TOTAL COST PER OUTPUT LEVEL</h2>
 
@@ -3113,7 +3196,7 @@
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>The table shows <span class="instr-highlight">5 output levels (Q)</span>: 960, 1,180, 1,200, 1,440, and 1,920 bottles per month. For each row, calculate <span class="instr-highlight">TC = FC + VC</span> and enter it in the "Your TC" column.</p>
+              <p>The table shows <span class="instr-highlight">5 output levels (Q)</span> from the mission analysis: 960, 1,180, 1,200, 1,440, and 1,920 bottles per month. For each row, calculate <span class="instr-highlight">TC = FC + VC</span> and enter it in the "Your TC" column.</p>
 
               <h4>The Formula</h4>
               <div class="instr-example">
@@ -3130,6 +3213,12 @@
                 <li>Round to 2 decimal places (e.g., 233.00).</li>
                 <li>All 5 rows must be correct before Step 4 unlocks.</li>
               </ul>
+
+              <h4>Before You Exit</h4>
+              <p>Download your save file if you plan to return later — progress is not stored automatically.</p>
+
+              <h4>After This Step — Canvas</h4>
+              <p>Use your completed cost table to answer <strong>questions 6 and 7</strong> in the mission memo.</p>
 
               <div class="instr-tip">
                 <span>⬡</span>
@@ -3175,8 +3264,13 @@
             </div>
           </div>
 
+          <div class="mission-callout mission-callout--canvas" id="canvas-prompt-3" style="display:none" role="status">
+            <div class="mission-callout-label">▸ Return to Canvas</div>
+            <p>Use your completed total cost table to answer <strong>questions 6 and 7</strong> in the mission memo. Then continue to Objective 1, Step 4 in the terminal.</p>
+          </div>
+
           <!-- STEP 4: AFC AVC ATC MC TABLE -->
-          <h2 class="step-title" id="step4-title" style="display:none">▸ OBJECTIVE 1 · STEP 4 — AVERAGE & MARGINAL COSTS</h2>
+          <h2 class="step-title" id="step4-title" style="display:none">▸ OBJECTIVE 1 · STEP 4 — AVERAGE, MARGINAL &amp; COST PATTERNS</h2>
 
           <!-- Step 4 Instructions toggle -->
           <button class="step-instructions-btn" id="instr-btn-4" onclick="toggleInstructions(4)" style="display:none">
@@ -3184,11 +3278,11 @@
           </button>
           <div class="step-instructions-panel" id="instr-panel-4">
             <div class="instr-panel-header">
-              ⬡ STEP 4 INSTRUCTIONS — AVERAGE & MARGINAL COSTS
+              ⬡ STEP 4 INSTRUCTIONS — AVERAGE, MARGINAL &amp; COST PATTERNS
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>For each output level, calculate four per-unit cost metrics using the FC, VC, and TC values from Step 3. <span class="instr-highlight">Round all answers to 3 decimal places.</span></p>
+              <p>This step combines the mission memo's <strong>Steps 4–6</strong>: calculate average fixed, average variable, and average total cost; calculate marginal cost; then use Chart A to interpret how costs change across output levels. <span class="instr-highlight">Round all answers to 3 decimal places.</span></p>
 
               <h4>The Four Formulas</h4>
               <div class="instr-example">
@@ -3221,8 +3315,11 @@
                 <li>Fill in AFC, AVC, ATC, and MC (where applicable) for each row.</li>
                 <li>Press <span class="instr-highlight">Enter</span> in a cell to verify that value — correct cells turn green and lock.</li>
                 <li>Use <span class="instr-highlight">arrow keys</span> to move between cells. Complete every cell in a column to draw that curve on Chart A.</li>
-                <li>All rows verified → Objective 2 unlocks.</li>
+                <li>All rows verified → Objective 2 unlocks in the terminal.</li>
               </ul>
+
+              <h4>After This Step — Canvas</h4>
+              <p>Use your AFC, AVC, ATC, and MC values plus Chart A to answer <strong>questions 8 through 15</strong> in the mission memo (numerical entries and cost-pattern interpretation).</p>
 
               <div class="instr-tip">
                 <span>⬡</span>
@@ -3272,9 +3369,14 @@
             </div>
           </div>
 
+          <div class="mission-callout mission-callout--canvas" id="canvas-prompt-4" style="display:none" role="status">
+            <div class="mission-callout-label">▸ Return to Canvas</div>
+            <p>Use your average and marginal cost table and <strong>Chart A</strong> to answer <strong>questions 8 through 15</strong> in the mission memo. When ready, continue to <strong>Objective 2</strong> in the terminal below.</p>
+          </div>
+
           <div id="obj-2" style="display:none">
           <div class="section-intro">
-            ► MARKET CONTEXT — Wheeler &amp; Pace operates in a <strong>perfectly competitive</strong> market. The firm is a price taker: it cannot influence the market price. Field reports confirm the prevailing market price is <span class="instr-highlight">$0.25 per bottle</span>. In perfect competition, <strong>Marginal Revenue (MR) = Market Price</strong> at every output level.
+            ► <strong>OBJECTIVE 2</strong> — Compare costs and revenue to evaluate profitability. Wheeler &amp; Pace operates in a <strong>perfectly competitive</strong> market. The firm is a price taker: it cannot influence the market price. Field reports confirm the prevailing market price is <span class="instr-highlight">$0.25 per bottle</span>. In perfect competition, <strong>Marginal Revenue (MR) = Market Price</strong> at every output level. Complete both steps here, then answer the matching Canvas questions before starting Objective 3.
           </div>
           <h2 class="step-title">▸ OBJECTIVE 2 · STEP 1 — MARGINAL REVENUE (MR)</h2>
 
@@ -3298,7 +3400,10 @@
               </ul>
 
               <h4>Where to Find It</h4>
-              <p>The market price is stated in the <span class="instr-highlight">Market Context</span> field report at the top of Objective 2. Enter that per-bottle price as MR — expressed in dollars (e.g., 0.25).</p>
+              <p>The market price is stated in the <span class="instr-highlight">Objective 2 field report</span> above. Enter that per-bottle price as MR — expressed in dollars (e.g., 0.25).</p>
+
+              <h4>After This Step — Canvas</h4>
+              <p>After MR is verified, use <strong>Chart B</strong> and your MC values to answer <strong>questions 16 through 18</strong> in the mission memo.</p>
 
               <div class="instr-tip">
                 <span>⬡</span>
@@ -3323,12 +3428,17 @@
               <span id="chartB-title">CHART B — MC vs MR</span>
               <button type="button" class="export-btn" onclick="exportChart('chartB')" aria-label="Download Chart B as PNG">↓ PNG</button>
             </div>
-            <canvas id="chartB" role="img" aria-label="Marginal cost and marginal revenue curves. Profit-maximizing output is where MC crosses MR at 1,200 bottles."></canvas>
+              <canvas id="chartB" role="img" aria-label="Marginal cost and marginal revenue curves across output levels."></canvas>
             <details class="chart-data-details">
               <summary>View chart data table (MC and MR)</summary>
               <div class="table-scroll-wrap"><table class="data-table chart-data-table" id="chartB-data" aria-label="Chart B data"></table></div>
             </details>
             </figure>
+          </div>
+
+          <div class="mission-callout mission-callout--canvas" id="canvas-prompt-5" style="display:none" role="status">
+            <div class="mission-callout-label">▸ Return to Canvas</div>
+            <p>Use <strong>Chart B</strong> and your marginal cost values to answer <strong>questions 16 through 18</strong> in the mission memo. Then continue to Objective 2, Step 2 in the terminal.</p>
           </div>
 
           <h2 class="step-title" id="step-profit-title" style="display:none">▸ OBJECTIVE 2 · STEP 2 — TOTAL REVENUE & PROFIT</h2>
@@ -3354,13 +3464,16 @@
               </div>
               <p>Using the Total Cost (TC) values you completed in Objective 1 (already shown in the table), continue these calculations for every output until the table is complete.</p>
 
-              <h4>Firm Decisions (Preview for Canvas)</h4>
+              <h4>Firm Decisions (Preview — Objective 3 in Canvas)</h4>
               <ul>
                 <li><span class="instr-highlight">Profit maximization:</span> produce where <strong>MC = MR</strong> (see Chart B). Your profit table should peak near that output.</li>
                 <li><span class="instr-highlight">Short-run shutdown:</span> if <strong>Price &lt; AVC</strong>, the firm shuts down temporarily to minimize loss (Chart C).</li>
                 <li><span class="instr-highlight">Long-run exit:</span> if <strong>Price &lt; ATC</strong>, the firm cannot cover all costs and should leave the industry in the long run (Chart C).</li>
                 <li>At a given output level, always compare price to <em>AVC</em> for the short-run decision and to <em>ATC</em> for the long-run decision.</li>
               </ul>
+
+              <h4>After This Step — Canvas</h4>
+              <p>When your profit table is complete, answer <strong>questions 19 and 20</strong> in the mission memo. Objective 3 strategy questions (<strong>21–33</strong>) are answered entirely in Canvas using your terminal tables and charts.</p>
 
               <h4>How to Enter Answers</h4>
               <ul>
@@ -3405,7 +3518,7 @@
                 <span id="chartC-title">CHART C — MR vs AVC vs ATC</span>
                 <button type="button" class="export-btn" onclick="exportChart('chartC')" aria-label="Download Chart C as PNG">↓ PNG</button>
               </div>
-              <canvas id="chartC" role="img" aria-label="Marginal revenue at $0.25, average variable cost, and average total cost from 720 to 2,160 bottles. AVC crosses price above the highest table row (1,920)."></canvas>
+              <canvas id="chartC" role="img" aria-label="Marginal revenue at $0.25, average variable cost, and average total cost from 720 to 2,160 bottles."></canvas>
               <details class="chart-data-details">
                 <summary>View chart data table (MR, AVC, ATC)</summary>
                 <div class="table-scroll-wrap"><table class="data-table chart-data-table" id="chartC-data" aria-label="Chart C data"></table></div>
@@ -3417,19 +3530,37 @@
             <!-- Mission complete banner -->
           <div id="mission-complete-wrap" style="display:none">
             <div class="unlock-banner">
-              ✦ MISSION COMPLETE — All objectives verified. Your final report is ready.
+              ✦ TERMINAL ANALYSIS COMPLETE — All Objectives 1 &amp; 2 verified. Download your final report, then finish Objective 3 in Canvas.
             </div>
+
+            <div class="mission-callout mission-callout--canvas" id="canvas-prompt-6" style="display:block" role="status">
+              <div class="mission-callout-label">▸ Return to Canvas — Objective 2 wrap-up</div>
+              <p>Use your total revenue and profit table to answer <strong>questions 19 and 20</strong> in the mission memo if you have not already.</p>
+            </div>
+
+            <div class="mission-callout mission-callout--canvas" id="canvas-prompt-obj3" style="display:block;margin-top:0.75rem" role="status">
+              <div class="mission-callout-label">▸ Objective 3 — Answer in Canvas</div>
+              <p>Complete <strong>Objective 3</strong> in the mission memo using your terminal data and charts:</p>
+              <ul style="margin:0.5rem 0 0 1.1rem;padding:0;line-height:1.7">
+                <li><strong>Step 1:</strong> Short-run shutdown (questions 21–24) — use Chart C</li>
+                <li><strong>Step 2:</strong> Long-run exit (questions 25–26) — use Chart C</li>
+                <li><strong>Step 3:</strong> Profit comparison (questions 27–28)</li>
+                <li><strong>Step 4:</strong> Expansion decision (questions 29–31)</li>
+                <li><strong>Step 5:</strong> Production strategy (questions 32–33); upload your PDF on <strong>question 34</strong></li>
+              </ul>
+            </div>
+
             <div id="final-report-banner" style="margin-top:1rem;background:var(--bg-panel);border:1px solid var(--accent-amber);border-radius:10px;padding:1.5rem 2rem;text-align:center">
               <div style="font-family:'Orbitron',monospace;font-size:13px;color:var(--accent-amber);letter-spacing:2px;margin-bottom:0.5rem">⬡ FINAL MISSION REPORT</div>
               <ul class="mission-complete-checklist" id="mission-complete-checklist">
+                <li>Answer Canvas questions 19–20 (if not done) and Objective 3 questions 21–33 using your tables and charts</li>
                 <li>Download your PDF report and checkpoint save file below</li>
-                <li>Submit the PDF to Canvas</li>
-                <li>Complete Objective 3 questions in Canvas using your charts and tables</li>
-                <li>Keep the .json file as a backup</li>
+                <li>Upload the PDF to Canvas on question 34</li>
+                <li>Keep the .json save file as a backup</li>
               </ul>
               <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--text-secondary);margin-bottom:1.25rem;line-height:1.6">
-                Download your completed analysis. You will receive two files:<br>
-                a <strong style="color:var(--text-primary)">PDF report</strong> (tables + charts) and a <strong style="color:var(--text-primary)">checkpoint save file</strong> to resume if needed.
+                Clicking <strong>▼ DOWNLOAD FINAL REPORT</strong> gives you two files:<br>
+                a <strong style="color:var(--text-primary)">PDF report</strong> (tables + charts for Canvas submission) and a <strong style="color:var(--text-primary)">checkpoint .json</strong> (to resume in the terminal if needed).
               </div>
               <button type="button" class="final-report-btn" onclick="generateFinalReport(this)">
                 ▼ DOWNLOAD FINAL REPORT
@@ -3626,6 +3757,7 @@ let state = {
 
 let totalVerifiable = 0;
 let verifiedCount = 0;
+let savedProgressCount = 0;
 
 // ============================================================
 // THEME (light / dark)
@@ -3752,9 +3884,9 @@ updateThemeToggleLabel();
 // ============================================================
 const HAMMOND_INTRO = [
   `*static crackle* Field Agent Hammond reporting in. Made it through the chimney — barely. Ledger data secured. Transmitting to terminal now.`,
-  `*transmission ends* This is N.I.B.B.L.E.S. — Neural Intelligence Built for Briefings, Logistics & Economic Support. I have received Hammond's field data and loaded it into the AXIOM analysis terminal.`,
-  `I will guide you through the analysis from here. Enter your calculations and I will verify them against the data Hammond collected in the field.`,
-  `Start with Step 1 — select Fixed or Variable for each expense on the ledger. Think about which costs stay the same no matter how many bottles are made.`
+  `*transmission ends* This is N.I.B.B.L.E.S. — Neural Intelligence Built for Briefings, Logistics & Economic Support. I have received Hammond's field data and loaded it into the AXIOM terminal.`,
+  `You will complete Objectives 1 and 2 here in the terminal. After each step, return to the mission memo in Canvas to answer the matching questions. Objective 3 is completed entirely in Canvas after you download your final report.`,
+  `Start with Objective 1, Step 1 — classify each expense as Fixed or Variable. If you need to leave, download a save file with ⬇ SAVE CHECKPOINT before you exit.`
 ];
 
 const SUCCESS_MSGS = [
@@ -4112,7 +4244,7 @@ const HAMMOND_HINTS = {
       "Short-run shutdown rule: compare Price to AVC at each output. Shutdown occurs where Price &lt; AVC — the firm would lose less by producing zero.",
       "Check every output option against your AVC table and Chart C. Through Q = 1,920, does AVC stay below $0.25?",
       "At every row in your cost table, is AVC below the $0.25 market price? If so, short-run shutdown has not yet occurred within the table range — use Chart C to see where AVC crosses price above 1,920 bottles.",
-      "Use Chart C (720–2,160 bottles): AVC rises above the $0.25 price line past the highest table row. Within the five table outputs, has price dropped below AVC yet?"
+      "Use your Q = 1,920 row and apply both tests: compare P to ATC for long-run viability, then confirm with the profit sign from TR − TC."
     ],
     q27: [
       "*traces the ATC curve* Long-run exit is different from short-run shutdown. In the long run, the firm must cover all costs — compare price to average total cost (ATC).",
@@ -4417,6 +4549,34 @@ function checkClassifyVerifyBtn() {
   if (btn) btn.style.display = EXPENSE_CARDS.every(c => classifySelections[c.id]) ? 'block' : 'none';
 }
 
+function revealMissionCallout(id) {
+  const el = document.getElementById(id);
+  if (el) el.style.display = 'block';
+}
+
+function showSaveReminderStrip() {
+  revealMissionCallout('save-reminder-strip');
+}
+
+function restoreMissionCalloutsFromState() {
+  if (state.classifyVerified) {
+    revealMissionCallout('canvas-prompt-1');
+    showSaveReminderStrip();
+  }
+  if (state.verified.fc && state.verified.vc && state.verified.tc && state.verified.output) {
+    revealMissionCallout('canvas-prompt-2');
+  }
+  if (Object.keys(state.tcVerified).length === COST_TABLE.length) {
+    revealMissionCallout('canvas-prompt-3');
+  }
+  if (AVG_TABLE.every((_, i) => avgRowDone(i))) {
+    revealMissionCallout('canvas-prompt-4');
+  }
+  if (state.verified.mr) {
+    revealMissionCallout('canvas-prompt-5');
+  }
+}
+
 function checkClassification() {
   if (state.classifyVerified) return;
   if (!EXPENSE_CARDS.every(c => classifySelections[c.id])) return;
@@ -4449,7 +4609,9 @@ function checkClassification() {
     scrollToUnlock('step2-section');
     updateProgress();
     hammondMsg("*ecstatic hamster chatter* PERFECT! All 9 expenses correctly classified! Fixed costs stay constant; variable costs move with output. Now let's quantify them.", 'success', 400);
-    setTimeout(() => hammondMsg("Step 2 is unlocked. Enter the baseline totals — add up the fixed costs and the variable costs at 960 bottles/month.", 'info'), 2200);
+    revealMissionCallout('canvas-prompt-1');
+    showSaveReminderStrip();
+    setTimeout(() => hammondMsg("Step 2 is unlocked. Answer questions 1–2 in Canvas when ready, then enter baseline totals at 960 bottles/month here.", 'info'), 2200);
     updateFieldPulse();
   } else {
     const attempt = (state.checks['classify'] || 0) + 1;
@@ -4497,7 +4659,6 @@ window.addEventListener('load', () => {
   buildCostTable();
   buildAvgTable();
   buildProfitTable();
-  buildDecisions();
   setupMissionInputNavigation();
   initAccessibility();
   // Run boot sequence on login overlay
@@ -4629,7 +4790,8 @@ function checkInput(field) {
       updateChartC();
       refreshChartA();
       scrollToUnlock('step-profit-title');
-      hammondMsg('*nods at Chart B* MR is now on the chart. Find where MC crosses MR — that intersection is the profit-maximizing output level.', 'info', 700);
+      revealMissionCallout('canvas-prompt-5');
+      hammondMsg('*nods at Chart B* MR verified. Answer questions 16–18 in Canvas, then complete the revenue and profit table in Step 2.', 'info', 700);
     }
     updateFieldPulse();
     return true;
@@ -4654,7 +4816,8 @@ function checkBaselineComplete() {
     document.getElementById('instr-btn-3').style.display = 'inline-flex';
     document.getElementById('step3-section').style.display = 'block';
     scrollToUnlock('step3-title');
-    hammondMsg("*spins excited wheel* Baseline confirmed! Now let's see how costs change across different output levels. Fill in the Total Cost column for each quantity.", 'info', 600);
+    revealMissionCallout('canvas-prompt-2');
+    hammondMsg("*spins excited wheel* Baseline confirmed! Answer questions 3–5 in Canvas, then fill in total cost for each output level in Step 3.", 'info', 600);
     updateFieldPulse();
   }
 }
@@ -4718,8 +4881,9 @@ function checkTCTableComplete() {
     initChartTC();
     initChartA();
     scrollToUnlock('step4-title');
-    hammondMsg("*gleeful hamster chatter* TC table complete! Chart TC below plots total cost across output — your verified points should sit on the curve. Now the real analysis: average and marginal costs.", 'success', 600);
-    setTimeout(() => hammondMsg("Fill in AFC, AVC, ATC, and MC. Round to 3 decimal places. MC for Q=960 is N/A.", 'info'), 2200);
+    revealMissionCallout('canvas-prompt-3');
+    hammondMsg("*gleeful hamster chatter* TC table complete! Answer questions 6–7 in Canvas, then continue with average and marginal costs in Step 4.", 'success', 600);
+    setTimeout(() => hammondMsg("Step 4 covers average costs, marginal cost, and cost patterns for Canvas questions 8–15. Round to 3 decimal places. MC for Q = 960 is N/A.", 'info'), 2200);
     updateFieldPulse();
   }
 }
@@ -4740,7 +4904,7 @@ function buildAvgTable() {
       <td class="field-status-cell"><span id="avg-status-avc-${i}" role="status" aria-live="polite"></span></td>
       <td><input class="table-input" id="atc-${i}" type="text" inputmode="decimal" placeholder="?" aria-label="Average total cost at output ${row.q}"></td>
       <td class="field-status-cell"><span id="avg-status-atc-${i}" role="status" aria-live="polite"></span></td>
-      <td>${isFirst ? '<input class="table-input" value="N/A" disabled style="color:var(--text-dim);width:60px" aria-label="Marginal cost not applicable at output 720">' : `<input class="table-input" id="mc-${i}" type="text" inputmode="decimal" placeholder="?" aria-label="Marginal cost at output ${row.q}">`}</td>
+      <td>${isFirst ? '<input class="table-input" value="N/A" disabled style="color:var(--text-dim);width:60px" aria-label="Marginal cost not applicable at output 960">' : `<input class="table-input" id="mc-${i}" type="text" inputmode="decimal" placeholder="?" aria-label="Marginal cost at output ${row.q}">`}</td>
       <td class="field-status-cell"><span id="avg-status-mc-${i}" role="status" aria-live="polite">${isFirst ? '<span style="color:var(--text-dim)" aria-hidden="true">—</span>' : ''}</span></td>`;
     tbody.appendChild(tr);
     totalVerifiable += isFirst ? 3 : 4;
@@ -4815,8 +4979,9 @@ function checkAvgTableComplete() {
   if (AVG_TABLE.every((_, i) => avgRowDone(i))) {
     document.getElementById('obj-2').style.display = '';
     scrollToUnlock('obj-2');
-    hammondMsg("*does a celebratory hamster run* All cost curve calculations verified! Compare your table values to the ATC, AVC, and MC curves on Chart A. Notice how AFC falls as output rises and how ATC is U-shaped — profit will later peak where MC = MR.", 'success', 600);
-    setTimeout(() => hammondMsg("Objective 2 is now unlocked. Enter the market price per bottle to begin the revenue analysis.", 'info'), 2500);
+    revealMissionCallout('canvas-prompt-4');
+    hammondMsg("*does a celebratory hamster run* All cost calculations verified! Answer questions 8–15 in Canvas using your table and Chart A, then begin Objective 2 here.", 'success', 600);
+    setTimeout(() => hammondMsg("Objective 2, Step 1: enter the market price per bottle. Chart B unlocks after MR is verified — use it for Canvas questions 16–18.", 'info'), 2500);
   }
 }
 
@@ -4915,8 +5080,8 @@ function checkProfitRow(i) {
 
 function checkProfitTableComplete() {
   if (Object.keys(state.profitVerified).length === PROFIT_TABLE.length) {
-    hammondMsg("*scans the completed profit column* All revenue and profit values verified. All three charts are complete.", 'success', 600);
-    setTimeout(() => hammondMsg("Your profit table peaks at Q = 1,200 ($14.50) — the only row with the highest profit. Chart B shows smooth MC crossing MR at 1,200 bottles. Chart C shows where AVC crosses price — use it for short-run shutdown and long-run exit on Canvas.", 'info'), 2500);
+    hammondMsg("*scans the completed profit column* All revenue and profit values verified. Terminal Objectives 1 and 2 are complete.", 'success', 600);
+    setTimeout(() => hammondMsg("Answer questions 19–20 in Canvas, then download your final report below. Use your tables and Chart C for Objective 3 questions 21–33 in Canvas.", 'info'), 2500);
     setTimeout(() => {
       document.getElementById('mission-complete-wrap').style.display = 'block';
       scrollToUnlock('mission-complete-wrap');
@@ -4924,125 +5089,6 @@ function checkProfitTableComplete() {
     }, 3000);
   }
 }
-
-// ============================================================
-// DECISIONS (OBJ 3)
-// ============================================================
-const DECISIONS = {
-  q26: {
-    options: ['720 bottles', '960 bottles', '1,200 bottles', '1,440 bottles', '1,680 bottles', '1,920 bottles', 'None — AVC remains below price at all table outputs'],
-    correct: [6], multi: false,
-    feedback: { wrong1: "Compare the $0.25 price line to AVC at each output. The shutdown point is where Price < AVC.", wrong2: "Through Q = 1,920, AVC stays below $0.25 at every table row — short-run shutdown has not yet occurred in the table range. Chart C shows AVC crossing price above 1,920 bottles." }
-  },
-  q27: {
-    options: ['720 bottles', '1,080 bottles', '1,200 bottles', '1,440 bottles', '1,680 bottles'],
-    correct: [0, 4], multi: true,
-    feedback: { wrong1: "Compare the $0.25 price line to ATC. Long-run exit occurs at every output where Price < ATC.", wrong2: "Price < ATC at Q=720 (ATC ≈ $0.266) and Q=1,680 (ATC ≈ $0.262). The firm cannot cover all costs long-run at those output levels." }
-  },
-  q28: {
-    options: ['Yes — stay open', 'No — shut down'],
-    correct: [0], multi: false,
-    feedback: { wrong1: "Short-run rule: compare Price to AVC only. What is AVC at Q=1,440?", wrong2: "At Q=1,440, AVC = $0.171, which is below $0.25. Price > AVC → the firm covers variable costs, so it should keep producing in the short run." }
-  },
-  q30: {
-    options: ['Yes — remain in business', 'No — exit'],
-    correct: [0], multi: false,
-    feedback: { wrong1: "Long-run rule: compare Price to ATC. What is ATC at Q=1,440?", wrong2: "At Q=1,440, ATC = $0.246, which is below $0.25. Price > ATC → the firm covers all costs and should remain in business long-run." }
-  },
-  q32: {
-    options: ['Yes — survive long-run', 'No — cannot survive'],
-    correct: [1], multi: false,
-    feedback: { wrong1: "At Q=1,920, compare price ($0.25) to ATC. Is ATC above or below the price?", wrong2: "At Q=1,920, ATC = $0.288 >> $0.25. The firm loses $73.10/month and cannot cover total costs. It must exit." }
-  },
-  q34: {
-    options: ['Continue at 1,920 bottles', 'Expand to 2,400 bottles', 'Reduce to 1,200 bottles', 'Reduce to 960 bottles', 'Exit the industry'],
-    correct: [2], multi: false,
-    feedback: { wrong1: "Where is profit highest in your table? That's the profit-maximizing output where MC = MR.", wrong2: "At Q=1,200, profit = $14.50 — the only peak in your table. Chart B shows smooth MC crossing MR at 1,200 bottles." }
-  }
-};
-
-const decisionAttempts = {};
-
-function buildDecisions() {
-  Object.keys(DECISIONS).forEach(qid => {
-    const d = DECISIONS[qid];
-    const container = document.getElementById(qid);
-    if (!container) return;
-    d.options.forEach((opt, i) => {
-      const el = document.createElement('div');
-      el.className = 'decision-option';
-      el.id = `${qid}-opt-${i}`;
-      el.innerHTML = `<div class="option-letter">${String.fromCharCode(65+i)}</div><span>${opt}</span>`;
-      el.onclick = () => handleDecision(qid, i, d.multi);
-      container.appendChild(el);
-    });
-    decisionAttempts[qid] = 0;
-  });
-}
-
-function handleDecision(qid, idx, multi) {
-  const d = DECISIONS[qid];
-  const statusEl = document.getElementById(`status-${qid}`);
-  const opt = document.getElementById(`${qid}-opt-${idx}`);
-
-  if (!multi) {
-    // Single select — check immediately
-    document.querySelectorAll(`#${qid} .decision-option`).forEach(o => o.classList.remove('selected'));
-    opt.classList.add('selected');
-    decisionAttempts[qid] = (decisionAttempts[qid] || 0) + 1;
-
-    if (d.correct.includes(idx)) {
-      opt.classList.remove('selected'); opt.classList.add('correct');
-      document.querySelectorAll(`#${qid} .decision-option`).forEach(o => o.classList.add('disabled'));
-      statusEl.innerHTML = `<span style="color:var(--color-positive)">✓ CORRECT</span>`;
-      hammondMsg(SUCCESS_MSGS[Math.floor(Math.random()*SUCCESS_MSGS.length)], 'success', 400);
-      state.decisionVerified[qid] = true;
-      updateProgress();
-    } else {
-      opt.classList.remove('selected'); opt.classList.add('incorrect');
-      setTimeout(() => opt.classList.remove('incorrect'), 800);
-      statusEl.innerHTML = `<span style="color:var(--accent-red)">✗ INCORRECT</span>`;
-      const attempt = decisionAttempts[qid];
-      triggerHammond('decisions', qid, null, attempt);
-    }
-  } else {
-    // Multi select — toggle
-    opt.classList.toggle('selected');
-  }
-}
-
-function checkMulti(qid) {
-  const d = DECISIONS[qid];
-  const statusEl = document.getElementById(`status-${qid}`);
-  decisionAttempts[qid] = (decisionAttempts[qid] || 0) + 1;
-
-  const selected = [];
-  d.options.forEach((_, i) => {
-    if (document.getElementById(`${qid}-opt-${i}`)?.classList.contains('selected')) selected.push(i);
-  });
-
-  const correctSet = new Set(d.correct);
-  const selectedSet = new Set(selected);
-  const isCorrect = d.correct.every(c => selectedSet.has(c)) && selected.every(s => correctSet.has(s));
-
-  if (isCorrect) {
-    d.options.forEach((_, i) => {
-      const el = document.getElementById(`${qid}-opt-${i}`);
-      el.classList.remove('selected');
-      el.classList.add(d.correct.includes(i) ? 'correct' : '');
-      el.classList.add('disabled');
-    });
-    statusEl.innerHTML = `<span style="color:var(--color-positive)">✓ CORRECT</span>`;
-    hammondMsg(SUCCESS_MSGS[Math.floor(Math.random()*SUCCESS_MSGS.length)], 'success', 400);
-    state.decisionVerified[qid] = true;
-    updateProgress();
-  } else {
-    statusEl.innerHTML = `<span style="color:var(--accent-red)">✗ CHECK SELECTION</span>`;
-    const attempt = decisionAttempts[qid];
-    triggerHammond('decisions', qid, null, attempt);
-  }
-}
-
 
 // ============================================================
 // PROGRESS & NAVIGATION HELPERS
@@ -5068,7 +5114,7 @@ function missionStepSubtitle() {
     Obj1_Step1: [1, 'Classification'],
     Obj1_Step2: [2, 'Baseline Totals'],
     Obj1_Step3: [3, 'TC Table'],
-    Obj1_Step4: [4, 'Avg & MC Table'],
+    Obj1_Step4: [4, 'Avg, MC & Patterns'],
     Obj2_Step1: [5, 'Marginal Revenue'],
     Obj2_Step2: [6, 'Revenue & Profit'],
     Complete: [6, 'Mission Complete'],
@@ -5169,6 +5215,19 @@ function updateProgress() {
   const total = missionVerifiableTotal();
   setMissionProgressPct((count / total) * 100, missionStepSubtitle());
 }
+
+function markProgressSaved() {
+  savedProgressCount = missionVerifiedCount();
+}
+
+window.addEventListener('beforeunload', (event) => {
+  if (!state.tutorialComplete) return;
+  const current = missionVerifiedCount();
+  if (current <= 0) return;
+  if (current <= savedProgressCount) return;
+  event.preventDefault();
+  event.returnValue = '';
+});
 
 
 // ============================================================
@@ -5665,8 +5724,8 @@ function captureChartForPdf(chartId) {
   const spec = withPdfChartColors(() => pdfChartSnapshotSpec(chartId));
   if (!spec?.datasets?.length) return null;
 
-  const baseW = 960;
-  const baseH = 480;
+  const baseW = 900;
+  const baseH = 450;
   const canvas = document.createElement('canvas');
   canvas.width = baseW;
   canvas.height = baseH;
@@ -5678,7 +5737,7 @@ function captureChartForPdf(chartId) {
   });
   chart.update('none');
 
-  const scale = 2.5;
+  const scale = 3.0;
   const out = document.createElement('canvas');
   out.width = Math.round(baseW * scale);
   out.height = Math.round(baseH * scale);
@@ -5690,8 +5749,12 @@ function captureChartForPdf(chartId) {
   ctx.drawImage(canvas, 0, 0, out.width, out.height);
   chart.destroy();
 
+  const format = 'JPEG';
+  const data = out.toDataURL('image/jpeg', 0.92);
+
   return {
-    data: out.toDataURL('image/png', 1.0),
+    data,
+    format,
     aspect: out.width / out.height,
   };
 }
@@ -5708,7 +5771,7 @@ function runBootSequence() {
     { text: 'INITIALIZING AI MODULE...', delay: 400 },
     { text: 'LOADING: Neural Intelligence Built for Briefings, Logistics & Economic Support', delay: 900 },
     { text: '> N.I.B.B.L.E.S. ONLINE', delay: 1500, highlight: true },
-    { text: '*adjusts tiny goggles* AXIOM Terminal online, Agent. Enter your Employee ID to begin the mission.', delay: 2100 },
+    { text: '*adjusts tiny goggles* AXIOM Terminal online, Agent. Enter your instructor-assigned ID. Complete mandatory training, then work through the terminal and mission memo in Canvas together.', delay: 2100 },
   ];
   const el = document.getElementById('login-boot-text');
   const idInput = document.getElementById('login-id-input');
@@ -5821,6 +5884,7 @@ function completeTutorial() {
   showMissionPanel();
   document.getElementById('progress-title').textContent = '▸ MISSION PROGRESS';
   updateProgress();
+  showSaveReminderStrip();
   startHammondIntro();
   setTimeout(() => updateFieldPulse(), 1200);
 }
@@ -5885,7 +5949,7 @@ const TUT_STATION_MSGS = [
   `*ready at keyboard* Station 3 — type a value, press VERIFY or Enter. Arrow keys move between fields in the mission. Green locks in; red means try again.`,
   `*points at bottom-right corner* Station 4 — the Field Calculator. The ⊞ button is always available. Calculate inside it, then enter the result in the answer field.`,
   `*gestures at this panel* Station 5 — I send escalating hints when you miss. In the mission I will not give away answers — and I will pulse the Field Briefing button if you are stuck.`,
-  `*holds up tiny USB drive* Station 6 — checkpoints to save and resume, then a final PDF + save file when the mission is complete. Submit the PDF to Canvas; answer Objective 3 questions there.`,
+  `*holds up tiny USB drive* Station 6 — save files let you pause mid-mission. Download before you exit. When the terminal analysis is complete, download your final PDF for Canvas question 34 and finish Objective 3 in the mission memo.`,
 ];
 
 const TUT_TOTAL = 6;
@@ -6150,7 +6214,7 @@ function tutAckCheckpoint() {
   document.getElementById('tut-s6-done').style.display = 'block';
   document.getElementById('progress-title').textContent = '▸ TRAINING COMPLETE';
   setMissionProgressPct(100, 'Training complete');
-  hammondMsg(`*logs training record* Confirmed. Mid-mission: use ⬇ SAVE CHECKPOINT any time — resume with ⬆ RESUME — UPLOAD CHECKPOINT at login. Final: complete all objectives and ▼ DOWNLOAD FINAL REPORT gives you a PDF for Canvas plus a .json backup. Then finish Objective 3 in Canvas.`, 'success', 300);
+  hammondMsg(`*logs training record* Confirmed. Mid-mission: ⬇ SAVE CHECKPOINT before you leave — progress is lost without your save file. When Objectives 1 and 2 are complete, ▼ DOWNLOAD FINAL REPORT gives you a PDF for Canvas (question 34) plus a .json backup. Then complete Objective 3 in the mission memo.`, 'success', 300);
   updateTutActionPulse();
 }
 
@@ -6292,9 +6356,10 @@ async function saveCheckpoint(isFinal = false) {
     state.lastSaveTime = new Date();
     localStorage.setItem('axiom-last-save', state.lastSaveTime.toISOString());
     updateHeaderLastSave();
+    markProgressSaved();
     if (!isFinal) {
       showSaveToast(`✓ Saved ${filename}`);
-      hammondMsg(`*stamps checkpoint seal* Checkpoint saved at ${stepLabel.replace(/_/g,' ')}. Keep this file — upload it here to resume exactly where you left off.`, 'success', 400);
+      hammondMsg(`*stamps checkpoint seal* Checkpoint saved at ${stepLabel.replace(/_/g,' ')}. Keep this file — upload it at login to resume exactly where you left off. If you exit without saving, progress is lost.`, 'success', 400);
     }
   } catch(err) {
     hammondMsg('*frowns at terminal* Checkpoint save failed — browser crypto unavailable. Try a different browser.', 'error', 400);
@@ -6392,6 +6457,7 @@ function _applyCheckpointData(data, event) {
   }
   document.getElementById('progress-title').textContent = '▸ MISSION PROGRESS';
   updateProgress();
+  markProgressSaved();
 
   // Restore input values
   const vals = data.inputValues || {};
@@ -6516,6 +6582,7 @@ function restoreVerifiedState(savedState) {
   if (state.charts['chartB']) updateChartB();
   updateProgress();
   updateFieldPulse();
+  restoreMissionCalloutsFromState();
 }
 
 // ============================================================
@@ -6783,7 +6850,7 @@ document.addEventListener('keydown', e => {
 // DEV MODE — REMOVE THIS ENTIRE BLOCK BEFORE STUDENT RELEASE
 // To disable without removing: set DEV_MODE = false
 // ============================================================
-const DEV_MODE = true;
+const DEV_MODE = false;
 
 (function initDevMode() {
   if (!DEV_MODE) {
@@ -7146,12 +7213,15 @@ async function generateFinalReport(triggerBtn) {
   const accent   = [0, 102, 161];
   const rule     = [209, 213, 219];
   const tblHead  = [243, 244, 246];
+  const tblStripe = [248, 250, 252];
   const white    = [255, 255, 255];
 
   const now = new Date();
   const tsDate = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   const tsTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
   const agentId = String(state.employeeId || '—');
+  const PDF_FONT_SCALE = 1.08;
+  let tableBodyRowIdx = 0;
 
   function fillPage() {
     doc.setFillColor(...white);
@@ -7169,7 +7239,7 @@ async function generateFinalReport(triggerBtn) {
     if (y + needed > H - 22) newPage();
   }
   function setFont(size, style, rgb) {
-    doc.setFontSize(size);
+    doc.setFontSize(size * PDF_FONT_SCALE);
     doc.setFont('helvetica', style || 'normal');
     doc.setTextColor(...(rgb || ink));
   }
@@ -7193,6 +7263,7 @@ async function generateFinalReport(triggerBtn) {
     doc.line(margin, fy, W - margin, fy);
     setFont(7, 'normal', muted);
     text('ECN212 · Module 1 Activity 1 · Wheeler & Pace Temporal Advisory Division', margin, fy + 5);
+    text(`Agent ${agentId}`, W / 2, fy + 5, { align: 'center' });
     text(`Page ${pageNum}`, W - margin, fy + 5, { align: 'right' });
   }
   function sectionTitle(label, subtitle) {
@@ -7211,9 +7282,22 @@ async function generateFinalReport(triggerBtn) {
     doc.line(margin, y, margin + 42, y);
     y += 6;
   }
+
+  function isLikelyNumericCell(cell) {
+    const raw = String(cell ?? '').trim();
+    if (!raw || raw === '—' || raw.toUpperCase() === 'N/A') return true;
+    if (/[A-Za-z]/.test(raw)) return false;
+    return !isNaN(parseNumInput(raw));
+  }
+
   function tableRow(cells, widths, isHeader, rowH) {
-    const h = rowH || (isHeader ? 7 : 6.5);
+    const h = rowH || (isHeader ? 7.4 : 6.9);
     checkY(h + 1);
+
+    if (isHeader) {
+      tableBodyRowIdx = 0;
+    }
+
     let x = margin;
     cells.forEach((cell, i) => {
       const w = widths[i];
@@ -7222,18 +7306,25 @@ async function generateFinalReport(triggerBtn) {
         doc.rect(x, y, w, h, 'F');
         setFont(7.5, 'bold', navy);
       } else {
+        if (tableBodyRowIdx % 2 === 1) {
+          doc.setFillColor(...tblStripe);
+          doc.rect(x, y, w, h, 'F');
+        }
         setFont(7.5, 'normal', ink);
       }
       doc.setDrawColor(...rule);
       doc.setLineWidth(0.15);
       doc.rect(x, y, w, h, 'S');
-      const align = i === 0 ? 'left' : 'center';
-      const tx = align === 'center' ? x + w / 2 : x + 2.5;
+      const align = isHeader
+        ? (i === 0 ? 'left' : 'center')
+        : (i === 0 ? 'left' : (isLikelyNumericCell(cell) ? 'right' : 'left'));
+      const tx = align === 'center' ? x + w / 2 : (align === 'right' ? x + w - 2.5 : x + 2.5);
       const label = String(cell ?? '—');
       const clipped = label.length > 48 ? label.slice(0, 46) + '…' : label;
       text(clipped, tx, y + h - 2.2, { align });
       x += w;
     });
+    if (!isHeader) tableBodyRowIdx++;
     y += h;
   }
 
@@ -7285,7 +7376,7 @@ async function generateFinalReport(triggerBtn) {
     doc.setLineWidth(0.25);
     doc.setFillColor(...white);
     doc.roundedRect(margin, y, colW, imgH, 1.5, 1.5, 'FD');
-    doc.addImage(captured.data, 'PNG', xOff, y + 2, imgW, imgH - 4, undefined, 'SLOW');
+    doc.addImage(captured.data, captured.format || 'PNG', xOff, y + 2, imgW, imgH - 4, undefined, 'MEDIUM');
     y += imgH + 10;
   }
 
@@ -7293,6 +7384,10 @@ async function generateFinalReport(triggerBtn) {
   fillPage();
   doc.setFillColor(...navy);
   doc.rect(0, 0, W, 52, 'F');
+  setFont(7.5, 'normal', [200, 215, 230]);
+  text('CLASSIFIED // AXIOM REPORT', margin, 8);
+  setFont(7.5, 'bold', white);
+  text(`AGENT ${agentId}`, W - margin, 8, { align: 'right' });
   setFont(20, 'bold', white);
   text('Wheeler & Pace Perfumery', W / 2, 22, { align: 'center' });
   setFont(12, 'normal', white);
@@ -7442,6 +7537,29 @@ async function generateFinalReport(triggerBtn) {
     'Shutdown and long-run exit analysis: price compared to per-unit costs.'
   );
 
+  sectionTitle(
+    'Executive Findings',
+    'Key decision metrics summarized from your verified tables and curves.'
+  );
+  const atc1920 = parseNumInput(inpVal('atc-4'));
+  const summaryProfitRows = PROFIT_TABLE.map((row, i) => {
+    const trVal = parseNumInput(inpVal(`tr-${i}`));
+    const pVal = parseNumInput(inpVal(`profit-${i}`));
+    return {
+      q: row.q,
+      tr: isNaN(trVal) ? row.tr : trVal,
+      profit: isNaN(pVal) ? row.profit : pVal
+    };
+  });
+  const bestRow = summaryProfitRows.reduce((best, cur) => cur.profit > best.profit ? cur : best, summaryProfitRows[0]);
+  const worstRow = summaryProfitRows.reduce((worst, cur) => cur.profit < worst.profit ? cur : worst, summaryProfitRows[0]);
+  const sumW = [colW * 0.62, colW * 0.38];
+  tableRow(['Metric', 'Result'], sumW, true);
+  tableRow(['Profit-maximizing output (peak monthly profit)', `${bestRow.q} bottles · $${bestRow.profit.toFixed(2)}`], sumW, false);
+  tableRow(['Largest monthly loss among tested outputs', `${worstRow.q} bottles · $${worstRow.profit.toFixed(2)}`], sumW, false);
+  tableRow(['Long-run viability test at 1,920 bottles', isNaN(atc1920) ? 'Price ($0.25) vs ATC (see table)' : `Price $0.25 vs ATC $${atc1920.toFixed(3)}`], sumW, false);
+  tableRow(['Recommended operating target', '1,200 bottles (MC close to MR, highest profit)'], sumW, false);
+
   drawPageFooter();
 
   // ===== SAVE PDF =====
@@ -7460,16 +7578,16 @@ async function generateFinalReport(triggerBtn) {
     if (checklist) checklist.querySelectorAll('li').forEach(li => li.classList.add('done'));
     statusEl.style.display = 'block';
     statusEl.innerHTML = `
-      ✓ <strong>wheeler_pace_FINAL_${idSlug}.pdf</strong> — your completed analysis report<br>
+      ✓ <strong>wheeler_pace_FINAL_${idSlug}.pdf</strong> — upload to Canvas on question 34<br>
       ✓ <strong>wheeler_pace_FINAL_${idSlug}.json</strong> — your save file (use this to return to this checkpoint)<br><br>
-      Submit the PDF to Canvas. Keep the .json file in case you need to return to the terminal.
+      Complete Objective 3 questions 21–33 in the mission memo, then submit the PDF on question 34.
     `;
     if (btn) {
       btn.textContent = '✓ REPORT DOWNLOADED';
       if (btn.closest('#final-report-banner')) btn.style.background = 'var(--color-positive)';
       else btn.disabled = false;
     }
-    hammondMsg(`*stamps mission seal* Two files downloaded: your final PDF report and a save file. Submit the PDF to Canvas. Store the .json — it will restore your exact progress if you return to the terminal.`, 'success', 200);
+    hammondMsg(`*stamps mission seal* Two files downloaded: your final PDF report and a save file. Upload the PDF on Canvas question 34. Complete Objective 3 in the mission memo using your tables and charts.`, 'success', 200);
   }, 800);
 }
 
