@@ -106,6 +106,8 @@
     --chart-panel-inset: #00000040;
     --calc-popout-drop: rgba(0, 0, 0, 0.45);
     --layout-max-width: 1400px;
+    --chart-block-max-width: 700px;
+    --mission-table-width: 560px;
     --layout-gutter: 2rem;
     --right-panel-width: 360px;
     --right-panel-gap: 1rem;
@@ -1514,28 +1516,25 @@
     margin-bottom: 0.35rem;
     border-radius: 6px;
     border: 1px solid var(--grid-line);
+    max-width: var(--chart-block-max-width);
+    margin-right: auto;
+    width: 100%;
+  }
+
+  /* Mission tables: balanced width — narrower than charts, roomier than shrink-wrap */
+  .table-scroll-wrap--fit {
+    width: min(var(--mission-table-width), 100%);
+    max-width: min(var(--chart-block-max-width), 100%);
   }
 
   .table-scroll-wrap .data-table {
     margin-bottom: 0;
-    min-width: 520px;
+    min-width: 420px;
   }
 
-  .table-scroll-wrap--wide .data-table {
-    min-width: 680px;
-  }
-
-  .table-scroll-hint {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 9px;
-    color: var(--text-dim);
-    letter-spacing: 1px;
-    margin-bottom: 1.25rem;
-    text-align: right;
-  }
-
-  @media (min-width: 900px) {
-    .table-scroll-hint { display: none; }
+  .table-scroll-wrap--fit .data-table {
+    width: 100%;
+    min-width: 0;
   }
 
   .data-table {
@@ -1546,50 +1545,189 @@
     margin-bottom: 1.5rem;
   }
 
+  .data-table.mission-table th {
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    padding: 6px 10px;
+    text-align: right;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
   .data-table th {
     background: var(--bg-card);
     color: var(--text-secondary);
-    padding: 8px 12px;
+    padding: 6px 8px;
     text-align: right;
     font-size: 10px;
     letter-spacing: 1px;
     border-bottom: 1px solid var(--border);
   }
 
-  .data-table th:first-child { text-align: center; }
-  .data-table th.status-th { text-align: center; padding: 8px 4px; width: 24px; color: var(--color-positive); }
+  .data-table th:first-child,
+  .data-table td.col-q { text-align: center; }
+  .data-table td.col-q { color: var(--accent-amber); font-weight: 500; }
+
+  .data-table.mission-table td.col-q {
+    width: 4.25rem;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .data-table .col-group-end { border-right: 1px solid var(--grid-line); }
+  .data-table .col-mc { border-left: 1px solid var(--accent-cyan-dim); }
+
+  .data-table.mission-table td {
+    padding: 5px 10px;
+    white-space: nowrap;
+  }
 
   .data-table td {
-    padding: 6px 12px;
+    padding: 5px 8px;
     text-align: right;
     border-bottom: 1px solid var(--grid-line);
     color: var(--text-secondary);
+    vertical-align: middle;
   }
 
   .data-table td:first-child { text-align: center; color: var(--accent-amber); }
 
   .data-table td.autofilled { color: var(--text-secondary); }
 
-  .field-status-cell { text-align: center; padding: 6px 4px; width: 24px; font-size: 14px; }
+  .table-field-wrap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    width: auto;
+  }
+
+  .mission-table .table-field-wrap {
+    width: 100%;
+  }
+
+  .table-field-status {
+    flex-shrink: 0;
+    width: 1.1em;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1;
+  }
 
   .table-input {
     background: var(--bg-input);
     border: 1px solid var(--border);
     border-radius: 3px;
-    padding: 4px 8px;
+    padding: 4px 6px;
     color: var(--text-primary);
     font-family: 'IBM Plex Mono', monospace;
     font-size: 12px;
-    width: 80px;
+    width: 64px;
+    min-width: 64px;
+    max-width: 64px;
     text-align: right;
     outline: none;
     transition: all 0.2s;
+    box-sizing: border-box;
+  }
+
+  .table-input--wide {
+    width: 74px;
+    min-width: 74px;
+    max-width: 74px;
+  }
+
+  .chart-container .table-scroll-wrap {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .chart-container .table-scroll-wrap .data-table {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .table-scroll-hint {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-bottom: 1.25rem;
+    text-align: left;
+    width: min(var(--mission-table-width), 100%);
+    max-width: min(var(--chart-block-max-width), 100%);
+    margin-right: auto;
+  }
+
+  @media (min-width: 900px) {
+    .table-scroll-hint { display: none; }
+  }
+
+  /* Zebra striping on output rows */
+  #cost-table tbody tr:nth-child(odd),
+  #profit-table tbody tr:nth-child(odd) {
+    background: rgba(86, 180, 233, 0.035);
+  }
+  #avg-table tbody tr.avg-q-row:nth-child(8n+1),
+  #avg-table tbody tr.avg-q-row:nth-child(8n+5) {
+    background: rgba(86, 180, 233, 0.045);
+  }
+  #avg-table tbody tr.avg-q-row:nth-child(8n+3),
+  #avg-table tbody tr.avg-q-row:nth-child(8n+7) {
+    background: rgba(86, 180, 233, 0.02);
   }
 
   .table-input:focus { border-color: var(--accent-cyan); }
   .table-input.correct { border-color: var(--color-positive); color: var(--color-positive); }
   .table-input.incorrect { border-color: var(--accent-red); animation: shake 0.3s ease; }
   .table-input:disabled { opacity: 0.5; cursor: not-allowed; background: var(--bg-card); }
+
+  /* MC column — interval rows between Q levels; › sits left of each input */
+  .avg-mc-interval-row td {
+    padding: 0.25rem 8px;
+    border-top: 1px dashed var(--border-bright);
+    background: rgba(86, 180, 233, 0.025);
+  }
+  .avg-mc-gap {
+    padding: 0.15rem 8px;
+    border-top: none;
+    background: transparent;
+  }
+  .avg-mc-entry-cell {
+    vertical-align: middle;
+    text-align: left;
+    padding: 0.4rem 10px;
+    white-space: nowrap;
+  }
+  .avg-mc-entry {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .avg-mc-marker {
+    color: var(--accent-cyan);
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 1.1em;
+    text-align: center;
+  }
+  .avg-mc-entry .table-field-wrap {
+    justify-content: flex-start;
+    width: auto;
+  }
+  .avg-mc-entry .table-input {
+    width: 64px;
+    min-width: 64px;
+    max-width: 64px;
+  }
+  .avg-mc-empty {
+    background: transparent;
+  }
 
   /* Gentle pulse on the next field or control awaiting action */
   .data-input.field-pulse,
@@ -1627,9 +1765,8 @@
     border-radius: 8px;
     padding: 1.2rem;
     margin-top: 1.5rem;
-    margin-left: auto;
     margin-right: auto;
-    max-width: 700px;
+    max-width: var(--chart-block-max-width);
     position: relative;
     box-shadow: 0 0 0 1px var(--panel-ring), inset 0 0 30px var(--chart-panel-inset);
   }
@@ -2345,7 +2482,22 @@
     outline: 2px solid var(--accent-cyan);
     outline-offset: 2px;
   }
-  .chart-data-table { font-size: 11px; margin-top: 0.5rem; }
+  .chart-data-table {
+    font-size: 10px;
+    margin-top: 0.5rem;
+    table-layout: fixed;
+  }
+  .chart-data-table th,
+  .chart-data-table td {
+    padding: 4px 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .chart-data-table th:first-child,
+  .chart-data-table td:first-child {
+    width: 18%;
+  }
 
   .final-report-btn {
     background: var(--accent-amber);
@@ -3336,8 +3488,8 @@
               <div class="instr-panel-body">
                 <ul>
                 <ol class="mission-complete-checklist" style="margin:0.75rem 0 0 1.1rem;padding-left:1.25rem;line-height:1.7">
-                  <li>Answer <strong>questions 19–20</strong> in Canvas</li>
-                  <li>Complete <strong>Objective 3</strong> questions <strong>21–33</strong> in Canvas (use Chart C for Steps 1–2)</li>
+                  <li>Answer <strong>questions 19 through 20</strong> in Canvas</li>
+                  <li>Complete <strong>Objective 3</strong> questions <strong>21 through 33</strong> in Canvas (use Chart C for Steps 1 through 2)</li>
                   <li>Download your <strong>final report</strong> in the terminal</li>
                   <li>Upload the <strong>PDF</strong> on <strong>question 34</strong></li>
                   <li>Keep the <strong>.json</strong> checkpoint file as a backup</li>
@@ -3461,7 +3613,7 @@
               </ul>
 
               <h4>After This Step — Canvas</h4>
-              <p>When classification is verified, use your completed fixed and variable lists to answer <strong>questions 1 and 2</strong> in the mission memo before continuing in the terminal.</p>
+              <p>When classification is verified, use your completed fixed and variable lists to answer <strong>questions 1 through 2</strong> in the mission memo before continuing in the terminal.</p>
 
               <div class="instr-tip">
                 <span>⬡</span>
@@ -3492,7 +3644,7 @@
 
           <div class="mission-callout mission-callout--canvas" id="canvas-prompt-1" style="display:none" role="status">
             <div class="mission-callout-label">▸ Return to Canvas</div>
-            <p>Use your completed fixed and variable cost classifications to answer <strong>questions 1 and 2</strong> in the mission memo. When finished, continue to Objective 1, Step 2 in the terminal below.</p>
+            <p>Use your completed fixed and variable cost classifications to answer <strong>questions 1 through 2</strong> in the mission memo. When finished, continue to Objective 1, Step 2 in the terminal below.</p>
           </div>
 
           <!-- STEP 2: BASELINE TOTALS (hidden until Step 1 complete) -->
@@ -3619,14 +3771,14 @@
                 <li>Click into the TC cell for any row, type your answer, and press <span class="instr-highlight">Enter</span> to verify.</li>
                 <li>You can work through the rows in any order.</li>
                 <li>Round to 2 decimal places (e.g., 233.00).</li>
-                <li>All 5 rows must be correct before Steps 4–6 unlock.</li>
+                <li>All 5 rows must be correct before Steps 4 through 6 unlock.</li>
               </ul>
 
               <h4>Before You Exit</h4>
               <p>Download your save file if you plan to return later — progress is not stored automatically.</p>
 
               <h4>After This Step — Canvas</h4>
-              <p>Use your completed cost table to answer <strong>questions 6 and 7</strong> in the mission memo.</p>
+              <p>Use your completed cost table to answer <strong>questions 6 through 7</strong> in the mission memo.</p>
 
               <div class="instr-tip">
                 <span>⬡</span>
@@ -3640,16 +3792,15 @@
               FC is autofilled ($108). VC is pre-loaded from AXIOM's field data. Calculate TC = FC + VC for each output level.
             </p>
             <div class="table-scroll-hint" aria-hidden="true">↔ Scroll table on narrow screens</div>
-            <div class="table-scroll-wrap">
-            <table class="data-table" id="cost-table">
+            <div class="table-scroll-wrap table-scroll-wrap--fit">
+            <table class="data-table mission-table" id="cost-table">
               <caption class="visually-hidden">Total cost per output level — enter total cost for each quantity</caption>
               <thead>
                 <tr>
-                  <th scope="col">OUTPUT (Q)</th>
-                  <th scope="col">FC ($)</th>
-                  <th scope="col">VC ($)</th>
-                  <th scope="col">YOUR TC ($)</th>
-                  <th scope="col">STATUS</th>
+                  <th scope="col" class="col-q col-group-end">Q</th>
+                  <th scope="col" class="col-group-end">FC ($)</th>
+                  <th scope="col" class="col-group-end">VC ($)</th>
+                  <th scope="col">TC ($)</th>
                 </tr>
               </thead>
               <tbody id="cost-table-body"></tbody>
@@ -3663,7 +3814,7 @@
                 <span id="chartTC-title">CHART TC — TOTAL COST vs OUTPUT</span>
                 <button type="button" class="export-btn" onclick="exportChart('chartTC')" aria-label="Download Chart TC as PNG">↓ PNG</button>
               </div>
-              <canvas id="chartTC" role="img" aria-label="Total cost curve showing how total cost changes with output from 960 to 1,920 bottles."></canvas>
+              <canvas id="chartTC" role="img" aria-label="Total cost curve showing how total cost changes with output from 960 through 1,920 bottles."></canvas>
               <details class="chart-data-details">
                 <summary>View chart data table (total cost)</summary>
                 <div class="table-scroll-wrap"><table class="data-table chart-data-table" id="chartTC-data" aria-label="Chart TC data"></table></div>
@@ -3674,11 +3825,11 @@
 
           <div class="mission-callout mission-callout--canvas" id="canvas-prompt-3" style="display:none" role="status">
             <div class="mission-callout-label">▸ Return to Canvas</div>
-            <p>Use your completed total cost table to answer <strong>questions 6 and 7</strong> in the mission memo. Then continue to Objective 1, Steps 4–6 in the terminal.</p>
+            <p>Use your completed total cost table to answer <strong>questions 6 through 7</strong> in the mission memo. Then continue to Objective 1, Steps 4 through 6 in the terminal.</p>
           </div>
 
           <!-- STEP 4: AFC AVC ATC MC TABLE -->
-          <h2 class="step-title" id="step4-title" style="display:none">▸ Objective 1 · Steps 4–6 — Average Cost, Marginal Cost, and Cost Patterns</h2>
+          <h2 class="step-title" id="step4-title" style="display:none">▸ Objective 1 · Steps 4 through 6 — Average Cost, Marginal Cost, and Cost Patterns</h2>
 
           <!-- Step 4 Instructions toggle -->
           <button class="step-instructions-btn" id="instr-btn-4" onclick="toggleInstructions(4)" style="display:none">
@@ -3686,11 +3837,11 @@
           </button>
           <div class="step-instructions-panel" id="instr-panel-4">
             <div class="instr-panel-header">
-              ⬡ Objective 1 · Steps 4–6 — Average Cost, Marginal Cost, and Cost Patterns
+              ⬡ Objective 1 · Steps 4 through 6 — Average Cost, Marginal Cost, and Cost Patterns
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>This section covers <strong>mission memo Steps 4–6</strong> in one terminal workspace: calculate measures of average cost (AFC, AVC, ATC), calculate marginal cost (MC), then use Chart A to interpret cost patterns across output levels. <span class="instr-highlight">Round all answers to 3 decimal places.</span></p>
+              <p>This section covers <strong>mission memo Steps 4 through 6</strong> in one terminal workspace: calculate measures of average cost (AFC, AVC, ATC), calculate marginal cost (MC), then use Chart A to interpret cost patterns across output levels. <span class="instr-highlight">Round all answers to 3 decimal places.</span></p>
 
               <h4>The Four Formulas</h4>
               <div class="instr-example">
@@ -3710,20 +3861,20 @@
 
               <h4>Marginal Cost (MC) — Special Rule</h4>
               <ul>
-                <li>MC measures the <em>extra cost</em> of producing the next batch of bottles.</li>
-                <li>Formula: MC = (TC at this row − TC at previous row) ÷ (Q at this row − Q at previous row)</li>
-                <li>The <span class="instr-highlight">first row (Q = 960) has no previous row</span>, so MC is N/A — that cell is already disabled.</li>
-                <li>Every other row has a MC value to calculate.</li>
-                <li>Each interval spans <span class="instr-highlight">240 bottles</span> (960 → 1,200 → 1,440 → 1,680 → 1,920). Your table MC at Q = 1,200 is ΔTC ÷ ΔQ over the prior 240 bottles — slightly below MR ($0.25) because profit is still rising toward the peak.</li>
-                <li>Charts plot a <span class="instr-highlight">smooth MC curve</span> from the same cost equation — Chart B shows where smooth MC crosses MR exactly at Q = 1,200. Chart C shows where AVC crosses the $0.25 price line at high output (short-run shutdown).</li>
+                <li>MC measures the <em>extra cost</em> of producing the next batch of bottles — calculated <strong>between</strong> two output levels, not at a single Q.</li>
+                <li>Formula: MC = (TC at upper Q − TC at lower Q) ÷ (upper Q − lower Q)</li>
+                <li>After each output row, enter MC in the <span class="instr-highlight">MC column</span> on the line to the next Q — each cell is marked with <strong>›</strong> directly to the left of the input.</li>
+                <li>Each interval spans <span class="instr-highlight">240 bottles</span>. The first interval is 960 through 1,200; MC there ($0.219) is slightly below MR ($0.25) because profit is still rising toward the peak.</li>
+                <li>Charts plot a <span class="instr-highlight">smooth MC curve</span> from the same cost equation — it sweeps upward at low Q and crosses MR at Q = 1,200. Chart C shows where AVC crosses the $0.25 price line at high output (short-run shutdown).</li>
               </ul>
 
               <h4>How to Enter Answers</h4>
               <ul>
-                <li>Fill in AFC, AVC, ATC, and MC (where applicable) for each row.</li>
+                <li>Fill in AFC, AVC, and ATC on each output row.</li>
+                <li>Fill in MC in the <span class="instr-highlight">MC column</span> between rows (on the › line, not on the Q row itself).</li>
                 <li>Press <span class="instr-highlight">Enter</span> in a cell to verify that value — correct cells turn green and lock.</li>
-                <li>Use <span class="instr-highlight">arrow keys</span> to move between cells. Complete every cell in a column to draw that curve on Chart A.</li>
-                <li>All rows verified → Objective 2 unlocks in the terminal.</li>
+                <li>Use <span class="instr-highlight">arrow keys</span> to move between cells. Complete every AFC/AVC/ATC column and every MC interval to draw curves on Chart A.</li>
+                <li>All values verified → Objective 2 unlocks in the terminal.</li>
               </ul>
 
               <h4>After This Step — Canvas</h4>
@@ -3731,30 +3882,26 @@
 
               <div class="instr-tip">
                 <span>⬡</span>
-                <span><strong>N.I.B.B.L.E.S. tip:</strong> Chart A starts empty. Each curve appears only after you verify <em>every</em> value in that column — AFC, then AVC, then ATC, then MC. Lines extend across the full output range (0–2,040 bottles) once a column is complete.</span>
+                <span><strong>N.I.B.B.L.E.S. tip:</strong> Chart A starts empty. Each curve appears only after you verify <em>every</em> value in that column — AFC, then AVC, then ATC, then MC. Lines extend across the full output range (0 through 2,040 bottles) once a column is complete.</span>
               </div>
             </div>
           </div>
 
           <div id="step4-section" style="display:none">
             <p style="font-size:12px; color:var(--text-secondary); margin-bottom:1rem; font-family:'IBM Plex Mono',monospace;">
-              Calculate AFC = FC/Q, AVC = VC/Q, ATC = TC/Q, MC = ΔTC/ΔQ. Round to 3 decimal places.
+              Calculate AFC = FC/Q, AVC = VC/Q, and ATC = TC/Q at each output row. Enter MC = ΔTC/ΔQ in the <strong>MC column</strong> on each › line between rows. Round to 3 decimal places.
             </p>
             <div class="table-scroll-hint" aria-hidden="true">↔ Scroll table on narrow screens</div>
-            <div class="table-scroll-wrap table-scroll-wrap--wide">
-            <table class="data-table" id="avg-table">
-              <caption class="visually-hidden">Average and marginal costs per output level</caption>
+            <div class="table-scroll-wrap table-scroll-wrap--fit">
+            <table class="data-table mission-table" id="avg-table">
+              <caption class="visually-hidden">Average costs at each output level; marginal cost entered on intervals between outputs</caption>
               <thead>
                 <tr>
-                  <th scope="col">Q</th>
-                  <th scope="col">AFC ($)</th>
-                  <th scope="col" class="status-th" aria-label="AFC verified">✓</th>
-                  <th scope="col">AVC ($)</th>
-                  <th scope="col" class="status-th" aria-label="AVC verified">✓</th>
-                  <th scope="col">ATC ($)</th>
-                  <th scope="col" class="status-th" aria-label="ATC verified">✓</th>
-                  <th scope="col">MC ($)</th>
-                  <th scope="col" class="status-th" aria-label="MC verified">✓</th>
+                  <th scope="col" class="col-q col-group-end">Q</th>
+                  <th scope="col" class="col-group-end">AFC ($)</th>
+                  <th scope="col" class="col-group-end">AVC ($)</th>
+                  <th scope="col" class="col-group-end">ATC ($)</th>
+                  <th scope="col" class="col-mc">MC ($)</th>
                 </tr>
               </thead>
               <tbody id="avg-table-body"></tbody>
@@ -3768,7 +3915,7 @@
                 <span id="chartA-title">CHART A — AVERAGE &amp; MARGINAL COSTS</span>
                 <button type="button" class="export-btn" onclick="exportChart('chartA')" aria-label="Download Chart A as PNG">↓ PNG</button>
               </div>
-              <canvas id="chartA" role="img" aria-label="Average and marginal cost curves from 0 to 2,040 bottles. Curves appear as you verify each column in the cost table."></canvas>
+              <canvas id="chartA" role="img" aria-label="Average and marginal cost curves from 0 through 2,040 bottles. Curves appear as you verify each column in the cost table."></canvas>
               <details class="chart-data-details">
                 <summary>View chart data table (AFC, AVC, ATC, MC)</summary>
                 <div class="table-scroll-wrap"><table class="data-table chart-data-table" id="chartA-data" aria-label="Chart A data"></table></div>
@@ -3798,7 +3945,7 @@
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>Parfum du coeur operates in a <span class="instr-highlight">perfectly competitive market</span>. Begin by entering the market price per bottle — this is the firm's <span class="instr-highlight">Marginal Revenue (MR)</span>. After MR is verified, use Chart B to compare MC and MR at each output (Canvas questions 16–18).</p>
+              <p>Parfum du coeur operates in a <span class="instr-highlight">perfectly competitive market</span>. Begin by entering the market price per bottle — this is the firm's <span class="instr-highlight">Marginal Revenue (MR)</span>. After MR is verified, use Chart B to compare MC and MR at each output (Canvas questions 16 through 18).</p>
 
               <h4>Key Concept</h4>
               <ul>
@@ -3881,7 +4028,7 @@
               </ul>
 
               <h4>After This Step — Canvas</h4>
-              <p>When your profit table is complete, answer <strong>questions 19 and 20</strong> in the mission memo. Objective 3 strategy questions (<strong>21–33</strong>) are answered entirely in Canvas using your terminal tables and charts.</p>
+              <p>When your profit table is complete, answer <strong>questions 19 through 20</strong> in the mission memo. Objective 3 strategy questions (<strong>21 through 33</strong>) are answered entirely in Canvas using your terminal tables and charts.</p>
 
               <h4>How to Enter Answers</h4>
               <ul>
@@ -3902,17 +4049,15 @@
               Calculate TR = $0.25 × Q and Profit = TR − TC for each output level. Use TC values from Objective 1.
             </p>
             <div class="table-scroll-hint" aria-hidden="true">↔ Scroll table on narrow screens</div>
-            <div class="table-scroll-wrap">
-            <table class="data-table" id="profit-table">
+            <div class="table-scroll-wrap table-scroll-wrap--fit">
+            <table class="data-table mission-table" id="profit-table">
               <caption class="visually-hidden">Total revenue and profit per output level</caption>
               <thead>
                   <tr>
-                    <th scope="col">Q</th>
-                    <th scope="col">TC ($)</th>
-                    <th scope="col">TR ($)</th>
-                    <th scope="col" class="status-th" aria-label="TR verified">✓</th>
+                    <th scope="col" class="col-q col-group-end">Q</th>
+                    <th scope="col" class="col-group-end">TC ($)</th>
+                    <th scope="col" class="col-group-end">TR ($)</th>
                     <th scope="col">PROFIT ($)</th>
-                    <th scope="col" class="status-th" aria-label="Profit verified">✓</th>
                   </tr>
               </thead>
               <tbody id="profit-table-body"></tbody>
@@ -3926,7 +4071,7 @@
                 <span id="chartC-title">CHART C — MR vs AVC vs ATC</span>
                 <button type="button" class="export-btn" onclick="exportChart('chartC')" aria-label="Download Chart C as PNG">↓ PNG</button>
               </div>
-              <canvas id="chartC" role="img" aria-label="Marginal revenue at $0.25, average variable cost, and average total cost from 720 to 2,160 bottles."></canvas>
+              <canvas id="chartC" role="img" aria-label="Marginal revenue at $0.25, average variable cost, and average total cost from 720 through 2,160 bottles."></canvas>
               <details class="chart-data-details">
                 <summary>View chart data table (MR, AVC, ATC)</summary>
                 <div class="table-scroll-wrap"><table class="data-table chart-data-table" id="chartC-data" aria-label="Chart C data"></table></div>
@@ -3945,13 +4090,13 @@
               <div style="font-family:'Orbitron',monospace;font-size:13px;color:var(--accent-amber);letter-spacing:2px;margin-bottom:0.5rem">⬡ FINAL MISSION REPORT</div>
               <p class="mission-complete-intro">Complete these steps in order:</p>
               <ol class="mission-complete-checklist" id="mission-complete-checklist">
-                <li id="mcc-step-1">Answer <strong>questions 19–20</strong> in Canvas</li>
-                <li id="mcc-step-2">Complete <strong>Objective 3</strong> questions <strong>21–33</strong> in Canvas
+                <li id="mcc-step-1">Answer <strong>questions 19 through 20</strong> in Canvas</li>
+                <li id="mcc-step-2">Complete <strong>Objective 3</strong> questions <strong>21 through 33</strong> in Canvas
                   <ul class="mission-complete-sublist">
-                    <li><strong>Steps 1–2</strong> (Q21–26): short-run shutdown &amp; long-run exit — use <strong>Chart C</strong></li>
-                    <li><strong>Step 3</strong> (Q27–28): profit comparison</li>
-                    <li><strong>Step 4</strong> (Q29–31): expansion decision</li>
-                    <li><strong>Step 5</strong> (Q32–33): production strategy</li>
+                    <li><strong>Steps 1 through 2</strong> (Q21 through 26): short-run shutdown &amp; long-run exit — use <strong>Chart C</strong></li>
+                    <li><strong>Step 3</strong> (Q27 through 28): profit comparison</li>
+                    <li><strong>Step 4</strong> (Q29 through 31): expansion decision</li>
+                    <li><strong>Step 5</strong> (Q32 through 33): production strategy</li>
                   </ul>
                 </li>
                 <li id="mcc-step-3" class="mission-complete-download-step">
@@ -4105,11 +4250,18 @@ const COST_TABLE = [
 ];
 
 const AVG_TABLE = [
-  { q: 960,  afc: 0.113, avc: 0.130, atc: 0.243, mc: null  },
-  { q: 1200, afc: 0.090, avc: 0.148, atc: 0.238, mc: 0.219 },
-  { q: 1440, afc: 0.075, avc: 0.171, atc: 0.246, mc: 0.286 },
-  { q: 1680, afc: 0.064, avc: 0.199, atc: 0.263, mc: 0.367 },
-  { q: 1920, afc: 0.056, avc: 0.232, atc: 0.288, mc: 0.462 }
+  { q: 960,  afc: 0.113, avc: 0.130, atc: 0.243 },
+  { q: 1200, afc: 0.090, avc: 0.148, atc: 0.238 },
+  { q: 1440, afc: 0.075, avc: 0.171, atc: 0.246 },
+  { q: 1680, afc: 0.064, avc: 0.199, atc: 0.263 },
+  { q: 1920, afc: 0.056, avc: 0.232, atc: 0.288 }
+];
+
+const MC_INTERVALS = [
+  { from: 960,  to: 1200, tcFrom: 233.00, tcTo: 285.50, mc: 0.219 },
+  { from: 1200, to: 1440, tcFrom: 285.50, tcTo: 354.12, mc: 0.286 },
+  { from: 1440, to: 1680, tcFrom: 354.12, tcTo: 442.21, mc: 0.367 },
+  { from: 1680, to: 1920, tcFrom: 442.21, tcTo: 553.10, mc: 0.462 }
 ];
 
 const PROFIT_TABLE = COST_TABLE.map(r => ({
@@ -4131,6 +4283,7 @@ let state = {
   obj2Step: 1,
   tcVerified: {},    // row index -> true
   avgVerified: {},
+  mcIntervalVerified: {},
   trVerified: {},    // row index -> true (TR column in profit table)
   profitVerified: {},
   decisionVerified: {},
@@ -4267,7 +4420,7 @@ updateThemeToggleLabel();
 const HAMMOND_INTRO = [
   `*static crackle* Field Agent Hammond reporting in. Made it through the chimney — barely. Ledger data secured. Transmitting to terminal now.`,
   `*transmission ends* This is N.I.B.B.L.E.S. — Neural Intelligence Built for Briefings, Logistics & Economic Support. I have received Hammond's field data and loaded it into the AXIOM terminal.`,
-  `You will complete Objectives 1 and 2 here in the terminal. After each step, return to the mission memo in Canvas to answer the matching questions. When terminal work is complete, follow the numbered checklist: Canvas questions 19–33, then download your final report and upload the PDF on question 34.`,
+  `You will complete Objectives 1 and 2 here in the terminal. After each step, return to the mission memo in Canvas to answer the matching questions. When terminal work is complete, follow the numbered checklist: Canvas questions 19 through 33, then download your final report and upload the PDF on question 34.`,
   `Start with Objective 1, Step 1 — classify each expense as Fixed or Variable. If you need to leave, download a save file with ⬇ SAVE CHECKPOINT before you exit.`
 ];
 
@@ -4951,7 +5104,7 @@ function restoreMissionCalloutsFromState() {
   if (Object.keys(state.tcVerified).length === COST_TABLE.length) {
     revealMissionCallout('canvas-prompt-3');
   }
-  if (AVG_TABLE.every((_, i) => avgRowDone(i))) {
+  if (AVG_TABLE.every((_, i) => avgCostsRowDone(i)) && MC_INTERVALS.every((_, j) => mcIntervalDone(j))) {
     revealMissionCallout('canvas-prompt-4');
   }
   if (state.verified.mr) {
@@ -4993,7 +5146,7 @@ function checkClassification() {
     hammondMsg("*ecstatic hamster chatter* PERFECT! All 9 expenses correctly classified! Fixed costs stay constant; variable costs move with output. Now let's quantify them.", 'success', 400);
     revealMissionCallout('canvas-prompt-1');
     showSaveReminderStrip();
-    setTimeout(() => hammondMsg("Objective 1, Step 2 is unlocked. Answer questions 1–2 in Canvas when ready, then calculate FC, VC, TC, and baseline output (960 bottles per month).", 'info'), 2200);
+    setTimeout(() => hammondMsg("Objective 1, Step 2 is unlocked. Answer questions 1 through 2 in Canvas when ready, then calculate FC, VC, TC, and baseline output (960 bottles per month).", 'info'), 2200);
     updateFieldPulse();
   } else {
     const attempt = (state.checks['classify'] || 0) + 1;
@@ -5064,8 +5217,9 @@ function missionInputOrder() {
     'inp-fc', 'inp-vc', 'inp-tc', 'inp-output',
     ...COST_TABLE.map((_, i) => `tc-${i}`),
     ...AVG_TABLE.flatMap((_, i) => {
-      const isFirst = i === 0;
-      return isFirst ? [`afc-${i}`, `avc-${i}`, `atc-${i}`] : [`afc-${i}`, `avc-${i}`, `atc-${i}`, `mc-${i}`];
+      const ids = [`afc-${i}`, `avc-${i}`, `atc-${i}`];
+      if (i < MC_INTERVALS.length) ids.push(`mc-interval-${i}`);
+      return ids;
     }),
     'inp-mr',
     ...PROFIT_TABLE.flatMap((_, i) => [`tr-${i}`, `profit-${i}`]),
@@ -5107,8 +5261,10 @@ function verifyMissionInput(el) {
   if (id.startsWith('inp-')) return checkInput(id.slice(4));
   const tcM = id.match(/^tc-(\d+)$/);
   if (tcM) return checkTCRow(+tcM[1]);
-  const avgM = id.match(/^(afc|avc|atc|mc)-(\d+)$/);
+  const avgM = id.match(/^(afc|avc|atc)-(\d+)$/);
   if (avgM) return checkAvgField(+avgM[2], avgM[1]);
+  const mcM = id.match(/^mc-interval-(\d+)$/);
+  if (mcM) return checkMcInterval(+mcM[1]);
   const trM = id.match(/^tr-(\d+)$/);
   if (trM) return checkTRRow(+trM[1]);
   const profitM = id.match(/^profit-(\d+)$/);
@@ -5178,7 +5334,7 @@ function checkInput(field) {
       refreshChartA();
       scrollToUnlock('step-profit-title');
       revealMissionCallout('canvas-prompt-5');
-      hammondMsg('*nods at Chart B* MR verified. Answer questions 16–18 in Canvas, then continue to Step 2 — calculate profit at different outputs.', 'info', 700);
+      hammondMsg('*nods at Chart B* MR verified. Answer questions 16 through 18 in Canvas, then continue to Step 2 — calculate profit at different outputs.', 'info', 700);
     }
     updateFieldPulse();
     return true;
@@ -5204,7 +5360,7 @@ function checkBaselineComplete() {
     document.getElementById('step3-section').style.display = 'block';
     scrollToUnlock('step3-title');
     revealMissionCallout('canvas-prompt-2');
-    hammondMsg("*spins excited wheel* Baseline costs confirmed at 960 bottles per month. Answer questions 3–5 in Canvas, then continue to Step 3 — calculate total cost across output levels.", 'info', 600);
+    hammondMsg("*spins excited wheel* Baseline costs confirmed at 960 bottles per month. Answer questions 3 through 5 in Canvas, then continue to Step 3 — calculate total cost across output levels.", 'info', 600);
     updateFieldPulse();
   }
 }
@@ -5212,16 +5368,30 @@ function checkBaselineComplete() {
 // ============================================================
 // COST TABLE
 // ============================================================
+function tableFieldHtml({ inputId, statusId, ariaLabel, disabled = false, inputmode = 'decimal', wide = false }) {
+  const dis = disabled ? ' disabled' : '';
+  const wideCls = wide ? ' table-input--wide' : '';
+  return `<div class="table-field-wrap">
+    <input class="table-input${wideCls}" id="${inputId}" type="text" inputmode="${inputmode}" placeholder="?" aria-label="${ariaLabel}"${dis}>
+    <span class="table-field-status" id="${statusId}" role="status" aria-live="polite"></span>
+  </div>`;
+}
+
 function buildCostTable() {
   const tbody = document.getElementById('cost-table-body');
   COST_TABLE.forEach((row, i) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td>${row.q}</td>
-      <td class="autofilled">$${row.fc.toFixed(2)}</td>
-      <td class="autofilled">$${row.vc.toFixed(2)}</td>
-      <td><input class="table-input" id="tc-${i}" type="text" inputmode="text" placeholder="?" aria-label="Total cost at output ${row.q} bottles"></td>
-      <td id="tc-status-${i}" role="status" aria-live="polite" aria-label="Verification status for total cost at ${row.q}"></td>`;
+      <td class="col-q col-group-end">${row.q}</td>
+      <td class="autofilled col-group-end">$${row.fc.toFixed(2)}</td>
+      <td class="autofilled col-group-end">$${row.vc.toFixed(2)}</td>
+      <td>${tableFieldHtml({
+        inputId: `tc-${i}`,
+        statusId: `tc-status-${i}`,
+        ariaLabel: `Total cost at output ${row.q} bottles`,
+        inputmode: 'text',
+        wide: true
+      })}</td>`;
     tbody.appendChild(tr);
     totalVerifiable++;
   });
@@ -5269,8 +5439,8 @@ function checkTCTableComplete() {
     initChartA();
     scrollToUnlock('step4-title');
     revealMissionCallout('canvas-prompt-3');
-    hammondMsg("*gleeful hamster chatter* TC table complete! Answer questions 6–7 in Canvas, then continue to Steps 4–6 — average cost, marginal cost, and cost patterns.", 'success', 600);
-    setTimeout(() => hammondMsg("Steps 4–6 cover average costs, marginal cost, and Chart A patterns for Canvas questions 8–15. Round to 3 decimal places. MC for Q = 960 is N/A.", 'info'), 2200);
+    hammondMsg("*gleeful hamster chatter* TC table complete! Answer questions 6 through 7 in Canvas, then continue to Steps 4 through 6 — average cost, marginal cost, and cost patterns.", 'success', 600);
+    setTimeout(() => hammondMsg("Steps 4 through 6 cover average costs, marginal cost, and Chart A patterns for Canvas questions 8 through 15. Round to 3 decimal places. Enter MC in the MC column on each › line between output rows.", 'info'), 2200);
     updateFieldPulse();
   }
 }
@@ -5281,27 +5451,55 @@ function checkTCTableComplete() {
 function buildAvgTable() {
   const tbody = document.getElementById('avg-table-body');
   AVG_TABLE.forEach((row, i) => {
-    const isFirst = i === 0;
     const tr = document.createElement('tr');
+    tr.className = 'avg-q-row';
     tr.innerHTML = `
-      <td>${row.q}</td>
-      <td><input class="table-input" id="afc-${i}" type="text" inputmode="decimal" placeholder="?" aria-label="Average fixed cost at output ${row.q}"></td>
-      <td class="field-status-cell"><span id="avg-status-afc-${i}" role="status" aria-live="polite"></span></td>
-      <td><input class="table-input" id="avc-${i}" type="text" inputmode="decimal" placeholder="?" aria-label="Average variable cost at output ${row.q}"></td>
-      <td class="field-status-cell"><span id="avg-status-avc-${i}" role="status" aria-live="polite"></span></td>
-      <td><input class="table-input" id="atc-${i}" type="text" inputmode="decimal" placeholder="?" aria-label="Average total cost at output ${row.q}"></td>
-      <td class="field-status-cell"><span id="avg-status-atc-${i}" role="status" aria-live="polite"></span></td>
-      <td>${isFirst ? '<input class="table-input" value="N/A" disabled style="color:var(--text-dim);width:60px" aria-label="Marginal cost not applicable at output 960">' : `<input class="table-input" id="mc-${i}" type="text" inputmode="decimal" placeholder="?" aria-label="Marginal cost at output ${row.q}">`}</td>
-      <td class="field-status-cell"><span id="avg-status-mc-${i}" role="status" aria-live="polite">${isFirst ? '<span style="color:var(--text-dim)" aria-hidden="true">—</span>' : ''}</span></td>`;
+      <td class="col-q col-group-end">${row.q.toLocaleString()}</td>
+      <td class="col-group-end">${tableFieldHtml({ inputId: `afc-${i}`, statusId: `avg-status-afc-${i}`, ariaLabel: `Average fixed cost at output ${row.q}` })}</td>
+      <td class="col-group-end">${tableFieldHtml({ inputId: `avc-${i}`, statusId: `avg-status-avc-${i}`, ariaLabel: `Average variable cost at output ${row.q}` })}</td>
+      <td class="col-group-end">${tableFieldHtml({ inputId: `atc-${i}`, statusId: `avg-status-atc-${i}`, ariaLabel: `Average total cost at output ${row.q}` })}</td>
+      <td class="col-mc avg-mc-empty" aria-hidden="true"></td>`;
     tbody.appendChild(tr);
-    totalVerifiable += isFirst ? 3 : 4;
+    totalVerifiable += 3;
+
+    const interval = MC_INTERVALS[i];
+    if (interval) {
+      const bridge = document.createElement('tr');
+      bridge.className = 'avg-mc-interval-row';
+      bridge.innerHTML = `
+        <td colspan="4" class="avg-mc-gap" aria-hidden="true"></td>
+        <td class="col-mc avg-mc-entry-cell">
+          <div class="avg-mc-entry" role="group" aria-label="Marginal cost from ${interval.from} to ${interval.to} bottles">
+            <span class="avg-mc-marker" aria-hidden="true">›</span>
+            ${tableFieldHtml({
+              inputId: `mc-interval-${i}`,
+              statusId: `mc-interval-status-${i}`,
+              ariaLabel: `Marginal cost from ${interval.from} to ${interval.to} bottles`
+            })}
+          </div>
+        </td>`;
+      tbody.appendChild(bridge);
+      totalVerifiable += 1;
+    }
   });
+}
+
+function avgCostsRowDone(i) {
+  return ['afc', 'avc', 'atc'].every(f => state.avgVerified[i]?.[f]);
+}
+
+function mcIntervalDone(j) {
+  return !!state.mcIntervalVerified[j];
+}
+
+function isAvgTableFullyComplete() {
+  return AVG_TABLE.every((_, i) => avgCostsRowDone(i))
+    && MC_INTERVALS.every((_, j) => mcIntervalDone(j));
 }
 
 function checkAvgField(i, field) {
   if (state.avgVerified[i] && state.avgVerified[i][field]) return true;
   const row = AVG_TABLE[i];
-  const isFirst = i === 0;
   const tol = 0.006;
   const answer = row[field];
   const inp = document.getElementById(`${field}-${i}`);
@@ -5325,8 +5523,7 @@ function checkAvgField(i, field) {
     updateProgress();
     hammondMsg(SUCCESS_MSGS[Math.floor(Math.random() * SUCCESS_MSGS.length)], 'success', 200);
     refreshChartA();
-    const fieldsNeeded = isFirst ? ['afc', 'avc', 'atc'] : ['afc', 'avc', 'atc', 'mc'];
-    if (fieldsNeeded.every(f => state.avgVerified[i]?.[f])) checkAvgTableComplete();
+    if (avgCostsRowDone(i)) checkAvgTableComplete();
     updateFieldPulse();
     return true;
   }
@@ -5335,14 +5532,58 @@ function checkAvgField(i, field) {
   setTimeout(() => inp.classList.remove('incorrect'), 500);
   setVerifyStatusIcon(statusEl, false, `${field.toUpperCase()} at ${row.q} incorrect`);
   const costRow = COST_TABLE[i];
-  const prevRow = i > 0 ? COST_TABLE[i - 1] : null;
   triggerHammond('avg', field, {
     Q: row.q,
     FC: costRow ? costRow.fc.toFixed(2) : '',
     VC: costRow ? costRow.vc.toFixed(2) : '',
     TC: costRow ? costRow.tc.toFixed(2) : '',
-    prevTC: prevRow ? prevRow.tc.toFixed(2) : '',
-    prevQ: prevRow ? prevRow.q : ''
+    prevTC: '',
+    prevQ: ''
+  }, attempts);
+  inp.focus();
+  inp.select();
+  return false;
+}
+
+function checkMcInterval(j) {
+  if (state.mcIntervalVerified[j]) return true;
+  const interval = MC_INTERVALS[j];
+  const tol = 0.006;
+  const inp = document.getElementById(`mc-interval-${j}`);
+  const statusEl = document.getElementById(`mc-interval-status-${j}`);
+  if (!inp || inp.disabled) return false;
+
+  const val = parseMathInput(inp.value);
+  const correct = !isNaN(val) && Math.abs(val - interval.mc) <= tol;
+
+  const attemptKey = `mc-interval-${j}`;
+  const attempts = (state.checks[attemptKey] || 0) + 1;
+  state.checks[attemptKey] = attempts;
+
+  if (correct) {
+    inp.value = interval.mc.toFixed(3);
+    inp.classList.add('correct');
+    inp.disabled = true;
+    setVerifyStatusIcon(statusEl, true, `MC from ${interval.from} to ${interval.to} verified`);
+    state.mcIntervalVerified[j] = true;
+    updateProgress();
+    hammondMsg(SUCCESS_MSGS[Math.floor(Math.random() * SUCCESS_MSGS.length)], 'success', 200);
+    refreshChartA();
+    checkAvgTableComplete();
+    updateFieldPulse();
+    return true;
+  }
+
+  inp.classList.add('incorrect');
+  setTimeout(() => inp.classList.remove('incorrect'), 500);
+  setVerifyStatusIcon(statusEl, false, `MC from ${interval.from} to ${interval.to} incorrect`);
+  triggerHammond('avg', 'mc', {
+    Q: interval.to,
+    prevQ: interval.from,
+    TC: interval.tcTo.toFixed(2),
+    prevTC: interval.tcFrom.toFixed(2),
+    FC: '',
+    VC: ''
   }, attempts);
   inp.focus();
   inp.select();
@@ -5351,24 +5592,21 @@ function checkAvgField(i, field) {
 
 // Keep checkAvgRow as a convenience alias for dev autofill
 function checkAvgRow(i) {
-  const isFirst = i === 0;
-  const fields = isFirst ? ['afc', 'avc', 'atc'] : ['afc', 'avc', 'atc', 'mc'];
-  fields.forEach(f => checkAvgField(i, f));
+  ['afc', 'avc', 'atc'].forEach(f => checkAvgField(i, f));
+  if (i < MC_INTERVALS.length) checkMcInterval(i);
 }
 
 function avgRowDone(i) {
-  const isFirst = i === 0;
-  const fields = isFirst ? ['afc', 'avc', 'atc'] : ['afc', 'avc', 'atc', 'mc'];
-  return fields.every(f => state.avgVerified[i]?.[f]);
+  return avgCostsRowDone(i) && (i >= MC_INTERVALS.length || mcIntervalDone(i));
 }
 
 function checkAvgTableComplete() {
-  if (AVG_TABLE.every((_, i) => avgRowDone(i))) {
+  if (isAvgTableFullyComplete()) {
     document.getElementById('obj-2').style.display = '';
     scrollToUnlock('obj-2');
     revealMissionCallout('canvas-prompt-4');
-    hammondMsg("*does a celebratory hamster run* All cost calculations verified! Answer questions 8–15 in Canvas using your table and Chart A, then begin Objective 2 here.", 'success', 600);
-    setTimeout(() => hammondMsg("Objective 2, Step 1: enter the market price per bottle. Chart B unlocks after MR is verified — use it for Canvas questions 16–18.", 'info'), 2500);
+    hammondMsg("*does a celebratory hamster run* All cost calculations verified! Answer questions 8 through 15 in Canvas using your table and Chart A, then begin Objective 2 here.", 'success', 600);
+    setTimeout(() => hammondMsg("Objective 2, Step 1: enter the market price per bottle. Chart B unlocks after MR is verified — use it for Canvas questions 16 through 18.", 'info'), 2500);
   }
 }
 
@@ -5380,12 +5618,21 @@ function buildProfitTable() {
   PROFIT_TABLE.forEach((row, i) => {
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td>${row.q}</td>
-      <td class="autofilled">$${row.tc.toFixed(2)}</td>
-      <td><input class="table-input" id="tr-${i}" type="text" inputmode="decimal" placeholder="?" aria-label="Total revenue at output ${row.q}"></td>
-      <td class="field-status-cell"><span id="tr-status-${i}" role="status" aria-live="polite"></span></td>
-      <td><input class="table-input" id="profit-${i}" type="text" inputmode="decimal" placeholder="?" disabled aria-label="Profit at output ${row.q}. Verify total revenue first."></td>
-      <td class="field-status-cell"><span id="profit-status-${i}" role="status" aria-live="polite"></span></td>`;
+      <td class="col-q col-group-end">${row.q}</td>
+      <td class="autofilled col-group-end">$${row.tc.toFixed(2)}</td>
+      <td class="col-group-end">${tableFieldHtml({
+        inputId: `tr-${i}`,
+        statusId: `tr-status-${i}`,
+        ariaLabel: `Total revenue at output ${row.q}`,
+        wide: true
+      })}</td>
+      <td>${tableFieldHtml({
+        inputId: `profit-${i}`,
+        statusId: `profit-status-${i}`,
+        ariaLabel: `Profit at output ${row.q}. Verify total revenue first.`,
+        disabled: true,
+        wide: true
+      })}</td>`;
     tbody.appendChild(tr);
     totalVerifiable += 2; // TR + Profit each count
   });
@@ -5468,7 +5715,7 @@ function checkProfitRow(i) {
 function checkProfitTableComplete() {
   if (Object.keys(state.profitVerified).length === PROFIT_TABLE.length) {
     hammondMsg("*scans the completed profit column* All revenue and profit values verified. Terminal Objectives 1 and 2 are complete.", 'success', 600);
-    setTimeout(() => hammondMsg("Follow the numbered steps below: answer questions 19–20 in Canvas, complete Objective 3 (21–33), then download your final report.", 'info'), 2500);
+    setTimeout(() => hammondMsg("Follow the numbered steps below: answer questions 19 through 20 in Canvas, complete Objective 3 (21 through 33), then download your final report.", 'info'), 2500);
     setTimeout(() => {
       document.getElementById('mission-complete-wrap').style.display = 'block';
       scrollToUnlock('mission-complete-wrap');
@@ -5481,7 +5728,7 @@ function checkProfitTableComplete() {
 // PROGRESS & NAVIGATION HELPERS
 // ============================================================
 function missionVerifiableTotal() {
-  const avgTotal = AVG_TABLE.length > 0 ? 3 + (AVG_TABLE.length - 1) * 4 : 0;
+  const avgTotal = AVG_TABLE.length > 0 ? AVG_TABLE.length * 3 + MC_INTERVALS.length : 0;
   return 1 + 5 + COST_TABLE.length + avgTotal + (PROFIT_TABLE.length * 2);
 }
 
@@ -5491,6 +5738,7 @@ function missionVerifiedCount() {
   ['fc', 'vc', 'tc', 'output', 'mr'].forEach(f => { if (state.verified[f]) count++; });
   count += Object.keys(state.tcVerified).length;
   count += Object.values(state.avgVerified).reduce((s, v) => s + (typeof v === 'object' ? Object.keys(v).length : 0), 0);
+  count += Object.keys(state.mcIntervalVerified || {}).length;
   count += Object.keys(state.trVerified || {}).length;
   count += Object.keys(state.profitVerified).length;
   return count;
@@ -5959,7 +6207,7 @@ function buildChartAOptions() {
 }
 
 // Smooth dataset — dense equation curve (Q≈5…2040), hoverable along the line
-function smoothDs(label, color, data, borderWidth, dash) {
+function smoothDs(label, color, data, borderWidth, dash, tension = 0.4) {
   return {
     label,
     data,
@@ -5970,26 +6218,33 @@ function smoothDs(label, color, data, borderWidth, dash) {
     pointRadius: 0,
     pointHitRadius: 14,
     showLine: true,
-    tension: 0.4
+    tension
   };
 }
 
 // Verified table rows → scatter overlay (optional comparison markers)
 function avgPoints(field) {
+  if (field === 'mc') {
+    return MC_INTERVALS
+      .map((interval, j) => {
+        if (!mcIntervalDone(j)) return null;
+        return { x: interval.to, y: interval.mc };
+      })
+      .filter(Boolean);
+  }
   return AVG_TABLE
     .map((r, i) => {
-      if (!avgRowDone(i)) return null;
-      if (field === 'mc' && i === 0) return null;
+      if (!avgCostsRowDone(i)) return null;
       return { x: r.q, y: r[field] };
     })
     .filter(Boolean);
 }
 
 function isAvgSeriesComplete(field) {
-  return AVG_TABLE.every((_, i) => {
-    if (field === 'mc' && i === 0) return true;
-    return !!state.avgVerified[i]?.[field];
-  });
+  if (field === 'mc') {
+    return MC_INTERVALS.every((_, j) => mcIntervalDone(j));
+  }
+  return AVG_TABLE.every((_, i) => !!state.avgVerified[i]?.[field]);
 }
 
 function isTCTableComplete() {
@@ -6492,7 +6747,7 @@ const TUT_STATION_MSGS = [
   `*ready at keyboard* Station 3 — type a value, press VERIFY or Enter. Arrow keys move between fields in the mission. Green locks in; red means try again.`,
   `*points at header* Station 4 — the Field Calculator. The ⊞ CALCULATOR button in the mission header is always available. Calculate inside it, then enter the result in the answer field.`,
   `*gestures at this panel* Station 5 — I send escalating hints when you miss. In the mission I will not give away answers — and I will pulse the Field Briefing button if you are stuck.`,
-  `*holds up tiny USB drive* Station 6 — save files let you pause mid-mission. Download before you exit. When terminal analysis is complete, follow the numbered steps: Canvas 19–33, download your final report, upload the PDF on question 34, and keep the .json backup.`,
+  `*holds up tiny USB drive* Station 6 — save files let you pause mid-mission. Download before you exit. When terminal analysis is complete, follow the numbered steps: Canvas 19 through 33, download your final report, upload the PDF on question 34, and keep the .json backup.`,
 ];
 
 const TUT_TOTAL = 6;
@@ -6757,7 +7012,7 @@ function tutAckCheckpoint() {
   document.getElementById('tut-s6-done').style.display = 'block';
   document.getElementById('progress-title').textContent = '▸ TRAINING COMPLETE';
   setMissionProgressPct(100, 'Training complete');
-  hammondMsg(`*logs training record* Confirmed. Mid-mission: ⬇ SAVE CHECKPOINT before you leave. At mission complete, follow the numbered steps: Canvas questions 19–20, Objective 3 (21–33), download the final report, upload the PDF on question 34, and keep the .json backup.`, 'success', 300);
+  hammondMsg(`*logs training record* Confirmed. Mid-mission: ⬇ SAVE CHECKPOINT before you leave. At mission complete, follow the numbered steps: Canvas questions 19 through 20, Objective 3 (21 through 33), download the final report, upload the PDF on question 34, and keep the .json backup.`, 'success', 300);
   updateTutActionPulse();
 }
 
@@ -6784,10 +7039,10 @@ function collectInputValues() {
       const el = document.getElementById(`${f}-${i}`);
       if (el) values[`${f}-${i}`] = el.value;
     });
-    if (i > 0) {
-      const el = document.getElementById(`mc-${i}`);
-      if (el) values[`mc-${i}`] = el.value;
-    }
+  });
+  MC_INTERVALS.forEach((_, j) => {
+    const el = document.getElementById(`mc-interval-${j}`);
+    if (el) values[`mc-interval-${j}`] = el.value;
   });
   // Profit table — TR and Profit inputs
   PROFIT_TABLE.forEach((_, i) => {
@@ -6841,7 +7096,7 @@ function currentStepLabel() {
   if (!state.verified?.tc)     return 'Obj1_Step2';
   if (state.obj1Step < 2)      return 'Obj1_Step2';
   if (state.obj1Step < 3)      return 'Obj1_Step3';
-  if (!AVG_TABLE.every((_, i) => avgRowDone(i))) return 'Obj1_Step4';
+  if (!isAvgTableFullyComplete()) return 'Obj1_Step4';
   if (!state.verified?.mr)     return 'Obj2_Step1';
   if (Object.keys(state.profitVerified).length < PROFIT_TABLE.length) return 'Obj2_Step2';
   return 'Complete';
@@ -6866,6 +7121,7 @@ async function saveCheckpoint(isFinal = false) {
       verified:         state.verified,
       tcVerified:       state.tcVerified,
       avgVerified:      state.avgVerified,
+      mcIntervalVerified: state.mcIntervalVerified,
       trVerified:       state.trVerified || {},
       profitVerified:   state.profitVerified,
       obj1Step:         state.obj1Step,
@@ -7010,6 +7266,12 @@ function _applyCheckpointData(data, event) {
     const el = document.getElementById(id);
     if (el && !el.disabled) el.value = val;
   });
+  // Legacy checkpoint: mc-1…mc-4 → mc-interval-0…3
+  for (let i = 1; i < AVG_TABLE.length; i++) {
+    const legacy = vals[`mc-${i}`];
+    const modern = document.getElementById(`mc-interval-${i - 1}`);
+    if (legacy != null && modern && !modern.value) modern.value = legacy;
+  }
 
   // Re-run all verifications to restore visual state
   restoreVerifiedState(data.state);
@@ -7066,22 +7328,39 @@ function restoreVerifiedState(savedState) {
     initChartA();
   }
 
-  // Step 4 AVG rows — per-field
+  // Step 4 AVG rows — per-field (legacy saves may store mc on avgVerified rows)
+  state.mcIntervalVerified = { ...(savedState.mcIntervalVerified || {}) };
+  Object.entries(savedState.avgVerified || {}).forEach(([i, fields]) => {
+    if (fields?.mc && +i > 0 && !state.mcIntervalVerified[+i - 1]) {
+      state.mcIntervalVerified[+i - 1] = true;
+    }
+  });
   Object.entries(savedState.avgVerified || {}).forEach(([i, fields]) => {
     if (typeof fields !== 'object') return;
     Object.keys(fields).forEach(f => {
+      if (f === 'mc') return;
       const inp = document.getElementById(`${f}-${i}`);
       const statusEl = document.getElementById(`avg-status-${f}-${i}`);
       if (inp) { inp.classList.add('correct'); inp.disabled = true; }
       if (statusEl) statusEl.innerHTML = '<span style="color:var(--color-positive)">✓</span>';
     });
   });
+  Object.keys(state.mcIntervalVerified).forEach(j => {
+    const inp = document.getElementById(`mc-interval-${j}`);
+    const statusEl = document.getElementById(`mc-interval-status-${j}`);
+    if (inp) { inp.classList.add('correct'); inp.disabled = true; }
+    if (statusEl) statusEl.innerHTML = '<span style="color:var(--color-positive)">✓</span>';
+  });
 
   // Obj 2 — show section if avg table was complete
-  if (AVG_TABLE.every((_, i) => {
-    const fields = i === 0 ? ['afc','avc','atc'] : ['afc','avc','atc','mc'];
-    return fields.every(f => savedState.avgVerified?.[i]?.[f]);
-  })) {
+  const savedAvgComplete = AVG_TABLE.every((_, i) =>
+    ['afc', 'avc', 'atc'].every(f => savedState.avgVerified?.[i]?.[f])
+  ) && MC_INTERVALS.every((_, j) =>
+    state.mcIntervalVerified[j]
+    || savedState.mcIntervalVerified?.[j]
+    || savedState.avgVerified?.[j + 1]?.mc
+  );
+  if (savedAvgComplete) {
     document.getElementById('obj-2').style.display = '';
   }
 
@@ -7446,7 +7725,7 @@ function devCurrentMilestone() {
   const baseline = ['fc', 'vc', 'tc', 'output'];
   if (!baseline.every(f => state.verified[f])) return 1;
   if (Object.keys(state.tcVerified).length < COST_TABLE.length) return 2;
-  if (!AVG_TABLE.every((_, i) => avgRowDone(i))) return 3;
+  if (!isAvgTableFullyComplete()) return 3;
   if (!state.verified.mr) return 4;
   if (Object.keys(state.profitVerified).length < PROFIT_TABLE.length) return 5;
   return 6;
@@ -7558,18 +7837,18 @@ function devRewindToMilestone(target) {
   if (target < 4) {
     document.getElementById('obj-2').style.display = 'none';
     state.avgVerified = {};
+    state.mcIntervalVerified = {};
     AVG_TABLE.forEach((row, i) => {
-      const isFirst = i === 0;
       ['afc', 'avc', 'atc'].forEach(f => {
         devResetInput(document.getElementById(`${f}-${i}`));
         devClearStatus(document.getElementById(`avg-status-${f}-${i}`));
         delete state.checks[`avg-${i}-${f}`];
       });
-      if (!isFirst) {
-        devResetInput(document.getElementById(`mc-${i}`));
-        devClearStatus(document.getElementById(`avg-status-mc-${i}`));
-        delete state.checks[`avg-${i}-mc`];
-      }
+    });
+    MC_INTERVALS.forEach((_, j) => {
+      devResetInput(document.getElementById(`mc-interval-${j}`));
+      devClearStatus(document.getElementById(`mc-interval-status-${j}`));
+      delete state.checks[`mc-interval-${j}`];
     });
     refreshChartA();
   }
@@ -7677,25 +7956,30 @@ function devFillStep4() {
   devAdvanceToMilestone(4, () => {
     if (Object.keys(state.tcVerified).length < COST_TABLE.length) devFillStep3();
     AVG_TABLE.forEach((row, i) => {
-      if (avgRowDone(i)) return;
-      const isFirst = i === 0;
-      ['afc', 'avc', 'atc'].forEach(f => {
-        const inp = document.getElementById(`${f}-${i}`);
-        if (inp) inp.value = row[f].toFixed(3);
-      });
-      if (!isFirst) {
-        const mc = document.getElementById(`mc-${i}`);
-        if (mc) mc.value = row.mc.toFixed(3);
+      if (!avgCostsRowDone(i)) {
+        ['afc', 'avc', 'atc'].forEach(f => {
+          const inp = document.getElementById(`${f}-${i}`);
+          if (inp) inp.value = row[f].toFixed(3);
+        });
       }
-      checkAvgRow(i);
     });
+    MC_INTERVALS.forEach((interval, j) => {
+      if (!mcIntervalDone(j)) {
+        const mc = document.getElementById(`mc-interval-${j}`);
+        if (mc) mc.value = interval.mc.toFixed(3);
+      }
+    });
+    AVG_TABLE.forEach((_, i) => {
+      ['afc', 'avc', 'atc'].forEach(f => checkAvgField(i, f));
+    });
+    MC_INTERVALS.forEach((_, j) => checkMcInterval(j));
   });
 }
 
 // ---- Dev: autofill Obj 2 Step 1 (MR) ----
 function devFillObj2Step1() {
   devAdvanceToMilestone(5, () => {
-    if (!AVG_TABLE.every((_, i) => avgRowDone(i))) devFillStep4();
+    if (!isAvgTableFullyComplete()) devFillStep4();
     if (!state.verified.mr) {
       const inp = document.getElementById('inp-mr');
       if (inp) { inp.value = BASELINE_ANSWERS.mr; checkInput('mr'); }
@@ -8038,20 +8322,29 @@ async function generateFinalReport(triggerBtn) {
   y += 2;
 
   sectionTitle(
-    'Objective 1 · Steps 4–6 — Average Cost, Marginal Cost, and Cost Patterns',
-    'Per-unit costs rounded to three decimal places. MC is not defined at Q = 960.'
+    'Objective 1 · Steps 4 through 6 — Average Cost, Marginal Cost, and Cost Patterns',
+    'Per-unit costs rounded to three decimal places. MC is calculated on each interval between output levels.'
   );
-  const avW = [colW * 0.14, colW * 0.215, colW * 0.215, colW * 0.215, colW * 0.215];
-  tableRow(['Q', 'AFC ($)', 'AVC ($)', 'ATC ($)', 'MC ($)'], avW, true);
+  const avW = [colW * 0.16, colW * 0.17, colW * 0.17, colW * 0.17, colW * 0.17];
+  tableRow(['Q / Interval', 'AFC ($)', 'AVC ($)', 'ATC ($)', 'MC ($)'], avW, true);
   AVG_TABLE.forEach((row, i) => {
-    const isFirst = i === 0;
     tableRow([
       row.q,
       fmtDec(inpVal(`afc-${i}`), 3),
       fmtDec(inpVal(`avc-${i}`), 3),
       fmtDec(inpVal(`atc-${i}`), 3),
-      isFirst ? 'N/A' : fmtDec(inpVal(`mc-${i}`), 3),
+      '',
     ], avW, false);
+    const interval = MC_INTERVALS[i];
+    if (interval) {
+      tableRow([
+        `${interval.from} through ${interval.to}`,
+        '',
+        '',
+        '',
+        fmtDec(inpVal(`mc-interval-${i}`), 3),
+      ], avW, false);
+    }
   });
   embedChart(
     'chartA',
