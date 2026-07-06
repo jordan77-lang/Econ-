@@ -3604,7 +3604,7 @@
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>The table shows <span class="instr-highlight">5 output levels (Q)</span> from the mission analysis: 960, 1,180, 1,200, 1,440, and 1,920 bottles per month. For each row, calculate <span class="instr-highlight">TC = FC + VC</span> and enter it in the "Your TC" column.</p>
+              <p>The table shows <span class="instr-highlight">5 output levels (Q)</span> from the mission analysis: 960, 1,200, 1,440, 1,680, and 1,920 bottles per month. For each row, calculate <span class="instr-highlight">TC = FC + VC</span> and enter it in the "Your TC" column.</p>
 
               <h4>The Formula</h4>
               <div class="instr-example">
@@ -3714,7 +3714,7 @@
                 <li>Formula: MC = (TC at this row − TC at previous row) ÷ (Q at this row − Q at previous row)</li>
                 <li>The <span class="instr-highlight">first row (Q = 960) has no previous row</span>, so MC is N/A — that cell is already disabled.</li>
                 <li>Every other row has a MC value to calculate.</li>
-                <li>The <span class="instr-highlight">Q = 1,180 row</span> sits just below profit-max output. Your table MC at Q = 1,200 is ΔTC ÷ ΔQ over the last 20 bottles — slightly below MR ($0.25) because profit is still rising toward the peak.</li>
+                <li>Each interval spans <span class="instr-highlight">240 bottles</span> (960 → 1,200 → 1,440 → 1,680 → 1,920). Your table MC at Q = 1,200 is ΔTC ÷ ΔQ over the prior 240 bottles — slightly below MR ($0.25) because profit is still rising toward the peak.</li>
                 <li>Charts plot a <span class="instr-highlight">smooth MC curve</span> from the same cost equation — Chart B shows where smooth MC crosses MR exactly at Q = 1,200. Chart C shows where AVC crosses the $0.25 price line at high output (short-run shutdown).</li>
               </ul>
 
@@ -4098,18 +4098,18 @@
 // ============================================================
 const COST_TABLE = [
   { q: 960,  fc: 108, vc: 125.00, tc: 233.00 },
-  { q: 1180, fc: 108, vc: 172.56, tc: 280.56 },
   { q: 1200, fc: 108, vc: 177.50, tc: 285.50 },
   { q: 1440, fc: 108, vc: 246.12, tc: 354.12 },
+  { q: 1680, fc: 108, vc: 334.21, tc: 442.21 },
   { q: 1920, fc: 108, vc: 445.10, tc: 553.10 }
 ];
 
 const AVG_TABLE = [
   { q: 960,  afc: 0.113, avc: 0.130, atc: 0.243, mc: null  },
-  { q: 1180, afc: 0.092, avc: 0.146, atc: 0.238, mc: 0.216 },
-  { q: 1200, afc: 0.090, avc: 0.148, atc: 0.238, mc: 0.247 },
+  { q: 1200, afc: 0.090, avc: 0.148, atc: 0.238, mc: 0.219 },
   { q: 1440, afc: 0.075, avc: 0.171, atc: 0.246, mc: 0.286 },
-  { q: 1920, afc: 0.056, avc: 0.232, atc: 0.288, mc: 0.415 }
+  { q: 1680, afc: 0.064, avc: 0.199, atc: 0.263, mc: 0.367 },
+  { q: 1920, afc: 0.056, avc: 0.232, atc: 0.288, mc: 0.462 }
 ];
 
 const PROFIT_TABLE = COST_TABLE.map(r => ({
