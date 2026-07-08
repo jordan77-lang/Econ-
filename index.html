@@ -58,8 +58,8 @@
     --chart-atc: #4D8CFF;
     --chart-avc: #FFB020;
     --chart-afc: #7EC8FF;
-    --chart-mc: #2EE6A8;
-    --chart-mr: #E070FF;
+    --chart-mc: #00E5FF;
+    --chart-mr: #FF4D8D;
     --chart-tc: #FFD966;
     --instr-panel-bg: #020f1c;
     --instr-header-bg: #021624;
@@ -172,8 +172,8 @@
     --chart-atc: #003D8F;
     --chart-avc: #C45100;
     --chart-afc: #006DA3;
-    --chart-mc: #007A5C;
-    --chart-mr: #8B2A9B;
+    --chart-mc: #00796B;
+    --chart-mr: #C2185B;
     --chart-tc: #a67c00;
     --instr-panel-bg: #eef4fa;
     --instr-header-bg: #dce8f4;
@@ -4489,28 +4489,28 @@
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>After classifying expenses in Step 1, calculate how much Parfum du coeur spent to produce its <span class="instr-highlight">baseline output of 960 bottles per month</span> — the operating level just before the firm expanded production.</p>
-              <p>Using your fixed and variable classifications, calculate <span class="instr-highlight">fixed cost (FC)</span>, <span class="instr-highlight">variable cost (VC)</span>, and <span class="instr-highlight">total cost (TC = FC + VC)</span>, and confirm monthly output from the production schedule.</p>
+              <p>After classifying expenses in Step 1, calculate how much Parfum du coeur spent at its <span class="instr-highlight">baseline output of 960 bottles per month</span> — the operating level just before the firm expanded production.</p>
+              <p>Using your fixed and variable classifications, calculate <span class="instr-highlight">fixed cost (FC)</span>, <span class="instr-highlight">variable cost (VC)</span>, and <span class="instr-highlight">total cost (TC = FC + VC)</span>. The baseline output is provided for you.</p>
 
-              <h4>The Four Fields</h4>
+              <h4>Step 2 Inputs</h4>
               <ul>
                 <li><span class="instr-highlight">FC — Fixed Cost:</span> Add up all expenses you classified as Fixed in Step 1. This total stays the same every month regardless of output.</li>
                 <li><span class="instr-highlight">VC — Variable Cost:</span> Add up all expenses you classified as Variable in Step 1. This is the variable cost <em>at the current output level</em> (960 bottles/month).</li>
                 <li><span class="instr-highlight">TC — Total Cost:</span> FC + VC. Total cost is simply the sum of fixed and variable costs.</li>
-                <li><span class="instr-highlight">Output:</span> Calculate monthly bottles from the production schedule below.</li>
+                <li><span class="instr-highlight">Output (Given):</span> Baseline monthly output is provided as <strong>960 bottles</strong> (prior to the demand boom).</li>
               </ul>
 
-              <h4>Production Schedule</h4>
+              <h4>Baseline Output (Given)</h4>
               <div class="instr-example">
-                40 bottles per day &nbsp;×&nbsp; 6 days per week &nbsp;×&nbsp; 4 weeks per month<br>
-                Monthly output = (daily rate) × (days per week) × (weeks per month)
+                Prior to the demand boom, Parfum du coeur produced <strong>960 bottles per month</strong>.<br>
+                In this step, you calculate FC, VC, and TC at that given output level.
               </div>
 
               <h4>How to Enter Answers</h4>
               <ul>
-                <li>Type a number in each field (no $ sign needed) and click <span class="instr-highlight">VERIFY</span> or press Enter.</li>
+                <li>Type a number in each cost field (FC, VC, TC) and click <span class="instr-highlight">VERIFY</span> or press Enter.</li>
                 <li>Green ✓ means correct. Red ✗ means try again — N.I.B.B.L.E.S. will guide you.</li>
-                <li>All four fields must be verified before Step 3 unlocks.</li>
+                <li>All three cost fields must be verified before Step 3 unlocks.</li>
               </ul>
 
               <h4>Before You Exit</h4>
@@ -4521,7 +4521,7 @@
 
               <div class="instr-tip">
                 <span>⬡</span>
-                <span><strong>N.I.B.B.L.E.S. tip:</strong> Scroll back to Step 1 and use the <span class="instr-highlight">⊞ CALCULATOR</span> in the header to add up your fixed expenses and your variable expenses separately. Do not guess — every figure here carries forward into Step 3.</span>
+                <span><strong>N.I.B.B.L.E.S. tip:</strong> Output is already given as 960 bottles/month, so focus your calculations on FC, VC, and TC. Scroll back to Step 1 and use the <span class="instr-highlight">⊞ CALCULATOR</span> in the header to add up your fixed expenses and your variable expenses separately. Do not guess — every figure here carries forward into Step 3.</span>
               </div>
             </div>
           </div>
@@ -4557,9 +4557,8 @@
           <div class="input-group baseline-input-card">
             <label class="input-label" for="inp-output">BASELINE OUTPUT (BOTTLES PER MONTH)</label>
             <div class="input-row">
-              <input class="data-input" id="inp-output" type="text" inputmode="numeric" placeholder="0" autocomplete="off">
-              <button type="button" class="check-btn" onclick="checkInput('output')" aria-label="Verify baseline output">VERIFY</button>
-              <div class="check-status" id="status-output" role="status" aria-live="polite"></div>
+              <input class="data-input" id="inp-output" type="text" inputmode="numeric" value="960" autocomplete="off" disabled aria-label="Baseline output given as 960 bottles per month">
+              <div class="check-status ok" id="status-output" role="status" aria-live="polite">✓ GIVEN</div>
             </div>
           </div>
           </div>
@@ -4568,7 +4567,7 @@
 
           <div class="mission-callout mission-callout--canvas" id="canvas-prompt-2" style="display:none" role="status">
             <div class="mission-callout-label">▸ Return to Canvas</div>
-            <p>Use your verified fixed cost, variable cost, and total cost at 960 bottles to answer <strong>questions 3 through 5</strong> in the mission memo. Then continue to Objective 1, Step 3 in the terminal.</p>
+            <p>Use your verified fixed cost, variable cost, and total cost at the given baseline output of 960 bottles to answer <strong>questions 3 through 5</strong> in the mission memo. Then continue to Objective 1, Step 3 in the terminal.</p>
           </div>
 
           <!-- STEP 3: COST PER OUTPUT TABLE -->
@@ -4693,7 +4692,8 @@
                 <li>Formula: MC = (TC at upper Q − TC at lower Q) ÷ (upper Q − lower Q)</li>
                 <li>After each output row, enter MC in the <span class="instr-highlight">MC column</span> on the line to the next Q — each cell is marked with <strong>›</strong> directly to the left of the input.</li>
                 <li>Each interval spans <span class="instr-highlight">240 bottles</span>. The first interval is 960 through 1,200; MC there ($0.219) is slightly below MR ($0.25) because profit is still rising toward the peak.</li>
-                <li>Charts plot a <span class="instr-highlight">smooth MC curve</span> from the same cost equation — it sweeps upward at low Q and crosses MR at Q = 1,200. Chart C shows where AVC crosses the $0.25 price line at high output (short-run shutdown).</li>
+                <li>Because each MC value is calculated across an interval (not at a single Q), the highlighted MC point for that interval is plotted at the <span class="instr-highlight">midpoint</span> between the two outputs (for example, 1,680 through 1,920 is plotted at Q = 1,800).</li>
+                <li>Charts plot a <span class="instr-highlight">smooth MC curve</span> from the same cost equation — it sweeps upward at low Q and crosses MR at Q = 1,200. The highlighted midpoint dots mark your four calculated MC interval values. Chart C shows where AVC crosses the $0.25 price line at high output (short-run shutdown).</li>
               </ul>
 
               <h4>How to Enter Answers</h4>
@@ -4710,7 +4710,7 @@
 
               <div class="instr-tip">
                 <span>⬡</span>
-                <span><strong>N.I.B.B.L.E.S. tip:</strong> Chart A starts empty. Each curve appears only after you verify <em>every</em> value in that column — AFC, then AVC, then ATC, then MC. Lines extend across the full output range (0 through 2,040 bottles) once a column is complete.</span>
+                <span><strong>N.I.B.B.L.E.S. tip:</strong> Chart A starts empty. Each curve appears only after you verify <em>every</em> value in that column — AFC, then AVC, then ATC, then MC. MC dots are plotted halfway between each output pair because each MC value comes from an interval. Lines extend across the full output range (0 through 2,040 bottles) once a column is complete.</span>
               </div>
             </div>
           </div>
@@ -4759,7 +4759,7 @@
 
           <div id="obj-2" style="display:none">
           <div class="section-intro">
-            ► <strong>Objective 2</strong> — Compare costs and revenue to evaluate profitability. Parfum du coeur operates in a <strong>perfectly competitive</strong> market. The firm is a price taker: it cannot influence the market price. Field reports confirm the prevailing market price is <span class="instr-highlight">$0.25 per bottle</span>. In perfect competition, <strong>Marginal Revenue (MR) = Market Price</strong> at every output level. Complete both steps here, then answer the matching Canvas questions before starting Objective 3.
+            ► <strong>Objective 2</strong> — Compare costs and revenue to evaluate profitability. Parfum du coeur operates in a <strong>perfectly competitive</strong> market. The firm is a price taker: it cannot influence the market price. Field reports confirm the prevailing market price is <span class="instr-highlight">$0.25 per bottle</span>. In perfect competition, <strong>Marginal Revenue (MR) = Market Price</strong> at every output level. Archive notes indicate the pre-boom price was about <span class="instr-highlight">$0.23</span> (near zero economic profit), so this price increase is meaningful but modest. Complete both steps here, then answer the matching Canvas questions before starting Objective 3.
           </div>
           <h2 class="step-title">▸ Objective 2 · Step 1 — Compare Marginal Cost to Marginal Revenue</h2>
 
@@ -4783,7 +4783,7 @@
               </ul>
 
               <h4>Where to Find It</h4>
-              <p>The market price is stated in the <span class="instr-highlight">Objective 2 field report</span> above. Enter that per-bottle price as MR — expressed in dollars (e.g., 0.25).</p>
+              <p>The market price is stated in the <span class="instr-highlight">Objective 2 field report</span> above. Enter that per-bottle price as MR — expressed in dollars (e.g., 0.25). Historical context: the earlier baseline price was about 0.23, so compare decisions carefully rather than assuming output should jump dramatically.</p>
 
               <h4>After This Step — Canvas</h4>
               <p>After MR is verified, use <strong>Chart B</strong> and your MC values to answer <strong>questions 16 through 18</strong> in the mission memo.</p>
@@ -4802,6 +4802,7 @@
               <button type="button" class="check-btn" onclick="checkInput('mr')" aria-label="Verify market price">VERIFY</button>
               <div class="check-status" id="status-mr" role="status" aria-live="polite"></div>
             </div>
+            <p style="margin-top:0.45rem;font-size:11px;color:var(--text-secondary);font-family:'IBM Plex Mono',monospace;">Field note: pre-boom price was about $0.23; current market price is $0.25.</p>
           </div>
 
           <!-- CHART B -->
@@ -5189,8 +5190,9 @@ function getChartThemeColors() {
     atc: v('--chart-atc', '#4D8CFF'),
     avc: v('--chart-avc', '#FFB020'),
     afc: v('--chart-afc', '#7EC8FF'),
-    mc: v('--chart-mc', '#2EE6A8'),
-    mr: v('--chart-mr', '#E070FF'),
+    mc: v('--chart-mc', '#00E5FF'),
+    mcPoint: v('--accent-amber', '#E69F00'),
+    mr: v('--chart-mr', '#FF4D8D'),
     tc: v('--chart-tc', '#FFD966'),
   };
 }
@@ -5207,8 +5209,9 @@ const LIGHT_CHART_EXPORT_COLORS = {
   atc: '#003D8F',
   avc: '#C45100',
   afc: '#006DA3',
-  mc: '#007A5C',
-  mr: '#8B2A9B',
+  mc: '#00796B',
+  mcPoint: '#b45309',
+  mr: '#C2185B',
   tc: '#a67c00',
 };
 
@@ -5445,15 +5448,15 @@ function populateAllChartDataTables() {
     { series: 'tc', label: 'Total Cost ($)', decimals: 2 }
   ]);
   fill('chartA-data', [
-    { series: 'mc', label: 'Output (Q)', type: 'q' },
+    { series: 'mcDisplay', label: 'Output (Q)', type: 'q' },
     { series: 'afc', label: 'AFC ($)', decimals: 3 },
     { series: 'avc', label: 'AVC ($)', decimals: 3 },
     { series: 'atc', label: 'ATC ($)', decimals: 3 },
-    { series: 'mc', label: 'MC ($)', decimals: 3 }
+    { series: 'mcDisplay', label: 'MC ($)', decimals: 3 }
   ]);
   fill('chartB-data', [
-    { series: 'mc', label: 'Output (Q)', type: 'q' },
-    { series: 'mc', label: 'MC ($)', decimals: 3 },
+    { series: 'mcDisplay', label: 'Output (Q)', type: 'q' },
+    { series: 'mcDisplay', label: 'MC ($)', decimals: 3 },
     { series: 'mr', label: 'MR ($)', decimals: 3 }
   ]);
   fill('chartC-data', [
@@ -5571,16 +5574,17 @@ const HAMMOND_HINTS = {
       "*steady field-agent voice* Take the Fixed Cost you already verified and the Variable Cost you already verified. Add them together: FC + VC = TC. Those are the only two numbers you need. Perform that one addition and enter the total."
     ],
     output: [
-      "*field memo rustling* The baseline output is a quantity — how many bottles per month Parfum du coeur produces under normal operating conditions. Re-read the production schedule in the Step 2 Field Briefing.",
-      "Baseline output comes from Parfum du coeur's production schedule: bottles per day, days per week, and weeks per month. Combine those three numbers to get total monthly bottles.",
-      "*reads production schedule* The formula is: (bottles per day) × (days per week) × (weeks per month). The Field Briefing lists all three values — locate them and set up the multiplication.",
-      "*points at schedule* Bottles per day, days per week, and weeks in the month are all stated in the briefing. Multiply those three figures in order. Round to a whole number of bottles.",
-      "*steady voice* Monthly output = daily rate × operating days per week × weeks per month. You have every factor in the Field Briefing — complete the multiplication and enter bottles per month."
+      "*field memo rustling* Baseline output is now given information in this mission: 960 bottles per month before the demand boom.",
+      "You do not need to compute baseline output in Step 2. Focus on calculating FC, VC, and TC at the provided output of 960 bottles.",
+      "*taps mission brief* The output value is fixed at 960 for this section; it is shown directly in the baseline card.",
+      "*points at baseline panel* Treat Q = 960 as provided context, then verify the three cost values.",
+      "*steady voice* No multiplication is required for baseline output in this version of the activity — use the given 960 and continue with FC, VC, and TC."
     ],
     mr: [
       "*adjusts goggles* Marginal Revenue in a perfectly competitive market is not a calculation — it is given information. The market sets a single price for every unit sold. That price is stated in the Market Context report at the top of Objective 2.",
       "In perfect competition, Marginal Revenue equals the market price — always. The firm is a price taker: it cannot charge more than the market price or it sells nothing, and it has no reason to charge less.",
       "*checks price list* The market price per bottle is a fixed value given to you — you do not need to calculate it. It is the same number for every bottle sold, at every output level. Re-read the Market Context field report above.",
+      "*reviews archive note* The price moved from about $0.23 pre-boom to $0.25 now. That is a real increase, but not a signal to explode output — use MC vs MR to judge how much expansion is justified.",
       "*reads from field notes* The Market Context report states the prevailing price per bottle. That price equals Marginal Revenue in this perfectly competitive market. Enter it as a decimal in dollars per bottle.",
       "*calm and precise* MR = market price from the Objective 2 field report. It is not something you calculate; it is given information. Enter that value exactly as stated."
     ]
@@ -5620,7 +5624,7 @@ const HAMMOND_HINTS = {
     ],
     mc: [
       "*leans forward with field-agent intensity* Marginal Cost is fundamentally different from average costs. Instead of dividing a total by a quantity, MC asks: what did it cost to produce the most recent batch of units — the ones that pushed output from the previous level to this one? Think about 'the cost of the last step' rather than the average of all steps taken so far.",
-      "Marginal Cost (MC) is defined as the change in Total Cost divided by the change in output: MC = ΔTC ÷ ΔQ. It is a between-rows calculation — it measures the additional cost incurred when output increases from one level to the next. You need two rows: the current row and the row immediately above it (the previous output level).",
+      "Marginal Cost (MC) is defined as the change in Total Cost divided by the change in output: MC = ΔTC ÷ ΔQ. It is a between-rows calculation — it measures the additional cost incurred when output increases from one level to the next. You need two rows: the current row and the row immediately above it (the previous output level). Because MC is interval-based, its highlighted chart point is placed halfway between those two output levels.",
       "*traces between rows* For Q = {Q}: find the TC in this row (${TC}) and the TC in the row immediately above it (${prevTC} at Q = {prevQ}). Calculate ΔTC = {TC} − {prevTC}. Calculate ΔQ = {Q} − {prevQ}. Then MC = ΔTC ÷ ΔQ. This gives you the cost per additional bottle in this batch.",
       "*points at two specific rows* Current row: Q = {Q}, TC = ${TC}. Previous row: Q = {prevQ}, TC = ${prevTC}. ΔTC = {TC} − {prevTC} = ___. ΔQ = {Q} − {prevQ} = ___. MC = ΔTC ÷ ΔQ. You have all four numbers. Perform the two subtractions first, then divide the results.",
       "*calm and direct* TC changed from ${prevTC} (at Q={prevQ}) to ${TC} (at Q={Q}). That is a change of ({TC} − {prevTC}) in cost over a change of ({Q} − {prevQ}) in quantity. Divide the cost change by the quantity change. That quotient is the Marginal Cost for this row. Compute it and enter rounded to three decimal places."
@@ -5967,7 +5971,7 @@ function restoreMissionCalloutsFromState() {
     revealMissionCallout('canvas-prompt-1');
     showSaveReminderStrip();
   }
-  if (state.verified.fc && state.verified.vc && state.verified.tc && state.verified.output) {
+  if (state.verified.fc && state.verified.vc && state.verified.tc) {
     revealMissionCallout('canvas-prompt-2');
   }
   if (Object.keys(state.tcVerified).length === COST_TABLE.length) {
@@ -6015,7 +6019,7 @@ function checkClassification() {
     hammondMsg("*ecstatic hamster chatter* PERFECT! All 9 expenses correctly classified! Fixed costs stay constant; variable costs move with output. Now let's quantify them.", 'success', 400);
     revealMissionCallout('canvas-prompt-1');
     showSaveReminderStrip();
-    setTimeout(() => hammondMsg("Objective 1, Step 2 is unlocked. Answer questions 1 and 2 in Canvas when ready, then calculate FC, VC, TC, and baseline output (960 bottles per month).", 'info'), 2200);
+    setTimeout(() => hammondMsg("Objective 1, Step 2 is unlocked. Answer questions 1 and 2 in Canvas when ready, then calculate FC, VC, and TC. Baseline output is given as 960 bottles per month.", 'info'), 2200);
     updateFieldPulse();
   } else {
     const attempt = (state.checks['classify'] || 0) + 1;
@@ -6086,7 +6090,7 @@ function missionInputOrder() {
   const card = document.getElementById('main-content-card');
   if (!card || card.style.display === 'none') return [];
   const ids = [
-    'inp-fc', 'inp-vc', 'inp-tc', 'inp-output',
+    'inp-fc', 'inp-vc', 'inp-tc',
     ...COST_TABLE.map((_, i) => `tc-${i}`),
     ...AVG_TABLE.flatMap((_, i) => {
       const ids = [`afc-${i}`, `avc-${i}`, `atc-${i}`];
@@ -6206,7 +6210,7 @@ function checkInput(field) {
       refreshChartA();
       scrollToUnlock('step-profit-title');
       revealMissionCallout('canvas-prompt-5');
-      hammondMsg('*nods at Chart B* MR verified. Answer questions 16 through 18 in Canvas, then continue to Step 2 — calculate profit at different outputs.', 'info', 700);
+      hammondMsg('*nods at Chart B* MR verified. Price moved from about $0.23 to $0.25, so use MC vs MR to decide the right-sized output change — not an oversized jump. Answer questions 16 through 18 in Canvas, then continue to Step 2 — calculate profit at different outputs.', 'info', 700);
     }
     updateFieldPulse();
     return true;
@@ -6223,7 +6227,7 @@ function checkInput(field) {
 }
 
 function checkBaselineComplete() {
-  const baselineFields = ['fc', 'vc', 'tc', 'output'];
+  const baselineFields = ['fc', 'vc', 'tc'];
   const allDone = baselineFields.every(f => state.verified[f]);
   if (allDone && state.obj1Step < 2) {
     state.obj1Step = 2;
@@ -6311,7 +6315,7 @@ function checkTCTableComplete() {
     scrollToUnlock('step4-title');
     revealMissionCallout('canvas-prompt-3');
     hammondMsg("*gleeful hamster chatter* TC table complete! Answer questions 6 and 7 in Canvas, then continue to Steps 4 through 6 — average cost, marginal cost, and cost patterns.", 'success', 600);
-    setTimeout(() => hammondMsg("Steps 4 through 6 cover average costs, marginal cost, and Chart A patterns for Canvas questions 8 through 15. Round to 3 decimal places. Enter MC in the MC column on each › line between output rows.", 'info'), 2200);
+    setTimeout(() => hammondMsg("Steps 4 through 6 cover average costs, marginal cost, and Chart A patterns for Canvas questions 8 through 15. Round to 3 decimal places. Enter MC in the MC column on each › line between output rows; on the graph, each MC point is plotted at the midpoint between those two outputs.", 'info'), 2200);
     updateFieldPulse();
   }
 }
@@ -6597,13 +6601,13 @@ function checkProfitTableComplete() {
 // ============================================================
 function missionVerifiableTotal() {
   const avgTotal = AVG_TABLE.length > 0 ? AVG_TABLE.length * 3 + MC_INTERVALS.length : 0;
-  return 1 + 5 + COST_TABLE.length + avgTotal + (PROFIT_TABLE.length * 2);
+  return 1 + 4 + COST_TABLE.length + avgTotal + (PROFIT_TABLE.length * 2);
 }
 
 function missionVerifiedCount() {
   let count = 0;
   if (state.classifyVerified) count++;
-  ['fc', 'vc', 'tc', 'output', 'mr'].forEach(f => { if (state.verified[f]) count++; });
+  ['fc', 'vc', 'tc', 'mr'].forEach(f => { if (state.verified[f]) count++; });
   count += Object.keys(state.tcVerified).length;
   count += Object.values(state.avgVerified).reduce((s, v) => s + (typeof v === 'object' ? Object.keys(v).length : 0), 0);
   count += Object.keys(state.mcIntervalVerified || {}).length;
@@ -6941,11 +6945,24 @@ window.addEventListener('beforeunload', (event) => {
   const qs = [];
   for (let q = Q_START; q <= Q_END; q += STEP) qs.push(q);
 
+  // Interval MC entries are plotted at interval midpoints for direct table-to-chart comparison.
+  const mcTablePoints = MC_INTERVALS.map(interval => ({
+    x: (interval.from + interval.to) / 2,
+    y: +interval.mc.toFixed(3)
+  }));
+  const mcTableByQ = new Map(mcTablePoints.map(pt => [pt.x, pt.y]));
+
   window.SMOOTH = {
     atc:    qs.map(q => ({ x: q, y: atcFn(q) })),
     avc:    qs.map(q => ({ x: q, y: avcFn(q) })),
     afc:    qs.map(q => ({ x: q, y: afcFn(q) })),
     mc:     qs.map(q => ({ x: q, y: mcFn(q) })),
+    // Keep graph values in the same 3-decimal display precision as the MC table.
+    mcDisplay: qs.map(q => {
+      const rounded = +mcFn(q).toFixed(3);
+      return { x: q, y: mcTableByQ.get(q) ?? rounded };
+    }),
+    mcTablePoints,
     mr:     qs.map(q => ({ x: q, y: BASELINE_ANSWERS.mr })),
     tc:     qs.map(q => ({ x: q, y: FC + vcFn(q) })),
     tr:     qs.map(q => ({ x: q, y: trFn(q) })),
@@ -7021,7 +7038,7 @@ function buildChartOptions(scales, ySuffix = ' / bottle', yDecimals = null) {
           font: { family: 'IBM Plex Mono', size: 11 },
           boxWidth: 32,
           boxHeight: 3,
-          usePointStyle: false,
+          usePointStyle: true,
           filter(legendItem, chartData) {
             const ds = chartData.datasets[legendItem.datasetIndex];
             return ds.data && ds.data.length > 0;
@@ -7029,12 +7046,14 @@ function buildChartOptions(scales, ySuffix = ' / bottle', yDecimals = null) {
           generateLabels(chart) {
             return Chart.defaults.plugins.legend.labels.generateLabels(chart).map(item => {
               const ds = chart.data.datasets[item.datasetIndex];
+              const isPointOnly = ds.showLine === false && (ds.pointRadius || 0) > 0;
               return {
                 ...item,
-                fillStyle: 'transparent',
+                fillStyle: isPointOnly ? ds.backgroundColor : 'transparent',
                 strokeStyle: ds.borderColor,
-                lineWidth: ds.borderWidth || 2.5,
-                lineDash: ds.borderDash?.length ? ds.borderDash : [],
+                lineWidth: isPointOnly ? 1 : (ds.borderWidth || 2.5),
+                lineDash: isPointOnly ? [] : (ds.borderDash?.length ? ds.borderDash : []),
+                pointStyle: isPointOnly ? 'circle' : (ds.pointStyle || 'line'),
               };
             });
           }
@@ -7110,12 +7129,14 @@ function chartALegendLabels(chart) {
   const c = getChartThemeColors();
   return chart.data.datasets.map((ds, datasetIndex) => {
     const live = ds.data?.length > 0;
+    const isPointOnly = ds.showLine === false && (ds.pointRadius || 0) > 0;
     return {
       text: ds.label,
-      fillStyle: 'transparent',
+      fillStyle: isPointOnly ? (live ? ds.backgroundColor : ds.backgroundColor + '66') : 'transparent',
       strokeStyle: live ? ds.borderColor : ds.borderColor + '66',
-      lineWidth: live ? (ds.borderWidth || 3) : 2,
-      lineDash: live && ds.borderDash?.length ? ds.borderDash : [],
+      lineWidth: isPointOnly ? 1 : (live ? (ds.borderWidth || 3) : 2),
+      lineDash: isPointOnly ? [] : (live && ds.borderDash?.length ? ds.borderDash : []),
+      pointStyle: isPointOnly ? 'circle' : (ds.pointStyle || 'line'),
       hidden: false,
       datasetIndex,
       fontColor: live ? c.legend : c.tick,
@@ -7159,6 +7180,7 @@ function smoothDs(label, color, data, borderWidth, dash, tension = 0.4) {
     data,
     borderColor: color,
     backgroundColor: 'transparent',
+    pointStyle: 'line',
     borderWidth: borderWidth || 3,
     borderDash: dash || [],
     pointRadius: 0,
@@ -7187,20 +7209,56 @@ function buildChartTCDatasets() {
 
 function buildChartADatasets() {
   const c = getChartThemeColors();
-  return CHART_A_SERIES.map(s => {
+  const datasets = CHART_A_SERIES.map(s => {
     const complete = isAvgSeriesComplete(s.field);
     const color = c[s.key];
-    const data = complete ? SMOOTH[s.key] : [];
+    const data = complete ? (s.field === 'mc' ? SMOOTH.mcDisplay : SMOOTH[s.key]) : [];
     return smoothDs(s.label, color, data, s.width, s.dash);
   });
+
+  if (isAvgSeriesComplete('mc')) {
+    datasets.push({
+      label: 'Calculated MC (midpoint)',
+      data: SMOOTH.mcTablePoints,
+      borderColor: c.mcPoint,
+      backgroundColor: c.mcPoint,
+      pointStyle: 'circle',
+      showLine: false,
+      pointRadius: 5,
+      pointHoverRadius: 7,
+      pointHitRadius: 12,
+      borderWidth: 0,
+      tension: 0
+    });
+  }
+
+  return datasets;
 }
 
 function buildChartBDatasets() {
   const c = getChartThemeColors();
-  return [
-    smoothDs('MC', c.mc, SMOOTH.mc, 3),
+  const datasets = [
+    smoothDs('MC', c.mc, SMOOTH.mcDisplay, 3),
     smoothDs('MR', c.mr, SMOOTH.mr, 3, CHART_MR_DASH),
   ];
+
+  if (isAvgSeriesComplete('mc')) {
+    datasets.push({
+      label: 'Calculated MC (midpoint)',
+      data: SMOOTH.mcTablePoints,
+      borderColor: c.mcPoint,
+      backgroundColor: c.mcPoint,
+      pointStyle: 'circle',
+      showLine: false,
+      pointRadius: 5,
+      pointHoverRadius: 7,
+      pointHitRadius: 12,
+      borderWidth: 0,
+      tension: 0
+    });
+  }
+
+  return datasets;
 }
 
 function buildChartCDatasets() {
@@ -9186,7 +9244,7 @@ function devRewindToMilestone(target) {
     document.getElementById('step3-title').style.display = 'none';
     document.getElementById('instr-btn-3').style.display = 'none';
     document.getElementById('step3-section').style.display = 'none';
-    ['fc', 'vc', 'tc', 'output'].forEach(f => {
+    ['fc', 'vc', 'tc'].forEach(f => {
       delete state.verified[f];
       devResetInput(document.getElementById(`inp-${f}`));
       devClearStatus(document.getElementById(`status-${f}`));
@@ -9239,7 +9297,7 @@ function devFillStep1() {
 function devFillStep2() {
   devAdvanceToMilestone(2, () => {
     if (!state.classifyVerified) devFillStep1();
-    const fields = ['fc', 'vc', 'tc', 'output'];
+    const fields = ['fc', 'vc', 'tc'];
     fields.forEach(f => {
       if (state.verified[f]) return;
       const inp = document.getElementById(`inp-${f}`);
@@ -9253,7 +9311,7 @@ function devFillStep2() {
 // ---- Dev: autofill Step 3 (TC table) ----
 function devFillStep3() {
   devAdvanceToMilestone(3, () => {
-    if (!state.verified.output) devFillStep2();
+    if (!(state.verified.fc && state.verified.vc && state.verified.tc)) devFillStep2();
     COST_TABLE.forEach((row, i) => {
       if (state.tcVerified[i]) return;
       const inp = document.getElementById(`tc-${i}`);
