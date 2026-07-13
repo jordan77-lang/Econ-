@@ -27,7 +27,8 @@
     --accent-red-dim: #D55E0022;
     --text-primary: #e8f4fc;
     --text-secondary: #8ab4cc;
-    --text-dim: #4a7080;
+    /* ≥4.5:1 on panel/card for WCAG AA normal text */
+    --text-dim: #6b9bb0;
     --border: #0e3a52;
     --border-bright: #1a6080;
     --grid-line: #0a2535;
@@ -132,68 +133,69 @@
     --bg-panel: #ffffff;
     --bg-card: #ffffff;
     --bg-input: #eef4f9;
-    --accent-cyan: #0066a1;
-    --accent-cyan-dim: #0066a118;
-    --accent-amber: #b45309;
-    --accent-amber-dim: #b4530918;
-    --accent-green: #0066a1;
-    --accent-green-dim: #0066a118;
-    --accent-red: #b45309;
-    --accent-red-dim: #b4530918;
+    --accent-cyan: #005a8f;
+    --accent-cyan-dim: #005a8f18;
+    --accent-amber: #7a3600;
+    --accent-amber-dim: #7a360018;
+    --accent-green: #005a8f;
+    --accent-green-dim: #005a8f18;
+    --accent-red: #7a3600;
+    --accent-red-dim: #7a360018;
     --text-primary: #0c1a28;
     --text-secondary: #2a4258;
-    --text-dim: #5a7088;
-    --border: #9ab0c4;
-    --border-bright: #6a8aa8;
+    /* Darker dim / muted text for ≥4.5:1 on light deep & panel surfaces */
+    --text-dim: #33475c;
+    --border: #8aa0b4;
+    --border-bright: #5a7a98;
     --grid-line: #b8ccd8;
     --hammond-bg: #ffffff;
     --hammond-border: #7aa8c866;
     --header-gradient-top: #dce8f2;
     --scanline-strength: 0.02;
     --chart-grid: #a8bcc8;
-    --color-fixed: #0066a1;
+    --color-fixed: #005a8f;
     --color-fixed-bg: #dceefa;
-    --color-fixed-dim: #0066a128;
+    --color-fixed-dim: #005a8f28;
     --color-fixed-on: #0c2840;
-    --color-variable: #b45309;
+    --color-variable: #7a3600;
     --color-variable-bg: #fff4e6;
-    --color-variable-dim: #b4530928;
+    --color-variable-dim: #7a360028;
     --color-variable-on: #3d2000;
-    --color-success: #0066a1;
+    --color-success: #005a8f;
     --color-success-bg: #e0f0fa;
-    --color-success-dim: #0066a120;
-    --color-error: #b45309;
+    --color-success-dim: #005a8f20;
+    --color-error: #7a3600;
     --color-error-bg: #fff0e6;
-    --color-error-dim: #b4530920;
-    --color-positive: #1a6b52;
+    --color-error-dim: #7a360020;
+    --color-positive: #156048;
     --color-positive-bg: #e0f5ee;
-    --color-negative: #7b2d6b;
+    --color-negative: #6b2460;
     --color-negative-bg: #f8e8f4;
     --chart-atc: #003D8F;
     --chart-avc: #C45100;
     --chart-afc: #006DA3;
     --chart-mc: #00796B;
     --chart-mr: #C2185B;
-    --chart-tc: #a67c00;
+    --chart-tc: #8a6800;
     --instr-panel-bg: #eef4fa;
     --instr-header-bg: #dce8f4;
     --hammond-header-bg: linear-gradient(90deg, #dceefa, #eef6fc);
-    --hammond-accent: #0066a1;
-    --hammond-accent-dim: #0066a128;
-    --hammond-shadow: #0066a118;
+    --hammond-accent: #005a8f;
+    --hammond-accent-dim: #005a8f28;
+    --hammond-shadow: #005a8f18;
     --hammond-bubble-bg: #f4f9fc;
-    --hammond-bubble-text: #1e3a50;
+    --hammond-bubble-text: #1a3348;
     --hammond-bubble-success-bg: #e0f0fa;
-    --hammond-bubble-success-text: #004b87;
+    --hammond-bubble-success-text: #003d6e;
     --hammond-bubble-warning-bg: #fff4e6;
-    --hammond-bubble-warning-text: #8a4500;
+    --hammond-bubble-warning-text: #6a3000;
     --hammond-bubble-error-bg: #fff0e6;
-    --hammond-bubble-error-text: #8a3500;
+    --hammond-bubble-error-text: #6a2800;
     --hammond-bubble-info-bg: #e8f4fc;
-    --hammond-bubble-info-text: #004b87;
+    --hammond-bubble-info-text: #003d6e;
     --hammond-typing-bg: #f4f9fc;
-    --hammond-name-color: #0066a1;
-    --hammond-subtitle-color: #4a7088;
+    --hammond-name-color: #005a8f;
+    --hammond-subtitle-color: #3a5670;
     --calc-fab-bg: #ffffff;
     --calc-fab-hover: #e8f4fc;
     --calc-fab-shadow: #0066a128;
@@ -825,7 +827,7 @@
         'info';
       gap: 0.35rem;
     }
-    .export-btn { font-size: 9px; padding: 5px 8px; }
+    .export-btn { font-size: 12px; padding: 8px 12px; min-height: 44px; }
   }
 
   @media (min-width: 721px) {
@@ -2251,6 +2253,13 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    outline: none;
+  }
+
+  .calc-value:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 
   /* Button grid */
@@ -2886,8 +2895,9 @@
     .header-save-btn,
     .header-logout-btn,
     .calc-fab {
-      padding: 6px 9px;
-      font-size: 9px;
+      padding: 8px 12px;
+      font-size: 12px;
+      min-height: 44px;
     }
   }
 
@@ -3480,6 +3490,140 @@
     .data-input.incorrect, .table-input.incorrect, .login-input.incorrect { animation: none !important; }
   }
 
+  /* === A11Y: readable chrome (≥12px) + 44px targets === */
+  .header-action-btn,
+  .right-rail-toolbar .theme-toggle-btn,
+  .right-rail-toolbar .header-action-btn,
+  .right-rail-toolbar .calc-fab,
+  .check-btn,
+  .export-btn,
+  .tut-next-btn,
+  .classify-verify-btn,
+  .login-btn,
+  .login-choice-btn,
+  .step-instructions-btn,
+  .final-report-btn {
+    min-height: 44px;
+    font-size: 12px;
+  }
+
+  .right-rail-toolbar .theme-toggle-btn--icon,
+  .theme-toggle-btn--icon {
+    min-width: 44px;
+    min-height: 44px;
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .header-action-btn,
+  .right-rail-toolbar .theme-toggle-btn,
+  .right-rail-toolbar .header-action-btn,
+  .right-rail-toolbar .calc-fab {
+    padding: 8px 12px;
+  }
+
+  .progress-panel--top .progress-title {
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .progress-panel--top .progress-subtitle,
+  .progress-panel--top .progress-text,
+  .briefing-indicator,
+  .login-hint,
+  .input-label,
+  .baseline-input-card .input-label,
+  .table-scroll-hint,
+  .cost-col-header,
+  .chart-data-table {
+    font-size: 12px;
+  }
+
+  .tut-skip-btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-bright);
+    border-radius: 6px;
+    background: var(--bg-card);
+    text-decoration: none;
+  }
+
+  .tut-skip-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-cyan);
+  }
+
+  .classify-radio-label {
+    min-height: 44px;
+  }
+
+  .table-input {
+    min-height: 36px;
+    font-size: 13px;
+    padding: 6px 8px;
+  }
+
+  .login-boot-skip {
+    position: absolute;
+    bottom: clamp(1.25rem, 4vh, 2.5rem);
+    right: clamp(1.25rem, 4vw, 2.5rem);
+    z-index: 2;
+    min-height: 44px;
+    padding: 10px 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #66ff66;
+    background: #001a00;
+    border: 1px solid #33ff33;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .login-boot-skip:focus-visible {
+    outline: 2px solid #99ff99;
+    outline-offset: 2px;
+  }
+
+  .login-dos-screen--done .login-boot-skip {
+    display: none;
+  }
+
+  .nibbles-jump-link {
+    display: none;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    margin: 0 0 0.75rem;
+    padding: 8px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    color: var(--accent-cyan);
+    background: var(--bg-card);
+    border: 1px solid var(--accent-cyan);
+    border-radius: 6px;
+  }
+
+  .nibbles-jump-link:focus-visible {
+    outline: 2px solid var(--accent-cyan);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 1100px) {
+    .nibbles-jump-link {
+      display: flex;
+    }
+  }
 
   /* ============================================================
      DEV MODE — REMOVE THIS ENTIRE BLOCK BEFORE STUDENT RELEASE
@@ -4038,6 +4182,7 @@
       <div id="login-boot-lines"></div>
       <span class="login-dos-cursor" id="login-boot-cursor" aria-hidden="true">_</span>
     </div>
+    <button type="button" class="login-boot-skip" id="login-boot-skip" onclick="skipBootSequence()">Skip intro</button>
   </div>
 
   <!-- Phase 2: welcome + credentials -->
@@ -4146,7 +4291,7 @@
 </header>
 
 <!-- MAIN -->
-<main class="main" id="main-content">
+<main class="main" id="main-content" aria-hidden="true">
 
   <!-- LEFT: CONTENT PANEL -->
   <div class="left-panel">
@@ -4174,8 +4319,7 @@
           </div>
         </div>
         <div class="tutorial-body" tabindex="-1">
-
-          <!-- STATION 1: INSTRUCTIONS PANEL -->
+          <a href="#hammond-panel-title" class="nibbles-jump-link" onclick="focusNibblesPanel(event)">Jump to N.I.B.B.L.E.S. help</a>
           <div class="tut-station active" id="tut-s1">
             <div class="tut-station-title">▸ STATION 1 — FIELD BRIEFINGS</div>
             <div class="tut-nibbles-msg">
@@ -4191,7 +4335,7 @@
                 <ul>
                   <li>Each mission step has an <span class="instr-highlight">OPEN FIELD BRIEFING</span> button. Open it first — it explains formulas and what to enter.</li>
                   <li>Standalone fields (like baseline totals): type your answer and click <span class="instr-highlight">VERIFY</span> or press <span class="instr-highlight">Enter</span>.</li>
-                  <li>Table cells (cost, average-cost, and profit tables): type in a cell and press <span class="instr-highlight">Enter</span> to verify that cell. Use arrow keys to move between cells. Enter numbers without <span class="instr-highlight">$</span> signs.</li>
+                  <li>Table cells (cost, average-cost, and profit tables): type in a cell and press <span class="instr-highlight">Enter</span> to verify that cell. Use <span class="instr-highlight">Up</span>/<span class="instr-highlight">Down</span> arrow keys to move between cells. Enter numbers without <span class="instr-highlight">$</span> signs.</li>
                   <li>In the profit table, each <strong>TR</strong> row must verify before the <strong>Profit</strong> cell on that row unlocks.</li>
                   <li>Green ✓ locks a correct answer. Red ✗ means try again — N.I.B.B.L.E.S. sends escalating hints in the right panel.</li>
                   <li>After several wrong attempts, N.I.B.B.L.E.S. will point you back to the Field Briefing — watch for the briefing button to <span class="instr-highlight">pulse</span>.</li>
@@ -4237,14 +4381,14 @@
             <div class="tut-station-title">▸ STATION 3 — ENTERING &amp; VERIFYING ANSWERS</div>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-3"></div>
-              <div class="tut-nibbles-bubble">*poses dramatically* In the mission, most answers use the same pattern: type a value, then click <strong>VERIFY</strong> or press <strong>Enter</strong>. Arrow keys move you to the next field. Let's practice. <strong>1 hamster</strong> is already in a room. <strong>Another hamster walks in.</strong> How many hamsters are in the room now?</div>
+              <div class="tut-nibbles-bubble">*poses dramatically* In the mission, most answers use the same pattern: type a value, then click <strong>VERIFY</strong> or press <strong>Enter</strong>. Up and Down arrows move you to the next field. Let's practice. <strong>1 hamster</strong> is already in a room. <strong>Another hamster walks in.</strong> How many hamsters are in the room now?</div>
             </div>
             <div class="input-group" style="max-width:300px">
               <label class="input-label" for="tut-inp-hamsters">TOTAL HAMSTERS IN ROOM</label>
               <div class="input-row">
                 <input class="data-input" id="tut-inp-hamsters" type="number" placeholder="?" onkeydown="if(event.key==='Enter')tutCheckHamsters()" oninput="updateTutActionPulse()">
                 <button type="button" class="check-btn" onclick="tutCheckHamsters()">VERIFY</button>
-                <div class="check-status" id="tut-status-hamsters" role="status" aria-live="polite"></div>
+                <div class="check-status" id="tut-status-hamsters"></div>
               </div>
             </div>
             <div id="tut-s3-done" style="display:none">
@@ -4265,7 +4409,7 @@
               <div class="input-row">
                 <input class="data-input" id="tut-inp-treats" type="number" step="0.01" placeholder="?" onkeydown="if(event.key==='Enter')tutCheckTreats()" oninput="updateTutActionPulse()">
                 <button type="button" class="check-btn" onclick="tutCheckTreats()">VERIFY</button>
-                <div class="check-status" id="tut-status-treats" role="status" aria-live="polite"></div>
+                <div class="check-status" id="tut-status-treats"></div>
               </div>
             </div>
             <div id="tut-s4-done" style="display:none">
@@ -4286,7 +4430,7 @@
               <div class="input-row">
                 <input class="data-input" id="tut-inp-legs" type="number" placeholder="?" onkeydown="if(event.key==='Enter')tutCheckLegs()" oninput="updateTutActionPulse()">
                 <button type="button" class="check-btn" onclick="tutCheckLegs()">VERIFY</button>
-                <div class="check-status" id="tut-status-legs" role="status" aria-live="polite"></div>
+                <div class="check-status" id="tut-status-legs"></div>
               </div>
             </div>
             <div id="tut-s5-begin-wrap" style="display:none;margin-top:1.5rem">
@@ -4367,6 +4511,7 @@
       </div>
       <div class="card-body">
       <div class="mission-scroll" id="mission-scroll" tabindex="-1">
+          <a href="#hammond-panel-title" class="nibbles-jump-link" onclick="focusNibblesPanel(event)">Jump to N.I.B.B.L.E.S. help</a>
 
         <!-- ===== OBJECTIVE 1 ===== -->
         <div id="obj-1">
@@ -4532,7 +4677,7 @@
             <div class="input-row">
               <input class="data-input" id="inp-fc" type="text" inputmode="decimal" placeholder="$0.00" autocomplete="off">
               <button type="button" class="check-btn" onclick="checkInput('fc')" aria-label="Verify fixed cost">VERIFY</button>
-              <div class="check-status" id="status-fc" role="status" aria-live="polite"></div>
+              <div class="check-status" id="status-fc"></div>
             </div>
           </div>
 
@@ -4541,7 +4686,7 @@
             <div class="input-row">
               <input class="data-input" id="inp-vc" type="text" inputmode="decimal" placeholder="$0.00" autocomplete="off">
               <button type="button" class="check-btn" onclick="checkInput('vc')" aria-label="Verify variable cost">VERIFY</button>
-              <div class="check-status" id="status-vc" role="status" aria-live="polite"></div>
+              <div class="check-status" id="status-vc"></div>
             </div>
           </div>
 
@@ -4550,7 +4695,7 @@
             <div class="input-row">
               <input class="data-input" id="inp-tc" type="text" inputmode="decimal" placeholder="$0.00" autocomplete="off">
               <button type="button" class="check-btn" onclick="checkInput('tc')" aria-label="Verify total cost">VERIFY</button>
-              <div class="check-status" id="status-tc" role="status" aria-live="polite"></div>
+              <div class="check-status" id="status-tc"></div>
             </div>
           </div>
 
@@ -4558,7 +4703,7 @@
             <label class="input-label" for="inp-output">BASELINE OUTPUT (BOTTLES PER MONTH)</label>
             <div class="input-row">
               <input class="data-input" id="inp-output" type="text" inputmode="numeric" value="960" autocomplete="off" disabled aria-label="Baseline output given as 960 bottles per month">
-              <div class="check-status ok" id="status-output" role="status" aria-live="polite">✓ GIVEN</div>
+              <div class="check-status ok" id="status-output">✓ GIVEN</div>
             </div>
           </div>
           </div>
@@ -4618,7 +4763,7 @@
             <p style="font-size:12px; color:var(--text-secondary); margin-bottom:1rem; font-family:'IBM Plex Mono',monospace;">
               FC is autofilled ($108). VC is pre-loaded from AXIOM's field data. Calculate TC = FC + VC for each output level.
             </p>
-            <div class="table-scroll-hint" aria-hidden="true">↔ Scroll table on narrow screens</div>
+            <div class="table-scroll-hint">↔ Scroll table on narrow screens</div>
             <div class="table-scroll-wrap table-scroll-wrap--fit">
             <table class="data-table mission-table" id="cost-table">
               <caption class="visually-hidden">Total cost per output level — enter total cost for each quantity</caption>
@@ -4692,7 +4837,7 @@
                 <li>Formula: MC = (TC at upper Q − TC at lower Q) ÷ (upper Q − lower Q)</li>
                 <li>After each output row, enter MC in the <span class="instr-highlight">MC column</span> on the line to the next Q — each cell is marked with <strong>›</strong> directly to the left of the input.</li>
                 <li>Each interval spans <span class="instr-highlight">240 bottles</span>. The first interval is 960 through 1,200; MC there ($0.219) is slightly below MR ($0.25) because profit is still rising toward the peak.</li>
-                <li>Because each MC value is calculated across an interval (not at a single Q), the highlighted MC point for that interval is plotted at the <span class="instr-highlight">midpoint</span> between the two outputs (for example, 1,680 through 1,920 is plotted at Q = 1,800).</li>
+                <li>Because each MC value is calculated across an interval (not at a single Q), the highlighted MC point for that interval is plotted at the <span class="instr-highlight">midpoint</span> between the two outputs (for example, 1,680 through 1,920 is plotted at Q = 1,800). Hover a point to see its interval label (e.g., “MC between 960 and 1,200 units”).</li>
                 <li>Charts plot a <span class="instr-highlight">smooth MC curve</span> from the same cost equation — it sweeps upward at low Q and crosses MR at Q = 1,200. The highlighted midpoint dots mark your four calculated MC interval values. Chart C shows where AVC crosses the $0.25 price line at high output (short-run shutdown).</li>
               </ul>
 
@@ -4701,7 +4846,7 @@
                 <li>Fill in AFC, AVC, and ATC on each output row.</li>
                 <li>Fill in MC in the <span class="instr-highlight">MC column</span> between rows (on the › line, not on the Q row itself).</li>
                 <li>Press <span class="instr-highlight">Enter</span> in a cell to verify that value — correct cells turn green and lock.</li>
-                <li>Use <span class="instr-highlight">arrow keys</span> to move between cells. Complete every AFC/AVC/ATC column and every MC interval to draw curves on Chart A.</li>
+                <li>Use <span class="instr-highlight">Up/Down</span> arrow keys to move between cells. Complete every AFC/AVC/ATC column and every MC interval to draw curves on Chart A.</li>
                 <li>All values verified → Objective 2 unlocks in the terminal.</li>
               </ul>
 
@@ -4719,7 +4864,7 @@
             <p style="font-size:12px; color:var(--text-secondary); margin-bottom:1rem; font-family:'IBM Plex Mono',monospace;">
               Calculate AFC = FC/Q, AVC = VC/Q, and ATC = TC/Q at each output row. Enter MC = ΔTC/ΔQ in the <strong>MC column</strong> on each › line between rows. Round to 3 decimal places.
             </p>
-            <div class="table-scroll-hint" aria-hidden="true">↔ Scroll table on narrow screens</div>
+            <div class="table-scroll-hint">↔ Scroll table on narrow screens</div>
             <div class="table-scroll-wrap table-scroll-wrap--fit">
             <table class="data-table mission-table" id="avg-table">
               <caption class="visually-hidden">Average costs at each output level; marginal cost entered on intervals between outputs</caption>
@@ -4800,7 +4945,7 @@
             <div class="input-row">
               <input class="data-input" id="inp-mr" type="text" inputmode="decimal" placeholder="$0.00" autocomplete="off">
               <button type="button" class="check-btn" onclick="checkInput('mr')" aria-label="Verify market price">VERIFY</button>
-              <div class="check-status" id="status-mr" role="status" aria-live="polite"></div>
+              <div class="check-status" id="status-mr"></div>
             </div>
             <p style="margin-top:0.45rem;font-size:11px;color:var(--text-secondary);font-family:'IBM Plex Mono',monospace;">Field note: pre-boom price was about $0.23; current market price is $0.25.</p>
           </div>
@@ -4863,7 +5008,7 @@
               <ul>
                 <li>In the TR column, calculate revenue for each output and press <span class="instr-highlight">Enter</span> to verify.</li>
                 <li>After TR is verified for a row, the <strong>Profit</strong> cell on that row unlocks. Enter TR − TC and press <span class="instr-highlight">Enter</span>.</li>
-                <li>Use arrow keys to move between cells.</li>
+                <li>Use Up/Down arrow keys to move between cells.</li>
               </ul>
 
               <div class="instr-tip">
@@ -4877,7 +5022,7 @@
             <p style="font-size:12px; color:var(--text-secondary); margin-bottom:1rem; font-family:'IBM Plex Mono',monospace;">
               Calculate TR = $0.25 × Q and Profit = TR − TC for each output level. Use TC values from Objective 1.
             </p>
-            <div class="table-scroll-hint" aria-hidden="true">↔ Scroll table on narrow screens</div>
+            <div class="table-scroll-hint">↔ Scroll table on narrow screens</div>
             <div class="table-scroll-wrap table-scroll-wrap--fit">
             <table class="data-table mission-table" id="profit-table">
               <caption class="visually-hidden">Total revenue and profit per output level</caption>
@@ -4930,7 +5075,7 @@
                 </li>
                 <li id="mcc-step-3" class="mission-complete-download-step">
                   <span class="mission-complete-download-label">Download your final report here</span>
-                  <p class="mission-complete-download-note">Downloads two files: a <strong>PDF</strong> for Canvas submission and a <strong>.json</strong> checkpoint backup.</p>
+                  <p class="mission-complete-download-note">Downloads three files: a <strong>PDF</strong> for Canvas submission, a plain-text <strong>.txt</strong> summary (accessible alternate), and a <strong>.json</strong> checkpoint backup.</p>
                   <button type="button" class="final-report-btn" onclick="generateFinalReport(this)">
                     ▼ DOWNLOAD FINAL REPORT
                   </button>
@@ -4951,7 +5096,7 @@
 </main><!-- /main -->
 
 <!-- RIGHT RAIL — NIBBLES column -->
-<div class="right-rail" id="right-rail">
+<div class="right-rail" id="right-rail" aria-hidden="true">
   <aside class="right-panel" aria-label="N.I.B.B.L.E.S. assistance panel">
 
     <!-- HAMMOND AI -->
@@ -5012,6 +5157,7 @@
 </div><!-- /right-rail -->
 
 <div id="save-toast" class="save-toast" role="status" aria-live="polite"></div>
+<div id="sr-announcer" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></div>
 
 <!-- LOGOUT — temporal disconnect overlay -->
 <div id="logout-overlay" aria-hidden="true" aria-live="assertive">
@@ -5058,41 +5204,32 @@
   </div>
   <!-- Body -->
   <div class="calc-body">
-    <div class="calc-tape" id="calc-tape" aria-live="polite" aria-atomic="true"></div>
+    <div class="calc-tape" id="calc-tape" aria-hidden="true"></div>
     <div class="calc-display">
       <div class="calc-expr" id="calc-expr" aria-hidden="true"></div>
-      <div class="calc-value" id="calc-value" role="status" aria-live="polite" aria-atomic="true">0</div>
+      <div class="calc-value" id="calc-value" tabindex="0" role="status" aria-live="polite" aria-atomic="true" aria-label="Calculator display">0</div>
     </div>
     <div class="calc-grid">
-      <!-- Row 1: functions -->
-      <button type="button" class="calc-btn fn" onclick="calcFn('1/x')" aria-label="Reciprocal">1/x</button>
-      <button type="button" class="calc-btn fn" onclick="calcFn('x²')" aria-label="Square">x²</button>
-      <button type="button" class="calc-btn fn" onclick="calcFn('√x')" aria-label="Square root">√x</button>
+      <!-- Simple four-function keypad (no advanced functions) -->
       <button type="button" class="calc-btn clear" onclick="calcClear('entry')" aria-label="Clear entry">CE</button>
-      <!-- Row 2 -->
-      <button type="button" class="calc-btn clear wide" onclick="calcClear('all')">C CLEAR</button>
-      <button type="button" class="calc-btn op" onclick="calcBackspace()">⌫</button>
-      <button type="button" class="calc-btn op" onclick="calcOp('÷')">÷</button>
-      <!-- Row 3 -->
+      <button type="button" class="calc-btn clear" onclick="calcClear('all')" aria-label="Clear all">C</button>
+      <button type="button" class="calc-btn op" onclick="calcBackspace()" aria-label="Backspace">⌫</button>
+      <button type="button" class="calc-btn op" onclick="calcOp('÷')" aria-label="Divide">÷</button>
       <button type="button" class="calc-btn" onclick="calcDigit('7')">7</button>
       <button type="button" class="calc-btn" onclick="calcDigit('8')">8</button>
       <button type="button" class="calc-btn" onclick="calcDigit('9')">9</button>
-      <button type="button" class="calc-btn op" onclick="calcOp('×')">×</button>
-      <!-- Row 4 -->
+      <button type="button" class="calc-btn op" onclick="calcOp('×')" aria-label="Multiply">×</button>
       <button type="button" class="calc-btn" onclick="calcDigit('4')">4</button>
       <button type="button" class="calc-btn" onclick="calcDigit('5')">5</button>
       <button type="button" class="calc-btn" onclick="calcDigit('6')">6</button>
-      <button type="button" class="calc-btn op" onclick="calcOp('−')">−</button>
-      <!-- Row 5 -->
+      <button type="button" class="calc-btn op" onclick="calcOp('−')" aria-label="Subtract">−</button>
       <button type="button" class="calc-btn" onclick="calcDigit('1')">1</button>
       <button type="button" class="calc-btn" onclick="calcDigit('2')">2</button>
       <button type="button" class="calc-btn" onclick="calcDigit('3')">3</button>
-      <button type="button" class="calc-btn op" onclick="calcOp('+')">+</button>
-      <!-- Row 6 -->
-      <button type="button" class="calc-btn" onclick="calcPlusMinus()">+/−</button>
-      <button type="button" class="calc-btn" onclick="calcDigit('0')">0</button>
-      <button type="button" class="calc-btn" onclick="calcDecimal()">.</button>
-      <button type="button" class="calc-btn eq" onclick="calcEquals()">=</button>
+      <button type="button" class="calc-btn op" onclick="calcOp('+')" aria-label="Add">+</button>
+      <button type="button" class="calc-btn wide" onclick="calcDigit('0')">0</button>
+      <button type="button" class="calc-btn" onclick="calcDecimal()" aria-label="Decimal point">.</button>
+      <button type="button" class="calc-btn eq" onclick="calcEquals()" aria-label="Equals">=</button>
     </div>
   </div>
 </div>
@@ -5336,12 +5473,32 @@ function stripRoleplayForSR(text) {
     .trim();
 }
 
+function announceStatus(message) {
+  const el = document.getElementById('sr-announcer');
+  if (!el || !message) return;
+  el.textContent = '';
+  // Retrigger polite announcement even when the same phrase repeats
+  requestAnimationFrame(() => { el.textContent = message; });
+}
+
+function focusNibblesPanel(event) {
+  if (event) event.preventDefault();
+  const panel = document.getElementById('hammond-panel-title') || document.getElementById('hammond-messages');
+  const rail = document.getElementById('right-rail');
+  if (rail) rail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (panel) {
+    if (!panel.hasAttribute('tabindex')) panel.setAttribute('tabindex', '-1');
+    panel.focus({ preventScroll: true });
+  }
+}
+
 function setVerifyStatusIcon(el, ok, label) {
   if (!el) return;
   const safe = label || (ok ? 'Correct' : 'Incorrect');
   el.innerHTML = ok
-    ? `<span style="color:var(--color-positive)" aria-label="${safe}">✓</span>`
-    : `<span style="color:var(--accent-red)" aria-label="${safe}">✗</span>`;
+    ? `<span style="color:var(--color-positive)" aria-hidden="true">✓</span><span class="visually-hidden">${safe}</span>`
+    : `<span style="color:var(--accent-red)" aria-hidden="true">✗</span><span class="visually-hidden">${safe}</span>`;
+  announceStatus(safe);
 }
 
 function createFocusTrap(container) {
@@ -6116,7 +6273,7 @@ function updateFieldPulse() {
   next.classList.add('field-pulse');
   if (!fieldPulseIntroShown) {
     fieldPulseIntroShown = true;
-    hammondMsg('*adjusts goggles* See that gentle pulse on the input field? It marks where to enter your next value. Press Enter to verify — arrow keys let you move between cells without the mouse.', 'info', 900);
+    hammondMsg('*adjusts goggles* See that gentle pulse on the input field? It marks where to enter your next value. Press Enter to verify — Up/Down arrows let you move between cells without the mouse.', 'info', 900);
   }
 }
 
@@ -6161,13 +6318,14 @@ function setupMissionInputNavigation() {
       else { el.focus(); el.select(); }
       return;
     }
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+    if (e.key === 'ArrowDown') {
       e.preventDefault();
       advanceToNextInput(el, 1);
-    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+    } else if (e.key === 'ArrowUp') {
       e.preventDefault();
       advanceToNextInput(el, -1);
     }
+    // Leave ArrowLeft/ArrowRight for caret editing (screen readers / low vision)
   });
 }
 
@@ -6196,6 +6354,7 @@ function checkInput(field) {
     state.verified[field] = true;
     statusEl.textContent = '✓ CONFIRMED';
     statusEl.className = 'check-status ok';
+    announceStatus(`${field.toUpperCase()} confirmed`);
     hammondMsg(SUCCESS_MSGS[Math.floor(Math.random() * SUCCESS_MSGS.length)], 'success', 400);
     updateProgress();
     checkBaselineComplete();
@@ -6220,6 +6379,7 @@ function checkInput(field) {
   setTimeout(() => input.classList.remove('incorrect'), 600);
   statusEl.textContent = '✗ MISMATCH';
   statusEl.className = 'check-status err';
+  announceStatus(`${field.toUpperCase()} incorrect — try again`);
   triggerHammond('baseline', field, null, attempts);
   input.focus();
   input.select();
@@ -6249,7 +6409,7 @@ function tableFieldHtml({ inputId, statusId, ariaLabel, disabled = false, inputm
   const wideCls = wide ? ' table-input--wide' : '';
   return `<div class="table-field-wrap">
     <input class="table-input${wideCls}" id="${inputId}" type="text" inputmode="${inputmode}" placeholder="?" aria-label="${ariaLabel}"${dis}>
-    <span class="table-field-status" id="${statusId}" role="status" aria-live="polite"></span>
+    <span class="table-field-status" id="${statusId}" aria-hidden="true"></span>
   </div>`;
 }
 
@@ -6948,7 +7108,10 @@ window.addEventListener('beforeunload', (event) => {
   // Interval MC entries are plotted at interval midpoints for direct table-to-chart comparison.
   const mcTablePoints = MC_INTERVALS.map(interval => ({
     x: (interval.from + interval.to) / 2,
-    y: +interval.mc.toFixed(3)
+    y: +interval.mc.toFixed(3),
+    from: interval.from,
+    to: interval.to,
+    label: `MC between ${interval.from.toLocaleString()} and ${interval.to.toLocaleString()} units`
   }));
   const mcTableByQ = new Map(mcTablePoints.map(pt => [pt.x, pt.y]));
 
@@ -7079,6 +7242,12 @@ function buildChartOptions(scales, ySuffix = ' / bottle', yDecimals = null) {
           },
           label(ctx) {
             const name = (ctx.dataset.label || '').replace(' guide', '');
+            // Per-point label for table MC markers (e.g. "MC between 960 and 1,200 units")
+            if (ctx.dataset.isMcTablePoints) {
+              const pt = ctx.raw || ctx.dataset.data?.[ctx.dataIndex];
+              const pointLabel = pt?.label || name;
+              return ` ${pointLabel}: $${ctx.parsed.y.toFixed(decimals)}${ySuffix}`;
+            }
             return ` ${name}: $${ctx.parsed.y.toFixed(decimals)}${ySuffix}`;
           }
         }
@@ -7218,7 +7387,8 @@ function buildChartADatasets() {
 
   if (isAvgSeriesComplete('mc')) {
     datasets.push({
-      label: 'Calculated MC (midpoint)',
+      label: 'MC from table',
+      isMcTablePoints: true,
       data: SMOOTH.mcTablePoints,
       borderColor: c.mcPoint,
       backgroundColor: c.mcPoint,
@@ -7244,7 +7414,8 @@ function buildChartBDatasets() {
 
   if (isAvgSeriesComplete('mc')) {
     datasets.push({
-      label: 'Calculated MC (midpoint)',
+      label: 'MC from table',
+      isMcTablePoints: true,
       data: SMOOTH.mcTablePoints,
       borderColor: c.mcPoint,
       backgroundColor: c.mcPoint,
@@ -7711,8 +7882,21 @@ function runBootSequence() {
   const priorLogout = sessionStorage.getItem('axiom-logout');
   if (priorLogout !== null) sessionStorage.removeItem('axiom-logout');
   const postLogout = !!priorLogout;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (bootScreen) bootScreen.classList.toggle('login-dos-screen--post-logout', postLogout);
+
+  if (reducedMotion) {
+    if (linesEl) {
+      linesEl.innerHTML = '';
+      const row = document.createElement('div');
+      row.className = 'login-dos-line--bright';
+      row.textContent = 'AXIOM TERMINAL READY — ENTER CREDENTIALS';
+      linesEl.appendChild(row);
+    }
+    revealLoginCard();
+    return;
+  }
 
   const d = postLogout
     ? { h: 0, c: 500, s: 1400, sg: 1400, r: 2200, i: 3000, n0: 3450, n1: 3700, n2: 3950, n3: 4200, n4: 4450, n5: 4700, n6: 4950, a: 5300, g: 5300, p: 5800, reveal: 7000 }
@@ -7738,6 +7922,19 @@ function runBootSequence() {
   );
   appendBootLines(linesEl, lines);
   loginBootTimer = setTimeout(revealLoginCard, d.reveal);
+}
+
+function skipBootSequence() {
+  clearTimeout(loginBootTimer);
+  clearBootLineTimers();
+  const linesEl = document.getElementById('login-boot-lines');
+  if (linesEl && !linesEl.textContent.trim()) {
+    const row = document.createElement('div');
+    row.className = 'login-dos-line--bright';
+    row.textContent = 'BOOT SKIPPED — ENTER CREDENTIALS';
+    linesEl.appendChild(row);
+  }
+  revealLoginCard();
 }
 
 // ============================================================
@@ -7872,6 +8069,10 @@ function hideLoginOverlayImmediate() {
   overlay.setAttribute('aria-hidden', 'true');
   overlay.style.display = 'none';
   overlay.classList.remove('fade-out');
+  const main = document.getElementById('main-content');
+  const rail = document.getElementById('right-rail');
+  if (main) main.removeAttribute('aria-hidden');
+  if (rail) rail.removeAttribute('aria-hidden');
 }
 
 function dismissLoginOverlay() {
@@ -7881,6 +8082,19 @@ function dismissLoginOverlay() {
 function setAppShell(active) {
   document.documentElement.classList.toggle('app-shell-active', !!active);
   document.body.classList.toggle('app-shell-active', !!active);
+  const main = document.getElementById('main-content');
+  const rail = document.getElementById('right-rail');
+  if (active) {
+    if (main) main.removeAttribute('aria-hidden');
+    if (rail) rail.removeAttribute('aria-hidden');
+  } else {
+    const loginOverlay = document.getElementById('login-overlay');
+    const loginVisible = loginOverlay && loginOverlay.style.display !== 'none' && loginOverlay.getAttribute('aria-hidden') !== 'true';
+    if (loginVisible) {
+      if (main) main.setAttribute('aria-hidden', 'true');
+      if (rail) rail.setAttribute('aria-hidden', 'true');
+    }
+  }
 }
 
 let rightPanelTopSyncFrame = null;
@@ -8069,7 +8283,7 @@ function tutOnClassifyChoice(cardId, category) {
 const TUT_STATION_MSGS = [
   `*taps clipboard* Station 1 — every step has a Field Briefing panel. Open it before you start. Click OPEN FIELD BRIEFING on the left to try one now.`,
   `*leans forward* Station 2 — classification practice. Same flow as mission Step 1: radio buttons, sorted lists below, VERIFY when every item is classified. Wrong picks get cleared.`,
-  `*ready at keyboard* Station 3 — type a value, press VERIFY or Enter. Arrow keys move between fields in the mission. Green locks in; red means try again.`,
+  `*ready at keyboard* Station 3 — type a value, press VERIFY or Enter. Up/Down arrows move between fields in the mission. Green locks in; red means try again.`,
   `*points at toolbar* Station 4 — the Field Calculator. The ⊞ CALCULATOR button in the session toolbar is always available. Calculate inside it, then enter the result in the answer field.`,
   `*gestures at this panel* Station 5 — I send escalating hints when you miss. In the mission I will not give away answers — and I will pulse the Field Briefing button if you are stuck.`,
   `*holds up tiny USB drive* Station 6 — save files let you pause mid-mission. Use ⬇ SAVE anytime, or ⏻ LOG OUT to download your checkpoint before you exit. When terminal analysis is complete, follow the numbered steps: Canvas 19 through 33, download your final report, upload the PDF on question 34, and keep the .json backup.`,
@@ -8840,14 +9054,6 @@ function calcDecimal() {
   calcRender();
 }
 
-function calcPlusMinus() {
-  if (calcState.display === '0') return;
-  calcState.display = calcState.display.startsWith('-')
-    ? calcState.display.slice(1)
-    : '-' + calcState.display;
-  calcRender();
-}
-
 function calcBackspace() {
   if (calcState.justEvaled || calcState.display.length <= 1) {
     calcState.display = '0';
@@ -8910,23 +9116,6 @@ function applyOp(a, op, b) {
   }
 }
 
-function calcFn(fn) {
-  const cur = parseFloat(calcState.display);
-  let result;
-  switch (fn) {
-    case '1/x': result = cur === 0 ? NaN : 1 / cur; break;
-    case 'x²':  result = cur * cur; break;
-    case '√x':  result = cur < 0 ? NaN : Math.sqrt(cur); break;
-  }
-  const label = fn.replace('x', formatCalcResult(cur));
-  addTapeEntry(`${label} = ${isNaN(result) ? 'ERROR' : formatCalcResult(result)}`, 'tape-op');
-  calcState.display    = isNaN(result) ? 'ERROR' : formatCalcResult(result);
-  calcState.expr       = `${fn}(${formatCalcResult(cur)})`;
-  calcState.justEvaled = true;
-  calcState.hasDecimal = calcState.display.includes('.');
-  calcRender();
-}
-
 function calcClear(mode) {
   if (mode === 'entry') {
     calcState.display    = '0';
@@ -8975,8 +9164,10 @@ function toggleCalc() {
   if (!isOpen) {
     calcLastFocus = document.activeElement;
     if (calcFocusTrap) calcFocusTrap.activate();
-    const firstBtn = popout.querySelector('.calc-btn');
-    if (firstBtn) firstBtn.focus();
+    // Focus the display (not a keypad button) so Enter/= evaluates instead of
+    // activating whatever button happened to receive initial focus.
+    const display = document.getElementById('calc-value');
+    if (display) display.focus();
   } else {
     if (calcFocusTrap) calcFocusTrap.deactivate();
     if (calcLastFocus && calcLastFocus.focus) calcLastFocus.focus();
@@ -9022,21 +9213,26 @@ function toggleCalc() {
   document.addEventListener('mouseup', () => { dragging = false; });
 })();
 
-// ---- Keyboard support (only when calc is open and no input focused) ----
+// ---- Keyboard support (only when calc is open and no mission input focused) ----
 document.addEventListener('keydown', e => {
   const pop = document.getElementById('calc-popout');
   if (!pop || !pop.classList.contains('open')) return;
   if (!pop.contains(document.activeElement) && document.activeElement.tagName === 'INPUT') return;
   const key = e.key;
-  if ('0123456789'.includes(key)) { calcDigit(key); return; }
-  if (key === '.') { calcDecimal(); return; }
-  if (key === 'Backspace') { calcBackspace(); return; }
-  if (key === 'Escape') { toggleCalc(); return; }
-  if (key === 'Enter' || key === '=') { calcEquals(); return; }
-  if (key === '+') { calcOp('+'); return; }
-  if (key === '-') { calcOp('−'); return; }
-  if (key === '*') { calcOp('×'); return; }
-  if (key === '/') { e.preventDefault(); calcOp('÷'); return; }
+  const handle = (fn) => { e.preventDefault(); e.stopPropagation(); fn(); };
+  if ('0123456789'.includes(key)) { handle(() => calcDigit(key)); return; }
+  if (key === '.') { handle(calcDecimal); return; }
+  if (key === 'Backspace') { handle(calcBackspace); return; }
+  if (key === 'Escape') { handle(toggleCalc); return; }
+  if (key === 'Enter' || key === '=') { handle(calcEquals); return; }
+  if (key === '+') { handle(() => calcOp('+')); return; }
+  if (key === '-') { handle(() => calcOp('−')); return; }
+  if (key === '*') { handle(() => calcOp('×')); return; }
+  if (key === '/') { handle(() => calcOp('÷')); return; }
+  // Block Space from activating a focused keypad button while typing
+  if (key === ' ' && pop.contains(document.activeElement) && document.activeElement.classList.contains('calc-btn')) {
+    e.preventDefault();
+  }
 });
 
 // ============================================================
@@ -9062,6 +9258,10 @@ function devGoLogin() {
   overlay.style.opacity = '1';
   overlay.classList.remove('fade-out');
   overlay.removeAttribute('aria-hidden');
+  const main = document.getElementById('main-content');
+  const rail = document.getElementById('right-rail');
+  if (main) main.setAttribute('aria-hidden', 'true');
+  if (rail) rail.setAttribute('aria-hidden', 'true');
   resetLoginScreen();
   runBootSequence();
   releaseLoginFocusTrap();
@@ -9073,6 +9273,10 @@ function devGoTutorial() {
   const overlay = document.getElementById('login-overlay');
   overlay.style.display = 'none';
   overlay.setAttribute('aria-hidden', 'true');
+  const main = document.getElementById('main-content');
+  const rail = document.getElementById('right-rail');
+  if (main) main.removeAttribute('aria-hidden');
+  if (rail) rail.removeAttribute('aria-hidden');
   showTutorialPanel();
   mountProgressPanel('progress-slot-tutorial');
   if (!state.employeeId) state.employeeId = 'DEV-001';
@@ -9083,6 +9287,10 @@ function devGoMission() {
   const overlay = document.getElementById('login-overlay');
   overlay.style.display = 'none';
   overlay.setAttribute('aria-hidden', 'true');
+  const main = document.getElementById('main-content');
+  const rail = document.getElementById('right-rail');
+  if (main) main.removeAttribute('aria-hidden');
+  if (rail) rail.removeAttribute('aria-hidden');
   showMissionPanel();
   mountProgressPanel('progress-slot-mission');
   if (!state.employeeId) state.employeeId = 'DEV-001';
@@ -9787,6 +9995,16 @@ async function generateFinalReport(triggerBtn) {
   const idSlug = String(state.employeeId || 'AGENT').replace(/\s+/g,'_');
   doc.save(`wheeler_pace_FINAL_${idSlug}.pdf`);
 
+  // ===== ACCESSIBLE TEXT ALTERNATE =====
+  downloadFinalReportText(idSlug, {
+    agentId,
+    tsDate,
+    tsTime,
+    atc1920,
+    worstRow,
+    bestRow
+  });
+
   // ===== SAVE CHECKPOINT JSON (1500ms delay so PDF save dialog clears first) =====
   setTimeout(() => {
     saveCheckpoint(true); // pass flag to suppress normal nibbles message
@@ -9800,6 +10018,7 @@ async function generateFinalReport(triggerBtn) {
     statusEl.style.display = 'block';
     statusEl.innerHTML = `
       ✓ <strong>wheeler_pace_FINAL_${idSlug}.pdf</strong> — upload on Canvas question 34 (step 4)<br>
+      ✓ <strong>wheeler_pace_FINAL_${idSlug}.txt</strong> — accessible plain-text summary<br>
       ✓ <strong>wheeler_pace_FINAL_${idSlug}.json</strong> — keep as backup (step 5)
     `;
     if (btn) {
@@ -9807,8 +10026,59 @@ async function generateFinalReport(triggerBtn) {
       if (btn.closest('#final-report-banner')) btn.style.background = 'var(--color-positive)';
       else btn.disabled = false;
     }
-    hammondMsg(`*stamps mission seal* Report downloaded. Upload the PDF on Canvas question 34 and keep the .json file as a backup.`, 'success', 200);
+    hammondMsg(`*stamps mission seal* Report downloaded (PDF + accessible text summary). Upload the PDF on Canvas question 34 and keep the .json file as a backup.`, 'success', 200);
   }, 800);
+}
+
+function downloadFinalReportText(idSlug, meta) {
+  const lines = [];
+  lines.push('WHEELER & PACE PERFUMERY — COST ANALYSIS REPORT (plain-text accessible alternate)');
+  lines.push(`Agent ID: ${meta.agentId}`);
+  lines.push(`Generated: ${meta.tsDate} ${meta.tsTime}`);
+  lines.push('');
+  lines.push('BASELINE (Q = 960)');
+  lines.push(`  FC: $${BASELINE_ANSWERS.fc.toFixed(2)}`);
+  lines.push(`  VC: $${BASELINE_ANSWERS.vc.toFixed(2)}`);
+  lines.push(`  TC: $${BASELINE_ANSWERS.tc.toFixed(2)}`);
+  lines.push(`  MR / Market price: $${BASELINE_ANSWERS.mr.toFixed(2)}`);
+  lines.push('');
+  lines.push('TOTAL COST BY OUTPUT');
+  COST_TABLE.forEach(r => {
+    lines.push(`  Q=${r.q}: FC=$${r.fc.toFixed(2)} VC=$${r.vc.toFixed(2)} TC=$${r.tc.toFixed(2)}`);
+  });
+  lines.push('');
+  lines.push('AVERAGE & MARGINAL COST');
+  AVG_TABLE.forEach(r => {
+    lines.push(`  Q=${r.q}: AFC=${r.afc.toFixed(3)} AVC=${r.avc.toFixed(3)} ATC=${r.atc.toFixed(3)}`);
+  });
+  MC_INTERVALS.forEach(iv => {
+    lines.push(`  MC ${iv.from}→${iv.to}: $${iv.mc.toFixed(3)}`);
+  });
+  lines.push('');
+  lines.push('REVENUE & PROFIT (Price = $0.25)');
+  PROFIT_TABLE.forEach(r => {
+    lines.push(`  Q=${r.q}: TR=$${r.tr.toFixed(2)} TC=$${r.tc.toFixed(2)} Profit=$${r.profit.toFixed(2)}`);
+  });
+  lines.push('');
+  lines.push('SUMMARY');
+  lines.push(`  Highest profit among tested outputs: Q=${meta.bestRow.q} · $${meta.bestRow.profit.toFixed(2)}`);
+  lines.push(`  Largest loss among tested outputs: Q=${meta.worstRow.q} · $${meta.worstRow.profit.toFixed(2)}`);
+  if (!isNaN(meta.atc1920)) {
+    lines.push(`  Long-run test at Q=1920: Price $0.25 vs ATC $${meta.atc1920.toFixed(3)}`);
+  }
+  lines.push('  Recommended operating target: 1,200 bottles (MC close to MR, highest profit)');
+  lines.push('');
+  lines.push('Note: Upload the PDF on Canvas question 34. This .txt file is an accessible alternate of the same figures.');
+
+  const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `wheeler_pace_FINAL_${idSlug}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
 }
 
 // END DEV MODE
