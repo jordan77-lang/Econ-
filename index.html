@@ -2120,44 +2120,48 @@
     line-height: 1;
   }
 
-  /* === CALCULATOR POPOUT WINDOW === */
+  /* === CALCULATOR — docks under N.I.B.B.L.E.S. in the right rail === */
   .calc-popout {
-    position: fixed;
-    z-index: 950;
-    width: 300px;
+    position: relative;
+    z-index: auto;
+    width: 100%;
+    flex: 0 0 auto;
     background: var(--bg-panel);
     border: 1px solid var(--accent-cyan);
-    border-radius: 12px;
-    box-shadow: 0 0 40px var(--calc-popout-shadow), 0 8px 32px var(--calc-popout-drop);
+    border-radius: 10px;
+    box-shadow: 0 0 24px var(--calc-popout-shadow);
     display: none;
     flex-direction: column;
     overflow: hidden;
-    top: var(--right-panel-top);
-    bottom: auto;
-    right: calc(var(--right-panel-right) + var(--right-panel-width) - 300px);
     animation: calcPopIn 0.18s ease;
   }
 
   .calc-popout.open { display: flex; }
 
-  @keyframes calcPopIn {
-    from { opacity: 0; transform: scale(0.92) translateY(10px); }
-    to   { opacity: 1; transform: scale(1)    translateY(0); }
+  body.calc-docked-open .right-panel {
+    height: min(calc(100vh - var(--right-panel-top) - 12px), 920px);
   }
 
-  /* Title bar — drag handle */
+  body.calc-docked-open .hammond-panel {
+    flex: 1 1 0;
+    min-height: 140px;
+  }
+
+  @keyframes calcPopIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Title bar */
   .calc-titlebar {
     background: var(--calc-titlebar-bg);
     border-bottom: 1px solid var(--border);
-    padding: 10px 14px;
+    padding: 8px 12px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    cursor: grab;
     user-select: none;
   }
-
-  .calc-titlebar:active { cursor: grabbing; }
 
   .calc-titlebar-left {
     display: flex;
@@ -2199,9 +2203,9 @@
 
   .calc-close-btn:hover { color: var(--accent-red); }
 
-  /* Body */
+  /* Body — slightly compact so it fits under a shrunk NIBBLES panel */
   .calc-body {
-    padding: 0.75rem;
+    padding: 0.55rem;
   }
 
   /* Tape / history */
@@ -2209,10 +2213,10 @@
     background: var(--bg-deep);
     border: 1px solid var(--border);
     border-radius: 6px;
-    padding: 6px 10px;
-    height: 72px;
+    padding: 4px 8px;
+    height: 52px;
     overflow-y: auto;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.45rem;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 11px;
     color: var(--text-dim);
@@ -2229,9 +2233,9 @@
     background: var(--bg-deep);
     border: 1px solid var(--border-bright);
     border-radius: 6px;
-    padding: 8px 12px;
+    padding: 6px 10px;
     text-align: right;
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.45rem;
   }
 
   .calc-expr {
@@ -2247,7 +2251,7 @@
 
   .calc-value {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 24px;
+    font-size: 20px;
     color: var(--text-primary);
     letter-spacing: 1px;
     overflow: hidden;
@@ -2266,14 +2270,15 @@
   .calc-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 5px;
+    gap: 4px;
   }
 
   .calc-btn {
     background: var(--bg-input);
     border: 1px solid var(--border);
     border-radius: 6px;
-    padding: 12px 4px;
+    padding: 10px 4px;
+    min-height: 40px;
     font-family: 'IBM Plex Mono', monospace;
     font-size: 14px;
     color: var(--text-primary);
@@ -2853,10 +2858,10 @@
       margin-top: 1rem;
     }
     .right-panel { width: 100%; max-height: none; height: auto; }
-    .calc-popout {
-      top: auto;
-      bottom: 1rem;
-      right: 1rem;
+    body.calc-docked-open .right-panel { height: auto; }
+    body.calc-docked-open .hammond-panel {
+      min-height: 220px;
+      max-height: 42vh;
     }
   }
 
@@ -5075,7 +5080,7 @@
                 </li>
                 <li id="mcc-step-3" class="mission-complete-download-step">
                   <span class="mission-complete-download-label">Download your final report here</span>
-                  <p class="mission-complete-download-note">Downloads three files: a <strong>PDF</strong> for Canvas submission, a plain-text <strong>.txt</strong> summary (accessible alternate), and a <strong>.json</strong> checkpoint backup.</p>
+                  <p class="mission-complete-download-note">Downloads two files: a <strong>PDF</strong> for Canvas submission and a <strong>.json</strong> checkpoint backup.</p>
                   <button type="button" class="final-report-btn" onclick="generateFinalReport(this)">
                     ▼ DOWNLOAD FINAL REPORT
                   </button>
@@ -5153,6 +5158,49 @@
       </div>
     </div>
 
+    <!-- FIELD CALCULATOR — docks under N.I.B.B.L.E.S. -->
+    <div class="calc-popout" id="calc-popout" role="region" aria-labelledby="calc-dialog-title" aria-hidden="true">
+      <div class="calc-titlebar" id="calc-titlebar">
+        <div class="calc-titlebar-left">
+          <div class="calc-titlebar-dots" aria-hidden="true">
+            <div class="calc-dot red"></div>
+            <div class="calc-dot yellow"></div>
+            <div class="calc-dot green"></div>
+          </div>
+          <span class="calc-title" id="calc-dialog-title">⬡ FIELD CALCULATOR</span>
+        </div>
+        <button type="button" class="calc-close-btn" onclick="toggleCalc()" aria-label="Close calculator">✕</button>
+      </div>
+      <div class="calc-body">
+        <div class="calc-tape" id="calc-tape" aria-hidden="true"></div>
+        <div class="calc-display">
+          <div class="calc-expr" id="calc-expr" aria-hidden="true"></div>
+          <div class="calc-value" id="calc-value" tabindex="0" role="status" aria-live="polite" aria-atomic="true" aria-label="Calculator display">0</div>
+        </div>
+        <div class="calc-grid">
+          <button type="button" class="calc-btn clear" onclick="calcClear('entry')" aria-label="Clear entry">CE</button>
+          <button type="button" class="calc-btn clear" onclick="calcClear('all')" aria-label="Clear all">C</button>
+          <button type="button" class="calc-btn op" onclick="calcBackspace()" aria-label="Backspace">⌫</button>
+          <button type="button" class="calc-btn op" onclick="calcOp('÷')" aria-label="Divide">÷</button>
+          <button type="button" class="calc-btn" onclick="calcDigit('7')">7</button>
+          <button type="button" class="calc-btn" onclick="calcDigit('8')">8</button>
+          <button type="button" class="calc-btn" onclick="calcDigit('9')">9</button>
+          <button type="button" class="calc-btn op" onclick="calcOp('×')" aria-label="Multiply">×</button>
+          <button type="button" class="calc-btn" onclick="calcDigit('4')">4</button>
+          <button type="button" class="calc-btn" onclick="calcDigit('5')">5</button>
+          <button type="button" class="calc-btn" onclick="calcDigit('6')">6</button>
+          <button type="button" class="calc-btn op" onclick="calcOp('−')" aria-label="Subtract">−</button>
+          <button type="button" class="calc-btn" onclick="calcDigit('1')">1</button>
+          <button type="button" class="calc-btn" onclick="calcDigit('2')">2</button>
+          <button type="button" class="calc-btn" onclick="calcDigit('3')">3</button>
+          <button type="button" class="calc-btn op" onclick="calcOp('+')" aria-label="Add">+</button>
+          <button type="button" class="calc-btn wide" onclick="calcDigit('0')">0</button>
+          <button type="button" class="calc-btn" onclick="calcDecimal()" aria-label="Decimal point">.</button>
+          <button type="button" class="calc-btn eq" onclick="calcEquals()" aria-label="Equals">=</button>
+        </div>
+      </div>
+    </div>
+
   </aside><!-- /right-panel -->
 </div><!-- /right-rail -->
 
@@ -5184,52 +5232,6 @@
     <div class="axiom-trans-hud-inner">
       <div class="axiom-trans-hud-title" id="axiom-trans-title">▸ SYSTEM ROUTING</div>
       <div class="axiom-trans-hud-line" id="axiom-trans-line"></div>
-    </div>
-  </div>
-</div>
-
-<!-- CALCULATOR POPOUT WINDOW -->
-<div class="calc-popout" id="calc-popout" role="dialog" aria-modal="true" aria-labelledby="calc-dialog-title" aria-hidden="true">
-  <!-- Title bar / drag handle -->
-  <div class="calc-titlebar" id="calc-titlebar">
-    <div class="calc-titlebar-left">
-      <div class="calc-titlebar-dots" aria-hidden="true">
-        <div class="calc-dot red"></div>
-        <div class="calc-dot yellow"></div>
-        <div class="calc-dot green"></div>
-      </div>
-      <span class="calc-title" id="calc-dialog-title">⬡ FIELD CALCULATOR</span>
-    </div>
-    <button type="button" class="calc-close-btn" onclick="toggleCalc()" aria-label="Close calculator">✕</button>
-  </div>
-  <!-- Body -->
-  <div class="calc-body">
-    <div class="calc-tape" id="calc-tape" aria-hidden="true"></div>
-    <div class="calc-display">
-      <div class="calc-expr" id="calc-expr" aria-hidden="true"></div>
-      <div class="calc-value" id="calc-value" tabindex="0" role="status" aria-live="polite" aria-atomic="true" aria-label="Calculator display">0</div>
-    </div>
-    <div class="calc-grid">
-      <!-- Simple four-function keypad (no advanced functions) -->
-      <button type="button" class="calc-btn clear" onclick="calcClear('entry')" aria-label="Clear entry">CE</button>
-      <button type="button" class="calc-btn clear" onclick="calcClear('all')" aria-label="Clear all">C</button>
-      <button type="button" class="calc-btn op" onclick="calcBackspace()" aria-label="Backspace">⌫</button>
-      <button type="button" class="calc-btn op" onclick="calcOp('÷')" aria-label="Divide">÷</button>
-      <button type="button" class="calc-btn" onclick="calcDigit('7')">7</button>
-      <button type="button" class="calc-btn" onclick="calcDigit('8')">8</button>
-      <button type="button" class="calc-btn" onclick="calcDigit('9')">9</button>
-      <button type="button" class="calc-btn op" onclick="calcOp('×')" aria-label="Multiply">×</button>
-      <button type="button" class="calc-btn" onclick="calcDigit('4')">4</button>
-      <button type="button" class="calc-btn" onclick="calcDigit('5')">5</button>
-      <button type="button" class="calc-btn" onclick="calcDigit('6')">6</button>
-      <button type="button" class="calc-btn op" onclick="calcOp('−')" aria-label="Subtract">−</button>
-      <button type="button" class="calc-btn" onclick="calcDigit('1')">1</button>
-      <button type="button" class="calc-btn" onclick="calcDigit('2')">2</button>
-      <button type="button" class="calc-btn" onclick="calcDigit('3')">3</button>
-      <button type="button" class="calc-btn op" onclick="calcOp('+')" aria-label="Add">+</button>
-      <button type="button" class="calc-btn wide" onclick="calcDigit('0')">0</button>
-      <button type="button" class="calc-btn" onclick="calcDecimal()" aria-label="Decimal point">.</button>
-      <button type="button" class="calc-btn eq" onclick="calcEquals()" aria-label="Equals">=</button>
     </div>
   </div>
 </div>
@@ -5533,8 +5535,6 @@ function createFocusTrap(container) {
 }
 
 let loginFocusTrap = null;
-let calcFocusTrap = null;
-let calcLastFocus = null;
 
 function initInstructionAria() {
   const pairs = [
@@ -5632,8 +5632,6 @@ function initAccessibility() {
     loginFocusTrap = createFocusTrap(loginOverlay);
     loginFocusTrap.activate();
   }
-  const calcPopout = document.getElementById('calc-popout');
-  if (calcPopout) calcFocusTrap = createFocusTrap(calcPopout);
   populateAllChartDataTables();
 }
 
@@ -7621,8 +7619,8 @@ function captureChartForPdf(chartId) {
   const spec = withPdfChartColors(() => pdfChartSnapshotSpec(chartId));
   if (!spec?.datasets?.length) return null;
 
-  const baseW = 900;
-  const baseH = 450;
+  const baseW = 1100;
+  const baseH = 680;
   const canvas = document.createElement('canvas');
   canvas.width = baseW;
   canvas.height = baseH;
@@ -9148,76 +9146,42 @@ function addTapeEntry(text, cls) {
   tape.scrollTop = tape.scrollHeight;
 }
 
-// ---- Popout open / close ----
+// ---- Docked calculator open / close (under N.I.B.B.L.E.S.) ----
 function toggleCalc() {
   const popout = document.getElementById('calc-popout');
   const fab    = document.getElementById('calc-fab');
   const label  = document.getElementById('calc-fab-label');
+  if (!popout) return;
   const isOpen = popout.classList.contains('open');
   popout.classList.toggle('open', !isOpen);
   popout.setAttribute('aria-hidden', isOpen ? 'true' : 'false');
-  label.textContent = isOpen ? 'CALCULATOR' : 'CLOSE';
+  document.body.classList.toggle('calc-docked-open', !isOpen);
+  if (label) label.textContent = isOpen ? 'CALCULATOR' : 'CLOSE';
   if (fab) {
     fab.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
     fab.setAttribute('aria-label', isOpen ? 'Open Field Calculator' : 'Close Field Calculator');
   }
   if (!isOpen) {
-    calcLastFocus = document.activeElement;
-    if (calcFocusTrap) calcFocusTrap.activate();
-    // Focus the display (not a keypad button) so Enter/= evaluates instead of
-    // activating whatever button happened to receive initial focus.
+    // Prefer focusing display so Enter/= evaluates; NIBBLES stays usable (non-modal).
     const display = document.getElementById('calc-value');
     if (display) display.focus();
-  } else {
-    if (calcFocusTrap) calcFocusTrap.deactivate();
-    if (calcLastFocus && calcLastFocus.focus) calcLastFocus.focus();
-    else if (fab) fab.focus();
+  } else if (fab) {
+    fab.focus();
   }
 }
 
-// ---- Drag to reposition ----
-(function () {
-  const popout   = () => document.getElementById('calc-popout');
-  const titlebar = () => document.getElementById('calc-titlebar');
-
-  let dragging = false, offX = 0, offY = 0;
-
-  document.addEventListener('mousedown', e => {
-    const tb = titlebar();
-    if (!tb || !tb.contains(e.target) || e.target.classList.contains('calc-close-btn')) return;
-    dragging = true;
-    const rect = popout().getBoundingClientRect();
-    offX = e.clientX - rect.left;
-    offY = e.clientY - rect.top;
-    // Switch from bottom/right anchoring to top/left so drag works correctly
-    const pop = popout();
-    pop.style.bottom = 'auto';
-    pop.style.right  = 'auto';
-    pop.style.left   = rect.left + 'px';
-    pop.style.top    = rect.top  + 'px';
-    e.preventDefault();
-  });
-
-  document.addEventListener('mousemove', e => {
-    if (!dragging) return;
-    const pop = popout();
-    let newLeft = e.clientX - offX;
-    let newTop  = e.clientY - offY;
-    // Keep within viewport
-    newLeft = Math.max(0, Math.min(newLeft, window.innerWidth  - pop.offsetWidth));
-    newTop  = Math.max(0, Math.min(newTop,  window.innerHeight - pop.offsetHeight));
-    pop.style.left = newLeft + 'px';
-    pop.style.top  = newTop  + 'px';
-  });
-
-  document.addEventListener('mouseup', () => { dragging = false; });
-})();
-
-// ---- Keyboard support (only when calc is open and no mission input focused) ----
+// ---- Keyboard support when calc is focused (NIBBLES / mission inputs stay independent) ----
 document.addEventListener('keydown', e => {
   const pop = document.getElementById('calc-popout');
   if (!pop || !pop.classList.contains('open')) return;
-  if (!pop.contains(document.activeElement) && document.activeElement.tagName === 'INPUT') return;
+  const inCalc = pop.contains(document.activeElement);
+  if (!inCalc) {
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      toggleCalc();
+    }
+    return;
+  }
   const key = e.key;
   const handle = (fn) => { e.preventDefault(); e.stopPropagation(); fn(); };
   if ('0123456789'.includes(key)) { handle(() => calcDigit(key)); return; }
@@ -9229,8 +9193,7 @@ document.addEventListener('keydown', e => {
   if (key === '-') { handle(() => calcOp('−')); return; }
   if (key === '*') { handle(() => calcOp('×')); return; }
   if (key === '/') { handle(() => calcOp('÷')); return; }
-  // Block Space from activating a focused keypad button while typing
-  if (key === ' ' && pop.contains(document.activeElement) && document.activeElement.classList.contains('calc-btn')) {
+  if (key === ' ' && document.activeElement.classList.contains('calc-btn')) {
     e.preventDefault();
   }
 });
@@ -9604,14 +9567,16 @@ async function generateFinalReport(triggerBtn) {
     btn.disabled = true;
   }
 
-  await new Promise(r => setTimeout(r, 100));
+  try {
+    await new Promise(r => setTimeout(r, 50));
 
-  Object.values(state.charts || {}).forEach(ch => {
-    ch?.tooltip?.setActiveElements([], { x: 0, y: 0 });
-  });
+    Object.values(state.charts || {}).forEach(ch => {
+      ch?.tooltip?.setActiveElements([], { x: 0, y: 0 });
+    });
 
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const { jsPDF } = window.jspdf;
+    if (!jsPDF) throw new Error('PDF library failed to load. Check your network and refresh.');
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
   const W = 210;
   const H = 297;
   const margin = 18;
@@ -9631,7 +9596,7 @@ async function generateFinalReport(triggerBtn) {
   const now = new Date();
   const tsDate = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   const tsTime = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-  const agentId = String(state.employeeId || '—');
+  const agentId = String(state.employeeId || 'AGENT');
   const PDF_FONT_SCALE = 1.08;
   let tableBodyRowIdx = 0;
 
@@ -9674,8 +9639,7 @@ async function generateFinalReport(triggerBtn) {
     doc.setLineWidth(0.2);
     doc.line(margin, fy, W - margin, fy);
     setFont(7, 'normal', muted);
-    text('ECN212 · Module 1 Activity 1 · Wheeler & Pace Temporal Advisory Division', margin, fy + 5);
-    text(`Agent ${agentId}`, W / 2, fy + 5, { align: 'center' });
+    text('ECN212 · Module 1 Activity 1 · Wheeler & Pace', margin, fy + 5);
     text(`Page ${pageNum}`, W - margin, fy + 5, { align: 'right' });
   }
   function sectionTitle(label, subtitle) {
@@ -9698,6 +9662,8 @@ async function generateFinalReport(triggerBtn) {
   function isLikelyNumericCell(cell) {
     const raw = String(cell ?? '').trim();
     if (!raw || raw === '—' || raw.toUpperCase() === 'N/A') return true;
+    // Right-align currency and values that start with a digit (e.g. "960 bottles")
+    if (raw.startsWith('$') || /^[-+]?\d/.test(raw)) return true;
     if (/[A-Za-z]/.test(raw)) return false;
     return !isNaN(parseNumInput(raw));
   }
@@ -9768,11 +9734,12 @@ async function generateFinalReport(triggerBtn) {
     const captured = captureChartForPdf(chartId);
     if (!captured) return;
 
-    const imgH = 76;
-    const imgW = Math.min(colW - 4, imgH * captured.aspect);
-    const xOff = margin + (colW - imgW) / 2;
+    // Full page width; tall enough to read labels (~1.6:1 capture aspect)
+    const imgW = colW;
+    const imgH = Math.min(108, imgW / (captured.aspect || 1.6));
+    const xOff = margin;
 
-    checkY(imgH + 22);
+    checkY(imgH + 20);
     setFont(9, 'bold', navy);
     text(title, margin, y + 4);
     y += 6;
@@ -9787,67 +9754,36 @@ async function generateFinalReport(triggerBtn) {
     doc.setDrawColor(...rule);
     doc.setLineWidth(0.25);
     doc.setFillColor(...white);
-    doc.roundedRect(margin, y, colW, imgH, 1.5, 1.5, 'FD');
-    doc.addImage(captured.data, captured.format || 'PNG', xOff, y + 2, imgW, imgH - 4, undefined, 'MEDIUM');
-    y += imgH + 10;
+    doc.roundedRect(margin, y, imgW, imgH, 1.5, 1.5, 'FD');
+    doc.addImage(captured.data, captured.format || 'PNG', xOff + 1, y + 2, imgW - 2, imgH - 4, undefined, 'MEDIUM');
+    y += imgH + 8;
   }
 
-  // ===== COVER =====
+  // ===== COVER (compact — content continues on this page) =====
   fillPage();
   doc.setFillColor(...navy);
-  doc.rect(0, 0, W, 52, 'F');
+  doc.rect(0, 0, W, 34, 'F');
   setFont(7.5, 'normal', [200, 215, 230]);
   text('CLASSIFIED // AXIOM REPORT', margin, 8);
   setFont(7.5, 'bold', white);
   text(`AGENT ${agentId}`, W - margin, 8, { align: 'right' });
-  setFont(20, 'bold', white);
-  text('Parfum du coeur', W / 2, 22, { align: 'center' });
-  setFont(12, 'normal', white);
-  text('Cost & Revenue Analysis Report', W / 2, 32, { align: 'center' });
-  setFont(8, 'normal', [200, 215, 230]);
-  text('AXIOM Terminal · ECN212 Module 1 Activity 1', W / 2, 42, { align: 'center' });
+  setFont(16, 'bold', white);
+  text('Parfum du coeur', W / 2, 18, { align: 'center' });
+  setFont(10, 'normal', white);
+  text('Cost & Revenue Analysis Report', W / 2, 26, { align: 'center' });
 
-  y = 68;
-  setFont(10, 'bold', navy);
-  text('Submitted by', margin, y);
-  y += 7;
-  setFont(14, 'bold', ink);
+  y = 42;
+  setFont(9, 'bold', navy);
   text(`Agent ${agentId}`, margin, y);
-  y += 10;
-  setFont(9, 'normal', muted);
-  text(`Date: ${tsDate}`, margin, y);
-  y += 5;
-  text(`Time: ${tsTime}`, margin, y);
-
-  y += 14;
-  setFont(9, 'normal', ink);
-  const coverBlurb = [
-    'This report documents the completed cost classification, baseline totals,',
-    'cost schedules, average and marginal cost calculations, revenue and profit',
-    'analysis, and supporting charts for Parfum du coeur\'s 1885 operation.',
-  ];
-  coverBlurb.forEach(line => { text(line, margin, y); y += 5; });
-
+  setFont(8, 'normal', muted);
+  text(`${tsDate}  |  ${tsTime}`, W - margin, y, { align: 'right' });
+  y += 6;
+  doc.setDrawColor(...accent);
+  doc.setLineWidth(0.6);
+  doc.line(margin, y, margin + 42, y);
   y += 8;
-  doc.setFillColor(...tblHead);
-  doc.setDrawColor(...rule);
-  doc.roundedRect(margin, y, colW, 28, 2, 2, 'FD');
-  setFont(8, 'bold', navy);
-  text('Report contents', margin + 4, y + 7);
-  setFont(7.5, 'normal', ink);
-  const contents = [
-    '· Identify fixed and variable costs',
-    '· Various costs at the baseline output level',
-    '· Total cost across output levels',
-    '· Average & marginal costs and cost patterns',
-    '· Compare MC to MR · Profit at different outputs',
-    '· Cost and revenue charts',
-  ];
-  let cy = y + 13;
-  contents.forEach(line => { text(line, margin + 4, cy); cy += 4.5; });
 
-  // ===== OBJECTIVE 1 =====
-  newPage();
+  // ===== OBJECTIVE 1 (starts on cover page — no empty page waste) =====
 
   sectionTitle(
     'Objective 1 · Step 1 — Identify Fixed and Variable Costs',
@@ -9933,21 +9869,16 @@ async function generateFinalReport(triggerBtn) {
   embedChart(
     'chartB',
     'Chart B — MC vs. MR',
-    'Profit-maximizing range: where marginal cost meets marginal revenue.'
+    'Marginal cost compared with marginal revenue across output.'
   );
   y += 2;
 
   sectionTitle(
-    'Objective 2 · Step 1 — Compare Marginal Cost to Marginal Revenue',
-    'Market price equals marginal revenue in perfect competition. Chart B compares MC and MR at each output.'
+    'Objective 2 — Revenue, Marginal Cost & Profit',
+    'Market price (MR), total revenue (TR = price x Q), and profit (TR - TC) at each output. Chart B compares MC and MR; Chart C compares price with AVC and ATC.'
   );
-  tableRow(['Marginal revenue (MR)', fmtMoney(inpVal('inp-mr'))], [colW * 0.55, colW * 0.45], false);
-  y += 6;
-
-  sectionTitle(
-    'Objective 2 · Step 2 — Calculate Profit at Different Outputs',
-    'Total revenue (TR = price × Q) and profit (TR − TC) at each output level.'
-  );
+  tableRow(['Marginal revenue / market price (MR)', fmtMoney(inpVal('inp-mr'))], [colW * 0.55, colW * 0.45], false);
+  y += 4;
   const prW = [colW * 0.18, colW * 0.27, colW * 0.27, colW * 0.28];
   tableRow(['Q (bottles)', 'TR ($)', 'TC ($)', 'Profit ($)'], prW, true);
   PROFIT_TABLE.forEach((row, i) => {
@@ -9963,31 +9894,8 @@ async function generateFinalReport(triggerBtn) {
   embedChart(
     'chartC',
     'Chart C — MR vs. AVC & ATC',
-    'Shutdown and long-run exit analysis: price compared to per-unit costs.'
+    'Price compared with AVC and ATC across output levels.'
   );
-
-  sectionTitle(
-    'Executive Findings',
-    'Key decision metrics summarized from your verified tables and curves.'
-  );
-  const atc1920 = parseNumInput(inpVal('atc-4'));
-  const summaryProfitRows = PROFIT_TABLE.map((row, i) => {
-    const trVal = parseNumInput(inpVal(`tr-${i}`));
-    const pVal = parseNumInput(inpVal(`profit-${i}`));
-    return {
-      q: row.q,
-      tr: isNaN(trVal) ? row.tr : trVal,
-      profit: isNaN(pVal) ? row.profit : pVal
-    };
-  });
-  const bestRow = summaryProfitRows.reduce((best, cur) => cur.profit > best.profit ? cur : best, summaryProfitRows[0]);
-  const worstRow = summaryProfitRows.reduce((worst, cur) => cur.profit < worst.profit ? cur : worst, summaryProfitRows[0]);
-  const sumW = [colW * 0.62, colW * 0.38];
-  tableRow(['Metric', 'Result'], sumW, true);
-  tableRow(['Profit-maximizing output (peak monthly profit)', `${bestRow.q} bottles · $${bestRow.profit.toFixed(2)}`], sumW, false);
-  tableRow(['Largest monthly loss among tested outputs', `${worstRow.q} bottles · $${worstRow.profit.toFixed(2)}`], sumW, false);
-  tableRow(['Long-run viability test at 1,920 bottles', isNaN(atc1920) ? 'Price ($0.25) vs ATC (see table)' : `Price $0.25 vs ATC $${atc1920.toFixed(3)}`], sumW, false);
-  tableRow(['Recommended operating target', '1,200 bottles (MC close to MR, highest profit)'], sumW, false);
 
   drawPageFooter();
 
@@ -9995,20 +9903,10 @@ async function generateFinalReport(triggerBtn) {
   const idSlug = String(state.employeeId || 'AGENT').replace(/\s+/g,'_');
   doc.save(`wheeler_pace_FINAL_${idSlug}.pdf`);
 
-  // ===== ACCESSIBLE TEXT ALTERNATE =====
-  downloadFinalReportText(idSlug, {
-    agentId,
-    tsDate,
-    tsTime,
-    atc1920,
-    worstRow,
-    bestRow
-  });
-
-  // ===== SAVE CHECKPOINT JSON (1500ms delay so PDF save dialog clears first) =====
+  // ===== SAVE CHECKPOINT JSON (delay so PDF save dialog clears first) =====
   setTimeout(() => {
     saveCheckpoint(true); // pass flag to suppress normal nibbles message
-  }, 1500);
+  }, 1200);
 
   // ===== POST-DOWNLOAD MESSAGE =====
   setTimeout(() => {
@@ -10018,7 +9916,6 @@ async function generateFinalReport(triggerBtn) {
     statusEl.style.display = 'block';
     statusEl.innerHTML = `
       ✓ <strong>wheeler_pace_FINAL_${idSlug}.pdf</strong> — upload on Canvas question 34 (step 4)<br>
-      ✓ <strong>wheeler_pace_FINAL_${idSlug}.txt</strong> — accessible plain-text summary<br>
       ✓ <strong>wheeler_pace_FINAL_${idSlug}.json</strong> — keep as backup (step 5)
     `;
     if (btn) {
@@ -10026,59 +9923,16 @@ async function generateFinalReport(triggerBtn) {
       if (btn.closest('#final-report-banner')) btn.style.background = 'var(--color-positive)';
       else btn.disabled = false;
     }
-    hammondMsg(`*stamps mission seal* Report downloaded (PDF + accessible text summary). Upload the PDF on Canvas question 34 and keep the .json file as a backup.`, 'success', 200);
-  }, 800);
-}
-
-function downloadFinalReportText(idSlug, meta) {
-  const lines = [];
-  lines.push('WHEELER & PACE PERFUMERY — COST ANALYSIS REPORT (plain-text accessible alternate)');
-  lines.push(`Agent ID: ${meta.agentId}`);
-  lines.push(`Generated: ${meta.tsDate} ${meta.tsTime}`);
-  lines.push('');
-  lines.push('BASELINE (Q = 960)');
-  lines.push(`  FC: $${BASELINE_ANSWERS.fc.toFixed(2)}`);
-  lines.push(`  VC: $${BASELINE_ANSWERS.vc.toFixed(2)}`);
-  lines.push(`  TC: $${BASELINE_ANSWERS.tc.toFixed(2)}`);
-  lines.push(`  MR / Market price: $${BASELINE_ANSWERS.mr.toFixed(2)}`);
-  lines.push('');
-  lines.push('TOTAL COST BY OUTPUT');
-  COST_TABLE.forEach(r => {
-    lines.push(`  Q=${r.q}: FC=$${r.fc.toFixed(2)} VC=$${r.vc.toFixed(2)} TC=$${r.tc.toFixed(2)}`);
-  });
-  lines.push('');
-  lines.push('AVERAGE & MARGINAL COST');
-  AVG_TABLE.forEach(r => {
-    lines.push(`  Q=${r.q}: AFC=${r.afc.toFixed(3)} AVC=${r.avc.toFixed(3)} ATC=${r.atc.toFixed(3)}`);
-  });
-  MC_INTERVALS.forEach(iv => {
-    lines.push(`  MC ${iv.from}→${iv.to}: $${iv.mc.toFixed(3)}`);
-  });
-  lines.push('');
-  lines.push('REVENUE & PROFIT (Price = $0.25)');
-  PROFIT_TABLE.forEach(r => {
-    lines.push(`  Q=${r.q}: TR=$${r.tr.toFixed(2)} TC=$${r.tc.toFixed(2)} Profit=$${r.profit.toFixed(2)}`);
-  });
-  lines.push('');
-  lines.push('SUMMARY');
-  lines.push(`  Highest profit among tested outputs: Q=${meta.bestRow.q} · $${meta.bestRow.profit.toFixed(2)}`);
-  lines.push(`  Largest loss among tested outputs: Q=${meta.worstRow.q} · $${meta.worstRow.profit.toFixed(2)}`);
-  if (!isNaN(meta.atc1920)) {
-    lines.push(`  Long-run test at Q=1920: Price $0.25 vs ATC $${meta.atc1920.toFixed(3)}`);
+    hammondMsg(`*stamps mission seal* Report downloaded. Upload the PDF on Canvas question 34 and keep the .json file as a backup.`, 'success', 200);
+  }, 400);
+  } catch (err) {
+    console.error('Final report generation failed:', err);
+    if (btn) {
+      btn.textContent = '▼ DOWNLOAD FINAL REPORT';
+      btn.disabled = false;
+    }
+    hammondMsg(`*circuit sparks* Report generation failed: ${err?.message || 'unknown error'}. Try again, or refresh if the PDF library did not load.`, 'warning', 200);
   }
-  lines.push('  Recommended operating target: 1,200 bottles (MC close to MR, highest profit)');
-  lines.push('');
-  lines.push('Note: Upload the PDF on Canvas question 34. This .txt file is an accessible alternate of the same figures.');
-
-  const blob = new Blob([lines.join('\n')], { type: 'text/plain;charset=utf-8' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `wheeler_pace_FINAL_${idSlug}.txt`;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 2000);
 }
 
 // END DEV MODE
