@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1595,6 +1595,7 @@
     box-shadow: 0 0 10px var(--color-positive-bg);
     color: var(--color-positive);
     background: var(--color-positive-bg);
+    font-weight: 600;
   }
 
   .data-input.incorrect {
@@ -1820,9 +1821,35 @@
   }
 
   .table-input:focus { border-color: var(--accent-cyan); }
-  .table-input.correct { border-color: var(--color-positive); color: var(--color-positive); }
+  .table-input.correct {
+    border-color: var(--color-positive);
+    color: var(--color-positive);
+    background: var(--color-positive-bg);
+    font-weight: 600;
+  }
   .table-input.incorrect { border-color: var(--accent-red); animation: shake 0.3s ease; }
   .table-input:disabled { opacity: 0.5; cursor: not-allowed; background: var(--bg-card); }
+  /* Confirmed/locked values stay fully readable — do not dim them */
+  .data-input.correct:disabled,
+  .table-input.correct:disabled {
+    opacity: 1;
+    cursor: default;
+    color: var(--color-positive);
+    background: var(--color-positive-bg);
+    border-color: var(--color-positive);
+    -webkit-text-fill-color: var(--color-positive);
+  }
+
+  [data-theme="light"] .data-input.correct,
+  [data-theme="light"] .data-input.correct:disabled,
+  [data-theme="light"] .table-input.correct,
+  [data-theme="light"] .table-input.correct:disabled {
+    color: #0b4032;
+    -webkit-text-fill-color: #0b4032;
+    background: #cfeee2;
+    border-color: #156048;
+    font-weight: 600;
+  }
 
   /* MC column — interval rows between Q levels; › sits left of each input */
   .avg-mc-interval-row td {
@@ -2649,7 +2676,7 @@
   .final-report-btn {
     background: var(--accent-amber);
     border: none;
-    color: #000;
+    color: #0c1a28;
     font-family: 'Orbitron', monospace;
     font-size: 12px;
     letter-spacing: 2px;
@@ -2659,13 +2686,34 @@
     font-weight: 700;
     width: 100%;
     max-width: 400px;
-    transition: opacity 0.2s;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, opacity 0.2s;
     min-height: 44px;
   }
-  .final-report-btn:hover { opacity: 0.85; }
+  .final-report-btn:hover { opacity: 0.9; }
   .final-report-btn:focus-visible {
     outline: 2px solid var(--accent-cyan);
     outline-offset: 2px;
+  }
+  .final-report-btn.is-done {
+    background: var(--color-positive);
+    color: #ffffff;
+    opacity: 1;
+  }
+
+  /* Light mode: bright amber fill + dark text (not dark amber + black) */
+  [data-theme="light"] .final-report-btn {
+    background: #e8a020;
+    color: #2a1600;
+    border: 1px solid #a86a00;
+  }
+  [data-theme="light"] .final-report-btn:hover {
+    opacity: 1;
+    background: #d49218;
+  }
+  [data-theme="light"] .final-report-btn.is-done {
+    background: #156048;
+    color: #ffffff;
+    border-color: #0b4032;
   }
 
   .progress-subtitle {
@@ -4167,7 +4215,7 @@
 <script>
 (function () {
   var t = localStorage.getItem('axiom-theme');
-  document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+  document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
 })();
 </script>
 </head>
@@ -4789,7 +4837,6 @@
               <figure class="chart-figure" aria-labelledby="chartTC-title">
               <div class="chart-label">
                 <span id="chartTC-title">CHART TC — TOTAL COST vs OUTPUT</span>
-                <button type="button" class="export-btn" onclick="exportChart('chartTC')" aria-label="Download Chart TC as PNG">↓ PNG</button>
               </div>
               <canvas id="chartTC" role="img" aria-label="Total cost curve showing how total cost changes with output from 960 through 1,920 bottles."></canvas>
               <details class="chart-data-details">
@@ -4891,7 +4938,6 @@
               <figure class="chart-figure" aria-labelledby="chartA-title">
               <div class="chart-label">
                 <span id="chartA-title">CHART A — AVERAGE &amp; MARGINAL COSTS</span>
-                <button type="button" class="export-btn" onclick="exportChart('chartA')" aria-label="Download Chart A as PNG">↓ PNG</button>
               </div>
               <canvas id="chartA" role="img" aria-label="Average and marginal cost curves from 0 through 2,040 bottles. Curves appear as you verify each column in the cost table."></canvas>
               <details class="chart-data-details">
@@ -4960,7 +5006,6 @@
             <figure class="chart-figure" aria-labelledby="chartB-title">
             <div class="chart-label">
               <span id="chartB-title">CHART B — MC vs MR</span>
-              <button type="button" class="export-btn" onclick="exportChart('chartB')" aria-label="Download Chart B as PNG">↓ PNG</button>
             </div>
               <canvas id="chartB" role="img" aria-label="Marginal cost and marginal revenue curves across output levels."></canvas>
             <details class="chart-data-details">
@@ -5048,7 +5093,6 @@
               <figure class="chart-figure" aria-labelledby="chartC-title">
               <div class="chart-label">
                 <span id="chartC-title">CHART C — MR vs AVC vs ATC</span>
-                <button type="button" class="export-btn" onclick="exportChart('chartC')" aria-label="Download Chart C as PNG">↓ PNG</button>
               </div>
               <canvas id="chartC" role="img" aria-label="Marginal revenue at $0.25, average variable cost, and average total cost from 720 through 2,160 bottles."></canvas>
               <details class="chart-data-details">
@@ -5918,6 +5962,19 @@ function triggerHammond(domain, key, contextVars, attempt) {
   }
 }
 
+function scrollHammondToLatest() {
+  const container = document.getElementById('hammond-messages');
+  if (!container) return;
+  const pin = () => { container.scrollTop = container.scrollHeight; };
+  pin();
+  requestAnimationFrame(() => {
+    pin();
+    // Calc dock/shrink animates layout — re-pin after the panel settles
+    setTimeout(pin, 50);
+    setTimeout(pin, 200);
+  });
+}
+
 function hammondMsg(text, type = '', delay = 0) {
   const container = document.getElementById('hammond-messages');
 
@@ -5930,7 +5987,7 @@ function hammondMsg(text, type = '', delay = 0) {
       <div class="msg-avatar" aria-hidden="true">${smallHammondSVG()}</div>
       <div class="typing-dots" aria-hidden="true"><span></span><span></span><span></span></div>`;
     container.appendChild(typing);
-    container.scrollTop = container.scrollHeight;
+    scrollHammondToLatest();
 
     setTimeout(() => {
       const t = document.getElementById('typing-temp');
@@ -5961,7 +6018,7 @@ function addMsg(text, type, container) {
   timeEl.textContent = time;
   body.appendChild(timeEl);
   container.appendChild(msg);
-  container.scrollTop = container.scrollHeight;
+  scrollHammondToLatest();
 }
 
 function smallHammondSVG() {
@@ -7181,24 +7238,38 @@ if (typeof Chart !== 'undefined') {
   Chart.register(CHART_CROSSHAIR_PLUGIN);
 }
 
+function chartUiScale() {
+  // PDF offscreen captures are downsampled onto the page — bump type so labels stay readable
+  return chartExportColors ? 1.9 : 1;
+}
+
+function chartFont(size, weight) {
+  const font = { family: 'IBM Plex Mono', size: Math.round(size * chartUiScale()) };
+  if (weight) font.weight = weight;
+  return font;
+}
+
 function buildChartOptions(scales, ySuffix = ' / bottle', yDecimals = null) {
   const c = getChartThemeColors();
   const crosshairColor = c.tooltipTitle.startsWith('#') ? c.tooltipTitle + 'bb' : 'rgba(86, 180, 233, 0.75)';
   const decimals = yDecimals ?? (ySuffix === ' / bottle' ? 3 : 2);
+  const pdfCapture = !!chartExportColors;
   return {
     responsive: true,
     maintainAspectRatio: true,
     parsing: false,
     interaction: CHART_INTERACTION,
+    layout: pdfCapture ? { padding: { top: 10, right: 14, bottom: 6, left: 6 } } : undefined,
     scales,
     plugins: {
       legend: {
         position: 'top',
         labels: {
           color: c.legend,
-          font: { family: 'IBM Plex Mono', size: 11 },
-          boxWidth: 32,
-          boxHeight: 3,
+          font: chartFont(11),
+          boxWidth: pdfCapture ? 40 : 32,
+          boxHeight: pdfCapture ? 4 : 3,
+          padding: pdfCapture ? 16 : 10,
           usePointStyle: true,
           filter(legendItem, chartData) {
             const ds = chartData.datasets[legendItem.datasetIndex];
@@ -7265,8 +7336,8 @@ function xAxis(min, max, step, label) {
   return {
     type: 'linear', min, max,
     grid: { color: c.grid },
-    ticks: { color: c.tick, font: { family: 'IBM Plex Mono', size: 12 }, stepSize: step },
-    title: { display: true, text: label || 'OUTPUT (bottles/month)', color: c.tick, font: { family: 'IBM Plex Mono', size: 12, weight: 'bold' } }
+    ticks: { color: c.tick, font: chartFont(12), stepSize: step },
+    title: { display: true, text: label || 'OUTPUT (bottles/month)', color: c.tick, font: chartFont(12, 'bold') }
   };
 }
 function yAxis(min, max, step, label) {
@@ -7276,8 +7347,8 @@ function yAxis(min, max, step, label) {
     grace: 0,
     bounds: 'ticks',
     grid: { color: c.grid },
-    ticks: { color: c.tick, font: { family: 'IBM Plex Mono', size: 12 }, stepSize: step },
-    title: { display: true, text: label || 'COST ($ per bottle)', color: c.tick, font: { family: 'IBM Plex Mono', size: 12, weight: 'bold' } }
+    ticks: { color: c.tick, font: chartFont(12), stepSize: step },
+    title: { display: true, text: label || 'COST ($ per bottle)', color: c.tick, font: chartFont(12, 'bold') }
   };
 }
 
@@ -7547,15 +7618,6 @@ function updateChartC() {
   }
 }
 
-function exportChart(chartId) {
-  const ch = state.charts[chartId];
-  if (!ch) { hammondMsg("*confused hamster head tilt* That chart isn't ready yet.", 'warning', 200); return; }
-  const link = document.createElement('a');
-  link.download = `wheeler_pace_${chartId}.png`;
-  link.href = ch.toBase64Image();
-  link.click();
-}
-
 function pdfChartSnapshotSpec(chartId) {
   switch (chartId) {
     case 'chartTC':
@@ -7619,6 +7681,17 @@ function captureChartForPdf(chartId) {
   const spec = withPdfChartColors(() => pdfChartSnapshotSpec(chartId));
   if (!spec?.datasets?.length) return null;
 
+  // Thicken series slightly for print legibility
+  const datasets = spec.datasets.map(ds => {
+    const next = { ...ds };
+    if (typeof next.borderWidth === 'number') next.borderWidth = Math.max(next.borderWidth, 3.5) * 1.15;
+    if (typeof next.pointRadius === 'number' && next.pointRadius > 0) {
+      next.pointRadius = Math.max(next.pointRadius, 5) * 1.25;
+      next.pointHoverRadius = next.pointRadius;
+    }
+    return next;
+  });
+
   const baseW = 1100;
   const baseH = 680;
   const canvas = document.createElement('canvas');
@@ -7627,8 +7700,14 @@ function captureChartForPdf(chartId) {
 
   const chart = new Chart(canvas.getContext('2d'), {
     type: 'scatter',
-    data: { datasets: spec.datasets },
-    options: spec.options,
+    data: { datasets },
+    options: {
+      ...spec.options,
+      plugins: {
+        ...spec.options.plugins,
+        chartCrosshair: false,
+      },
+    },
   });
   chart.update('none');
 
@@ -9165,8 +9244,11 @@ function toggleCalc() {
     // Prefer focusing display so Enter/= evaluates; NIBBLES stays usable (non-modal).
     const display = document.getElementById('calc-value');
     if (display) display.focus();
-  } else if (fab) {
-    fab.focus();
+    // Panel shrunk — keep the latest NIBBLES message in view
+    scrollHammondToLatest();
+  } else {
+    scrollHammondToLatest();
+    if (fab) fab.focus();
   }
 }
 
@@ -9920,8 +10002,8 @@ async function generateFinalReport(triggerBtn) {
     `;
     if (btn) {
       btn.textContent = '✓ REPORT DOWNLOADED';
-      if (btn.closest('#final-report-banner')) btn.style.background = 'var(--color-positive)';
-      else btn.disabled = false;
+      btn.classList.add('is-done');
+      btn.disabled = false;
     }
     hammondMsg(`*stamps mission seal* Report downloaded. Upload the PDF on Canvas question 34 and keep the .json file as a backup.`, 'success', 200);
   }, 400);
@@ -9929,6 +10011,7 @@ async function generateFinalReport(triggerBtn) {
     console.error('Final report generation failed:', err);
     if (btn) {
       btn.textContent = '▼ DOWNLOAD FINAL REPORT';
+      btn.classList.remove('is-done');
       btn.disabled = false;
     }
     hammondMsg(`*circuit sparks* Report generation failed: ${err?.message || 'unknown error'}. Try again, or refresh if the PDF library did not load.`, 'warning', 200);
