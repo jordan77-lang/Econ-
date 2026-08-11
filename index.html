@@ -4571,7 +4571,7 @@
           <div class="briefing-stations" id="briefing-stations">
             <div class="briefing-station" id="briefing-station-1">
               <div class="briefing-station-label">Briefing checkpoint 1 of 3</div>
-              <p style="margin:0">► FIELD REPORT — Hammond has returned from <strong>Parfum du coeur</strong> (1885) with ledger data. The perfume produced there would later become the modern drug <strong>ImmuFlow</strong>.<br>Your investigation has <strong>three objectives</strong>: analyze production costs, compare costs and revenue to evaluate profitability, and recommend a strategy for long-run survival. Objectives 1 and 2 are completed here in the AXIOM terminal; Objective 3 strategy questions are answered in <strong>Canvas</strong> using your terminal data.</p>
+              <p style="margin:0">► FIELD REPORT — Hammond has returned from <strong>Parfum du Coeur</strong> (1885) with ledger data on <strong>La Puissance des Fleurs</strong>. When the perfumery collapsed, <strong>Strathairn BioSolutions</strong> seized the <strong>Blue Silphium</strong> trade and grew into the monopoly that prices <strong>ImmuFlow</strong> out of reach today.<br>Your investigation has <strong>three objectives</strong>: analyze production costs, compare costs and revenue to evaluate profitability, and recommend a strategy for long-run survival. Objectives 1 and 2 are completed here in the AXIOM terminal; Objective 3 strategy questions are answered in <strong>Canvas</strong> using your terminal data.</p>
               <div class="briefing-station-actions" id="briefing-station-status-1" aria-live="polite"></div>
             </div>
 
@@ -4596,7 +4596,7 @@
           </div>
 
           <!-- STEP 1: CLASSIFY (RADIO BUTTONS) -->
-          <h2 class="step-title" id="step1-title">▸ Objective 1 · Step 1 — Identify Fixed and Variable Costs</h2>
+          <h2 class="step-title" id="step1-title">▸ Objective 1 · Step 1 — Classify Costs as Fixed or Variable</h2>
 
           <!-- Step 1 Instructions toggle -->
           <button class="step-instructions-btn" id="instr-btn-1" onclick="toggleInstructions(1)">
@@ -4604,11 +4604,11 @@
           </button>
           <div class="step-instructions-panel" id="instr-panel-1">
             <div class="instr-panel-header">
-              ⬡ Objective 1 · Step 1 — Identify Fixed and Variable Costs
+              ⬡ Objective 1 · Step 1 — Classify Costs as Fixed or Variable
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>Parfum du coeur's monthly expense ledger lists <span class="instr-highlight">9 expenses</span>. Your job is to sort each one into the correct cost category before you can calculate totals in Step 2.</p>
+              <p>Parfum du Coeur's monthly expense ledger lists <span class="instr-highlight">9 expenses</span>. Your job is to sort each one into the correct cost category before you can calculate totals in Step 2.</p>
 
               <h4>The Two Categories</h4>
               <ul>
@@ -4617,7 +4617,7 @@
               </ul>
 
               <h4>The Key Test</h4>
-              <p>For each expense, ask yourself: <em>"If Parfum du coeur produced zero bottles this month, would this cost still appear on the bill?"</em></p>
+              <p>For each expense, ask yourself: <em>"If Parfum du Coeur produced zero bottles this month, would this cost still appear on the bill?"</em></p>
               <div class="instr-example">
                 ▸ YES — still owed at zero output → <strong>Fixed Cost</strong><br>
                 ▸ NO — disappears when nothing is produced → <strong>Variable Cost</strong>
@@ -4649,7 +4649,7 @@
           </div>
 
           <p id="classify-step-intro" style="font-size:12px; color:var(--text-secondary); margin-bottom:1rem; font-family:'IBM Plex Mono',monospace;">
-            HAMMOND recovered Parfum du coeur's monthly expense ledger. Select Fixed or Variable for each expense — your choices appear in the sorted lists below.
+            HAMMOND recovered Parfum du Coeur's monthly expense ledger. Select Fixed or Variable for each expense — your choices appear in the sorted lists below.
           </p>
 
           <div id="classify-ledger-wrap">
@@ -4675,7 +4675,7 @@
 
           <!-- STEP 2: BASELINE TOTALS (hidden until Step 1 complete) -->
           <div id="step2-section" style="display:none">
-          <h2 class="step-title" id="step2-title">▸ Objective 1 · Step 2 — Calculate Various Costs at the Baseline Output Level</h2>
+          <h2 class="step-title" id="step2-title">▸ Objective 1 · Step 2 — Calculate Costs at the Baseline Output Level</h2>
 
           <!-- Step 2 Instructions toggle -->
           <button class="step-instructions-btn" id="instr-btn-2" onclick="toggleInstructions(2)">
@@ -4683,43 +4683,25 @@
           </button>
           <div class="step-instructions-panel" id="instr-panel-2">
             <div class="instr-panel-header">
-              ⬡ Objective 1 · Step 2 — Calculate Various Costs at the Baseline Output Level
+              ⬡ Objective 1 · Step 2 — Calculate Costs at the Baseline Output Level
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>After classifying expenses in Step 1, calculate how much Parfum du coeur spent at its <span class="instr-highlight">baseline output of 960 bottles per month</span> — the operating level just before the firm expanded production.</p>
-              <p>Using your fixed and variable classifications, calculate <span class="instr-highlight">fixed cost (FC)</span>, <span class="instr-highlight">variable cost (VC)</span>, and <span class="instr-highlight">total cost (TC = FC + VC)</span>. The baseline output is provided for you.</p>
+              <p>Total up what Parfum du Coeur spent at its <span class="instr-highlight">baseline output of 960 bottles per month</span> — the level just before the firm expanded production. Output is given; you calculate the three cost figures.</p>
 
               <h4>Step 2 Inputs</h4>
               <ul>
-                <li><span class="instr-highlight">FC — Fixed Cost:</span> Add up all expenses you classified as Fixed in Step 1. This total stays the same every month regardless of output.</li>
-                <li><span class="instr-highlight">VC — Variable Cost:</span> Add up all expenses you classified as Variable in Step 1. This is the variable cost <em>at the current output level</em> (960 bottles/month).</li>
-                <li><span class="instr-highlight">TC — Total Cost:</span> FC + VC. Total cost is simply the sum of fixed and variable costs.</li>
-                <li><span class="instr-highlight">Output (Given):</span> Baseline monthly output is provided as <strong>960 bottles</strong> (prior to the demand boom).</li>
+                <li><span class="instr-highlight">FC — Fixed Cost:</span> Sum of everything you classified as Fixed. Stays the same regardless of output.</li>
+                <li><span class="instr-highlight">VC — Variable Cost:</span> Sum of everything you classified as Variable, at this output level.</li>
+                <li><span class="instr-highlight">TC — Total Cost:</span> FC + VC.</li>
               </ul>
-
-              <h4>Baseline Output (Given)</h4>
-              <div class="instr-example">
-                Prior to the demand boom, Parfum du coeur produced <strong>960 bottles per month</strong>.<br>
-                In this step, you calculate FC, VC, and TC at that given output level.
-              </div>
-
-              <h4>How to Enter Answers</h4>
-              <ul>
-                <li>Type a number in each cost field (FC, VC, TC) and click <span class="instr-highlight">VERIFY</span> or press Enter.</li>
-                <li>Green ✓ means correct. Red ✗ means try again — N.I.B.B.L.E.S. will guide you.</li>
-                <li>All three cost fields must be verified before Step 3 unlocks.</li>
-              </ul>
-
-              <h4>Before You Exit</h4>
-              <p>If you need to leave before finishing, click <span class="instr-highlight">⬇ SAVE</span> in the session toolbar, or <span class="instr-highlight">⏻ LOG OUT</span> to download your save file automatically.</p>
 
               <h4>After This Step — Canvas</h4>
               <p>Use your verified baseline values to answer <strong>questions 3 through 5</strong> in the mission memo.</p>
 
               <div class="instr-tip">
                 <span>⬡</span>
-                <span><strong>N.I.B.B.L.E.S. tip:</strong> Output is already given as 960 bottles/month, so focus your calculations on FC, VC, and TC. Scroll back to Step 1 and use the <span class="instr-highlight">⊞ CALCULATOR</span> in the header to add up your fixed expenses and your variable expenses separately. Do not guess — every figure here carries forward into Step 3.</span>
+                <span><strong>N.I.B.B.L.E.S. tip:</strong> Scroll back to your Step 1 columns and add each side separately. Every figure here carries forward into Step 3.</span>
               </div>
             </div>
           </div>
@@ -4793,14 +4775,9 @@
 
               <h4>How to Enter Answers</h4>
               <ul>
-                <li>Click into the TC cell for any row, type your answer, and press <span class="instr-highlight">Enter</span> to verify.</li>
-                <li>You can work through the rows in any order.</li>
-                <li>Round to 2 decimal places (e.g., 233.00).</li>
+                <li>Rows can be done in any order. Round to 2 decimal places (e.g., 233.00).</li>
                 <li>All 5 rows must be correct before Steps 4 through 6 unlock.</li>
               </ul>
-
-              <h4>Before You Exit</h4>
-              <p>Download your save file if you plan to return later — use <span class="instr-highlight">⬇ SAVE</span> or <span class="instr-highlight">⏻ LOG OUT</span>. Progress is not stored automatically.</p>
 
               <h4>After This Step — Canvas</h4>
               <p>Use your completed cost table to answer <strong>questions 6 and 7</strong> in the mission memo.</p>
@@ -4897,17 +4874,15 @@
               <ul>
                 <li>Fill in AFC, AVC, and ATC on each output row.</li>
                 <li>Fill in MC in the <span class="instr-highlight">MC column</span> between rows (on the › line, not on the Q row itself).</li>
-                <li>Press <span class="instr-highlight">Enter</span> in a cell to verify that value — correct cells turn green and lock.</li>
-                <li>Use <span class="instr-highlight">Up/Down</span> arrow keys to move between cells. Complete every AFC/AVC/ATC column and every MC interval to draw curves on Chart A.</li>
                 <li>All values verified → Objective 2 unlocks in the terminal.</li>
               </ul>
 
               <h4>After This Step — Canvas</h4>
-              <p>Use your AFC, AVC, ATC, and MC values plus Chart A to answer <strong>questions 8 through 15</strong> in the mission memo (numerical entries and cost-pattern interpretation).</p>
+              <p>Use your AFC, AVC, ATC, and MC values plus Chart A to answer <strong>questions 8 through 15</strong> in the mission memo.</p>
 
               <div class="instr-tip">
                 <span>⬡</span>
-                <span><strong>N.I.B.B.L.E.S. tip:</strong> Chart A starts empty. Each curve appears only after you verify <em>every</em> value in that column — AFC, then AVC, then ATC, then MC. MC dots are plotted halfway between each output pair because each MC value comes from an interval. Lines extend across the full output range (0 through 2,040 bottles) once a column is complete.</span>
+                <span><strong>N.I.B.B.L.E.S. tip:</strong> Chart A starts empty — each curve appears once you verify <em>every</em> value in that column. MC dots sit halfway between each output pair because each MC value comes from an interval.</span>
               </div>
             </div>
           </div>
@@ -4955,7 +4930,7 @@
 
           <div id="obj-2" style="display:none">
           <div class="section-intro">
-            ► <strong>Objective 2</strong> — Compare costs and revenue to evaluate profitability. Parfum du coeur operates in a <strong>perfectly competitive</strong> market. The firm is a price taker: it cannot influence the market price. Field reports confirm the prevailing market price is <span class="instr-highlight">$0.25 per bottle</span>. In perfect competition, <strong>Marginal Revenue (MR) = Market Price</strong> at every output level. Archive notes indicate the pre-boom price was about <span class="instr-highlight">$0.23</span> (near zero economic profit), so this price increase is meaningful but modest. Complete both steps here, then answer the matching Canvas questions before starting Objective 3.
+            ► <strong>Objective 2</strong> — Compare costs and revenue to evaluate profitability. Parfum du Coeur operates in a <strong>perfectly competitive</strong> market. The firm is a price taker: it cannot influence the market price. Field reports confirm the prevailing market price is <span class="instr-highlight">$0.25 per bottle</span>. In perfect competition, <strong>Marginal Revenue (MR) = Market Price</strong> at every output level. Archive notes indicate the pre-boom price was about <span class="instr-highlight">$0.23</span> (near zero economic profit), so this price increase is meaningful but modest. Complete both steps here, then answer the matching Canvas questions before starting Objective 3.
           </div>
           <h2 class="step-title">▸ Objective 2 · Step 1 — Compare Marginal Cost to Marginal Revenue</h2>
 
@@ -4969,7 +4944,7 @@
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>Parfum du coeur operates in a <span class="instr-highlight">perfectly competitive market</span>. Begin by entering the market price per bottle — this is the firm's <span class="instr-highlight">Marginal Revenue (MR)</span>. After MR is verified, use Chart B to compare MC and MR at each output (Canvas questions 16 through 18).</p>
+              <p>Parfum du Coeur operates in a <span class="instr-highlight">perfectly competitive market</span>. Begin by entering the market price per bottle — this is the firm's <span class="instr-highlight">Marginal Revenue (MR)</span>. After MR is verified, use Chart B to compare MC and MR at each output (Canvas questions 16 through 18).</p>
 
               <h4>Key Concept</h4>
               <ul>
@@ -5032,8 +5007,7 @@
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>Revenue indicates the amount of money Parfum du coeur generates from sales, but profit is the true measure of its financial performance. Profit is the difference between what the firm earns and what it spends to operate. A firm can appear successful if bottles are selling quickly, but if costs outweigh revenue, the business will ultimately fail to survive.</p>
-              <p>In this step, you will combine the cost data you have already calculated with the market price of perfume to estimate profit at different output levels. This analysis will show how profit changes as output increases, providing a clearer picture of Parfum du coeur's overall performance.</p>
+              <p>Bottles can sell fast and the firm still lose money — revenue only matters against what it cost to earn. Combine your cost data with the market price to find profit at each output level, and watch how it changes as output rises.</p>
 
               <h4>The Formulas</h4>
               <div class="instr-example">
@@ -5047,7 +5021,7 @@
               <ul>
                 <li><span class="instr-highlight">Profit maximization:</span> produce where <strong>MC = MR</strong> (see Chart B). Your profit table should peak near that output.</li>
                 <li><span class="instr-highlight">Short-run shutdown:</span> if <strong>Price &lt; AVC</strong>, the firm shuts down temporarily to minimize loss (Chart C).</li>
-                <li><span class="instr-highlight">Long-run exit:</span> if <strong>Price &lt; ATC</strong>, the firm cannot cover all costs and should leave the industry in the long run (Chart C).</li>
+                <li><span class="instr-highlight">Long-run exit:</span> if <strong>Price &lt; ATC</strong>, the firm cannot cover all costs and should exit the industry in the long run (Chart C).</li>
                 <li>At a given output level, always compare price to <em>AVC</em> for the short-run decision and to <em>ATC</em> for the long-run decision.</li>
               </ul>
 
@@ -5056,9 +5030,7 @@
 
               <h4>How to Enter Answers</h4>
               <ul>
-                <li>In the TR column, calculate revenue for each output and press <span class="instr-highlight">Enter</span> to verify.</li>
-                <li>After TR is verified for a row, the <strong>Profit</strong> cell on that row unlocks. Enter TR − TC and press <span class="instr-highlight">Enter</span>.</li>
-                <li>Use Up/Down arrow keys to move between cells.</li>
+                <li>Verify TR for a row and that row's <strong>Profit</strong> cell unlocks. Enter TR − TC.</li>
               </ul>
 
               <div class="instr-tip">
@@ -5117,9 +5089,9 @@
                 <li id="mcc-step-2">Complete <strong>Objective 3</strong> questions <strong>21 through 33</strong> in Canvas
                   <ul class="mission-complete-sublist">
                     <li><strong>Steps 1 and 2</strong> (Q21 through 26): short-run shutdown &amp; long-run exit — use <strong>Chart C</strong></li>
-                    <li><strong>Step 3</strong> (Q27 and 28): profit comparison</li>
-                    <li><strong>Step 4</strong> (Q29 through 31): expansion decision</li>
-                    <li><strong>Step 5</strong> (Q32 and 33): production strategy</li>
+                    <li><strong>Step 3</strong> (Q27 and 28): compare profit across output levels</li>
+                    <li><strong>Step 4</strong> (Q29 through 31): evaluate the decision to expand</li>
+                    <li><strong>Step 5</strong> (Q32 and 33): recommend a production strategy</li>
                   </ul>
                 </li>
                 <li id="mcc-step-3" class="mission-complete-download-step">
@@ -5461,21 +5433,19 @@ updateThemeToggleLabel();
 // HAMMOND MESSAGING
 // ============================================================
 const HAMMOND_INTRO = [
-  `*static crackle* Field Agent Hammond reporting in. Made it through the chimney — barely. Ledger data secured. Transmitting to terminal now.`,
-  `*transmission ends* This is N.I.B.B.L.E.S. — Neural Intelligence Built for Briefings, Logistics & Economic Support. I have received Hammond's field data and loaded it into the AXIOM terminal.`,
-  `You will complete Objectives 1 and 2 here in the terminal. After each step, return to the mission memo in Canvas to answer the matching questions. When terminal work is complete, follow the numbered checklist: Canvas questions 19 through 33, then download your final report and upload the PDF on question 34.`,
-  `Stand by — I will run three briefing checkpoints above Step 1 to confirm you understand the mission workflow before we begin.`
+  `*static crackle* Hammond made it through the chimney — barely. Ledger secured and loaded into the terminal.`,
+  `This is N.I.B.B.L.E.S. You will work Objectives 1 and 2 here, answering the matching Canvas questions as you go. Three quick briefing checkpoints first.`
 ];
 
 const BRIEFING_CHECKPOINTS = [
   {
-    nibbles: `*taps clipboard* <strong>Briefing checkpoint 1 of 3.</strong> Hammond returned from Parfum du coeur (1885) with ledger data. The perfume produced there would later become the modern drug <strong>ImmuFlow</strong>. Your investigation has three objectives: analyze production costs, compare costs and revenue for profitability, and recommend a long-run strategy. Objectives 1 and 2 happen here; Objective 3 is answered in Canvas using your terminal work.`
+    nibbles: `*taps clipboard* <strong>Checkpoint 1 of 3.</strong> Hammond returned from Parfum du Coeur (1885) with the ledger for <strong>La Puissance des Fleurs</strong>. When the firm collapsed, <strong>Strathairn BioSolutions</strong> took the Blue Silphium trade and became the monopoly behind <strong>ImmuFlow</strong>. Three objectives: analyze costs, test profitability, recommend a long-run strategy. Objectives 1 and 2 are here; Objective 3 is answered in Canvas.`
   },
   {
-    nibbles: `*nods* <strong>Briefing checkpoint 2 of 3.</strong> Terminal + Canvas workflow: complete each step below and verify your work in the terminal. Then return to the mission memo in Canvas to answer the matching questions before moving on.`
+    nibbles: `*nods* <strong>Checkpoint 2 of 3.</strong> Verify each step here, then answer the matching Canvas questions before moving on.`
   },
   {
-    nibbles: `*holds up tiny USB drive* <strong>Briefing checkpoint 3 of 3.</strong> If you leave without a save file, your progress is lost. Use ⬇ SAVE anytime, or ⏻ LOG OUT to download your checkpoint automatically before the session ends.`
+    nibbles: `*holds up tiny USB drive* <strong>Checkpoint 3 of 3.</strong> Leave without a save file and your progress is lost. Use ⬇ SAVE anytime, or ⏻ LOG OUT to download automatically.`
   }
 ];
 
@@ -5486,7 +5456,7 @@ const SUCCESS_MSGS = [
   "Spot on. My calculations agree with yours.",
   "*terminal chime* Nice work, Agent. That matches the field data.",
   "*status: CONFIRMED* The timeline appreciates your precision.",
-  "✓ LOCKED IN. That matches what Hammond recorded in the Parfum du coeur ledger."
+  "✓ LOCKED IN. That matches what Hammond recorded in the Parfum du Coeur ledger."
 ];
 
 // Template placeholder utility — replaces {KEY} with values from vars object
@@ -5687,86 +5657,86 @@ const HAMMOND_HINTS = {
   // --- STEP 1: DRAG-AND-DROP CLASSIFICATION ---
   classify: {
     general: [
-      "*sniffs ledger suspiciously* Something's off in the sorting room. The core question for every item is this: if Parfum du coeur produced zero perfume this month, would that cost still appear on the ledger? If yes — it's fixed. If that expense vanishes when output drops to zero, it's variable. Re-examine each card with that test.",
+      "*sniffs ledger suspiciously* Something's off in the sorting room. The core question for every item is this: if Parfum du Coeur produced zero perfume this month, would that cost still appear on the ledger? If yes — it's fixed. If that expense vanishes when output drops to zero, it's variable. Re-examine each card with that test.",
       "*consults tiny abacus* A fixed cost is an expense that does not change with the quantity of output — it is owed regardless of how many bottles leave the workshop. A variable cost rises and falls directly with production volume. Think about which items are contractual obligations versus inputs purchased only when actively distilling.",
       "*urgent hamster energy* There are exactly FOUR fixed costs and FIVE variable costs on this ledger. Fixed costs include leases, rents, and set wages negotiated in advance. Variable costs are physical inputs consumed during production. Count your two columns — do they have four items and five items?",
       "*taps the key test* Re-read the zero-output test in the Field Briefing: still owed at zero bottles → one column; disappears at zero bottles → the other. Walk through each flagged expense one at a time.",
       "*steady field voice* You are close. For each expense still marked wrong, ask only: contract or commitment (same bill every month) versus consumable input (used up when you produce). Sort the remaining cards with that single question."
     ],
     rent: [
-      "*shuffles papers with tiny paws* Rent is one of the most classic examples in all of economics. Ask yourself: does Parfum du coeur owe the landlord money even in a month when they produce zero bottles of perfume? Think about what a lease agreement actually commits a business to paying.",
+      "*shuffles papers with tiny paws* Rent is one of the most classic examples in all of economics. Ask yourself: does Parfum du Coeur owe the landlord money even in a month when they produce zero bottles of perfume? Think about what a lease agreement actually commits a business to paying.",
       "A fixed cost is defined as a cost that does not vary with the level of output. Rent on a shop and workshop is paid to the landlord monthly under a lease — it does not change whether the perfumers bottle 100 flasks or 1,000 flasks. The landlord's invoice arrives the same every month. Which column does that description match?",
       "*checks pocket watch* The $40 rent entry is a lease obligation paid for the use of physical space, not for each bottle produced. No matter what happens in the workshop, that $40 is owed. That is the defining characteristic of one specific column — costs that stay flat no matter the output level.",
       "*points at the two bins* Lease payments do not scale with bottles corked. Apply the zero-output test from the briefing and move this expense to the column that matches."
     ],
     kettle: [
-      "*peers through chimney soot* That cast iron distillation kettle is leased, not purchased outright. Think about what a lease agreement means for monthly costs. When Parfum du coeur is not distilling anything, do they still owe the leasing company for the kettle sitting there?",
+      "*peers through chimney soot* That cast iron distillation kettle is leased, not purchased outright. Think about what a lease agreement means for monthly costs. When Parfum du Coeur is not distilling anything, do they still owe the leasing company for the kettle sitting there?",
       "Equipment leases are a textbook example of a fixed cost. A fixed cost is contractually obligated regardless of production volume. The kettle lease fee of $15 is paid whether the kettle runs all month at full capacity or sits cold and unused. Does that match 'fixed' or 'variable'?",
-      "*taps abacus impatiently* The kettle lease is paid on a monthly contract — it is not billed per batch of perfume distilled. If Parfum du coeur produced nothing this month, the $15 is still owed. Costs that stay constant regardless of output belong in one specific column.",
+      "*taps abacus impatiently* The kettle lease is paid on a monthly contract — it is not billed per batch of perfume distilled. If Parfum du Coeur produced nothing this month, the $15 is still owed. Costs that stay constant regardless of output belong in one specific column.",
       "*squints at lease terms* Equipment leases are obligations, not per-unit inputs. Use the zero-output test and place this card in the column for costs that do not change with production."
     ],
     salary: [
       "*squints at payroll records* The shopkeeper has a salary, not an hourly wage paid per bottle. Consider the difference between a salaried employee and a day laborer. Which type costs the business the same amount no matter how much or how little gets produced?",
-      "A salaried employee receives the same pay each month regardless of production levels — their compensation is a contractual agreement, not tied to how many units the firm produces. Compare that to laborers hired specifically for the flower harvest, whose cost rises with output.",
+      "A salaried employee receives the same pay each month regardless of production levels — their compensation is a contractual agreement, not tied to how many units the firm produces. Compare that to laborers hired specifically for the Blue Silphium harvest, whose cost rises with output.",
       "*looks directly at screen* The shopkeeper's $50 salary is the same in a busy month and a slow month. It is not calculated per bottle corked. That pattern matches the column for costs that remain constant regardless of output.",
       "*compares payroll lines* Salary vs seasonal labor: one is a set monthly obligation, the other scales with bottling work. Sort this card using that distinction."
     ],
     printer: [
-      "*rustles through advertising leaflets* The printer's fee is for monthly advertisements — a standing arrangement, not a per-bottle charge. Ask whether this invoice changes depending on how many bottles of perfume Parfum du coeur actually produces that month.",
+      "*rustles through advertising leaflets* The printer's fee is for monthly advertisements — a standing arrangement, not a per-bottle charge. Ask whether this invoice changes depending on how many bottles of perfume Parfum du Coeur actually produces that month.",
       "A monthly advertising fee is a set charge for a recurring service — the printer doesn't charge more if sales are high or less if production is slow. The fee is the same $3 regardless of how many bottles are filled.",
-      "*tiny paw on chin* The printer charges a flat monthly fee — identical whether Parfum du coeur bottles 720 flasks or 1,920 flasks. A cost that is constant across all output levels belongs in the column for non-varying expenses.",
+      "*tiny paw on chin* The printer charges a flat monthly fee — identical whether Parfum du Coeur bottles 720 flasks or 1,920 flasks. A cost that is constant across all output levels belongs in the column for non-varying expenses.",
       "*flips through invoices* Standing monthly fees behave differently from raw materials. Apply the zero-output test from the briefing."
     ],
     laborers: [
-      "*checks field notes* These are 'apprentices and seasonal laborers' — hired specifically for the flower harvest and bottling process. Think about what 'seasonal' and 'hired for a task' implies. Does Parfum du coeur pay these workers in months when no bottling is happening?",
-      "Seasonal and task-specific labor is hired when production demands it and not hired when it doesn't. The more bottles Parfum du coeur wants to produce, the more labor they must hire and pay for.",
+      "*checks field notes* These are 'apprentices and seasonal laborers' — hired specifically for the Blue Silphium harvest and bottling process. Think about what 'seasonal' and 'hired for a task' implies. Does Parfum du Coeur pay these workers in months when no bottling is happening?",
+      "Seasonal and task-specific labor is hired when production demands it and not hired when it doesn't. The more bottles Parfum du Coeur wants to produce, the more labor they must hire and pay for.",
       "*urgent tone* The $60 for apprentices and seasonal laborers is production labor — it scales with how much harvesting and bottling work needs to be done. That behavior belongs in the column for costs that move with quantity produced.",
       "*reads the card label* 'Seasonal' and 'apprentices' signal labor tied to output, not a fixed payroll contract. Sort accordingly."
     ],
     wood: [
-      "*sniffs the chimney ash* Chopped wood is the fuel that runs the distillation process. Think about what happens to fuel consumption when you distill more batches of perfume. Does the amount of wood burned change based on how much perfume is being produced?",
-      "Fuel is consumed in the production process — you burn more wood when the kettle runs longer and more frequently. The wood cost is not a fixed contract; it is purchased based on production needs.",
-      "*checks fuel ledger entry* The $10 for chopped wood is a production input, not a lease or salary. Produce more perfume, burn more wood. Produce less, use less wood. That pattern belongs in the column for costs that scale with output.",
+      "*sniffs the chimney ash* Coal is the fuel that runs the distillation process. Think about what happens to fuel consumption when you distill more batches of perfume. Does the amount of coal burned change based on how much perfume is being produced?",
+      "Fuel is consumed in the production process — you burn more coal when the kettle runs longer and more frequently. The coal cost is not a fixed contract; it is purchased based on production needs.",
+      "*checks fuel ledger entry* The $10 for coal is a production input, not a lease or salary. Produce more perfume, burn more coal. Produce less, use less coal. That pattern belongs in the column for costs that scale with output.",
       "*sniffs chimney soot* Distillation fuel is used up when you produce — it is not a monthly flat fee. Use the consumable-input test."
     ],
     flowers: [
-      "*wipes pollen from whiskers* The flower harvest is the primary raw ingredient in this perfume formula. Consider the relationship between raw materials and production volume. If Parfum du coeur wants to make twice as many bottles, what happens to the amount of flowers they need to harvest and pay for?",
-      "Raw materials are consumed in proportion to the quantity produced. A cost rises with output and disappears if production stops entirely — no perfume means no flowers needed.",
-      "*field agent voice* At $30, the flower harvest is a raw ingredient: consumed during production, purchased based on output targets, and zero if nothing is produced. That behavior belongs in the column for costs that vary with output.",
+      "*wipes pollen from whiskers* The Blue Silphium harvest is the primary raw ingredient in this perfume formula. Consider the relationship between raw materials and production volume. If Parfum du Coeur wants to make twice as many bottles, what happens to the amount of Blue Silphium they need to harvest and pay for?",
+      "Raw materials are consumed in proportion to the quantity produced. A cost rises with output and disappears if production stops entirely — no perfume means no Blue Silphium needed.",
+      "*field agent voice* At $30, the Blue Silphium harvest is a raw ingredient: consumed during production, purchased based on output targets, and zero if nothing is produced. That behavior belongs in the column for costs that vary with output.",
       "*pollen on whiskers* Primary ingredients are classic output-sensitive costs. Walk through the zero-output test for this card."
     ],
     bottles: [
-      "*examines glassware manifest* Glass bottles and corks are what the perfume is literally put into. Does Parfum du coeur use the same number of bottles and corks every month regardless of how much perfume they produce, or does the number of containers needed change with the amount being bottled?",
+      "*examines glassware manifest* Glass bottles and corks are what the perfume is literally put into. Does Parfum du Coeur use the same number of bottles and corks every month regardless of how much perfume they produce, or does the number of containers needed change with the amount being bottled?",
       "Packaging materials are purchased in proportion to units produced — one bottle and one cork per flask. If output doubles, bottle and cork purchases must double.",
       "*counts bottles on manifest* Glass bottles and corks are consumable packaging — quantity purchased scales directly with output. This is a per-unit production input, not a standing monthly contract.",
       "*rattles glassware* Packaging use rises bottle-for-bottle with production. Sort this card with the other consumable inputs."
     ],
     herbs: [
-      "*sniffs herbs analytically* Herbs and oils are listed as 'scent additives' — ingredients blended into each batch of perfume. Consider whether the amount of herbs and oils used stays constant regardless of how many bottles are produced, or whether it changes as production volume changes.",
-      "Scent additives are used in proportion to the quantity produced. More batches require more herbs and oils; zero production means none are purchased.",
-      "*reads ingredient manifest* The $10 herbs and oils entry is a raw production input mixed into the perfume formula. Like other ingredients, it is consumed during production and repurchased for each new batch.",
-      "*wafts scent* Batch ingredients follow the same logic as flowers and bottles — they vary with how much you produce."
+      "*sniffs analytically* Alcohol is the carrier the Blue Silphium essence is blended into — every bottle needs some. Consider whether the amount of alcohol used stays constant regardless of how many bottles are produced, or whether it changes as production volume changes.",
+      "The carrier is used in proportion to the quantity produced. More bottles require more alcohol; zero production means none is purchased.",
+      "*reads ingredient manifest* The $10 alcohol entry is a raw production input mixed into every batch. Like other ingredients, it is consumed during production and repurchased for each new batch.",
+      "*wafts scent* Batch ingredients follow the same logic as Blue Silphium and bottles — they vary with how much you produce."
     ]
   },
 
   // --- STEP 2: BASELINE TOTALS ---
   baseline: {
     fc: [
-      "*taps ledger with tiny paw* Fixed costs are the ones that stay constant across every row of the cost table — they do not change whether Parfum du coeur produces 720 bottles or 1,920 bottles. Your job right now is to identify and sum those constant costs from your Step 1 classification. Go back and look at which column you put the 'does not change with output' costs into.",
-      "The Fixed Cost total is the sum of all costs classified as 'fixed' in Step 1: the obligations Parfum du coeur owes regardless of production. Think about which items from the ledger are contractual commitments — leases, salaries, and standing fees — and add only those dollar amounts together.",
+      "*taps ledger with tiny paw* Fixed costs are the ones that stay constant across every row of the cost table — they do not change whether Parfum du Coeur produces 720 bottles or 1,920 bottles. Your job right now is to identify and sum those constant costs from your Step 1 classification. Go back and look at which column you put the 'does not change with output' costs into.",
+      "The Fixed Cost total is the sum of all costs classified as 'fixed' in Step 1: the obligations Parfum du Coeur owes regardless of production. Think about which items from the ledger are contractual commitments — leases, salaries, and standing fees — and add only those dollar amounts together.",
       "*consults abacus* Add up all four items in your Fixed Cost column from Step 1: shop rent, kettle lease, shopkeeper's salary, and printer's fee. Each card shows a dollar amount — sum those four values.",
       "*points at Step 1 bins* Open your Fixed Cost list from classification. You should see exactly four expenses there. Add the dollar amount shown on each card — no variable-cost items belong in this total.",
       "*steady field voice* Operation: sum the four amounts in your Fixed Cost column. Use the ⊞ CALCULATOR in the header if needed. Enter only that total here — do not include any variable inputs."
     ],
     vc: [
-      "*sniffs variable cost column* Variable Cost is the total of all the expenses that change based on how much Parfum du coeur produces. You already sorted those items in Step 1 — look back at the column you labeled Variable Costs. Add up the dollar amounts for every item you placed there.",
+      "*sniffs variable cost column* Variable Cost is the total of all the expenses that change based on how much Parfum du Coeur produces. You already sorted those items in Step 1 — look back at the column you labeled Variable Costs. Add up the dollar amounts for every item you placed there.",
       "Variable costs are the inputs that get consumed during production — materials, fuel, and task-based labor. In Step 1 you identified five of them from the ledger. Sum all five dollar values from your Variable Cost column.",
-      "*consults abacus* The five variable cost items from Step 1 are: apprentices & laborers, chopped wood, the flower harvest, glass bottles & corks, and herbs & oils. Locate each in your variable column and add their amounts.",
+      "*consults abacus* The five variable cost items from Step 1 are: apprentices & laborers, coal, the Blue Silphium harvest, glass bottles & corks, and alcohol. Locate each in your variable column and add their amounts.",
       "*points at Step 1 bins* Your Variable Cost column should list exactly five expenses. Add the dollar amount on each card — nothing from the fixed column belongs in this sum.",
       "*steady field voice* Operation: sum the five amounts in your Variable Cost column. Use the ⊞ CALCULATOR in the header. This total is variable cost at the baseline output level shown in Step 2."
     ],
     tc: [
-      "*examines total column* Total Cost is everything Parfum du coeur spends in a month — every single expense from the ledger. It has exactly two components: the costs that never change regardless of output, and the costs that rise and fall with production. You already have both of those totals from Step 2. How do you combine them?",
+      "*examines total column* Total Cost is everything Parfum du Coeur spends in a month — every single expense from the ledger. It has exactly two components: the costs that never change regardless of output, and the costs that rise and fall with production. You already have both of those totals from Step 2. How do you combine them?",
       "Total Cost = Fixed Cost + Variable Cost. This is the foundational cost identity in microeconomics. You already calculated FC and VC by adding up the items from Step 1. Total Cost is simply those two subtotals added together — the fixed expenses plus the variable expenses.",
       "*writes equation in the air* TC = FC + VC. You verified the Fixed Cost total by summing the four fixed items. You calculated the Variable Cost total by summing the five variable items. Now add those two verified totals together. The result is the Total Cost at baseline production.",
       "*this is almost the answer* You have two numbers already entered in this step: the Fixed Cost total and the Variable Cost total. Total Cost is the sum of those two — FC + VC. You have both addends in front of you right now. Add them and enter the result.",
@@ -6047,15 +6017,15 @@ function refreshHammondAvatars() {
 // DRAG & DROP — STEP 1 CLASSIFICATION
 // ============================================================
 const EXPENSE_CARDS = [
-  { id: 'rent',       name: 'Rent on shop & workshop',      amount: '$40.00', category: 'fixed'    },
-  { id: 'kettle',     name: 'Cast iron kettle lease',        amount: '$15.00', category: 'fixed'    },
+  { id: 'rent',       name: 'Rent on shop and workshop',    amount: '$40.00', category: 'fixed'    },
+  { id: 'kettle',     name: 'Cast iron distillation kettle lease', amount: '$15.00', category: 'fixed' },
   { id: 'salary',     name: "Shopkeeper's salary",           amount: '$50.00', category: 'fixed'    },
-  { id: 'printer',    name: "Printer's fee (monthly ads)",   amount: '$3.00',  category: 'fixed'    },
-  { id: 'laborers',   name: 'Apprentices & laborers',        amount: '$60.00', category: 'variable' },
-  { id: 'wood',       name: 'Chopped wood (fuel)',           amount: '$10.00', category: 'variable' },
-  { id: 'flowers',    name: '[Flower X] harvest',            amount: '$30.00', category: 'variable' },
-  { id: 'bottles',    name: 'Glass bottles & corks',         amount: '$15.00', category: 'variable' },
-  { id: 'herbs',      name: 'Herbs & oils (scent)',          amount: '$10.00', category: 'variable' },
+  { id: 'printer',    name: "Printer's fee for monthly advertisements", amount: '$3.00', category: 'fixed' },
+  { id: 'laborers',   name: 'Apprentices and laborers',      amount: '$60.00', category: 'variable' },
+  { id: 'wood',       name: 'Coal',                          amount: '$10.00', category: 'variable' },
+  { id: 'flowers',    name: 'Blue Silphium harvest',         amount: '$30.00', category: 'variable' },
+  { id: 'bottles',    name: 'Glass bottles and corks',       amount: '$15.00', category: 'variable' },
+  { id: 'herbs',      name: 'Alcohol',                       amount: '$10.00', category: 'variable' },
 ];
 
 // Shuffle array in place (Fisher-Yates)
@@ -6938,14 +6908,14 @@ function completeBriefingStep(step) {
   updateProgress();
 }
 
-function finishBriefingSequence(announce) {
+function finishBriefingSequence() {
   clearBriefingSequenceTimer();
   renderBriefingStations();
   if (!briefingComplete()) return;
+  // The completion banner and auto-scroll to Step 1 already signal the
+  // handoff, so no closing chat message here — it was an eighth message
+  // in a row before students had done anything.
   setTimeout(() => snapMissionToStep1('smooth'), 120);
-  if (announce !== false) {
-    hammondMsg('*stamps briefing seal* All checkpoints verified. Proceed to Objective 1, Step 1.', 'success', 300);
-  }
   setTimeout(() => updateFieldPulse(), 600);
 }
 
@@ -7476,9 +7446,13 @@ function buildChartADatasets() {
 
 function buildChartBDatasets() {
   const c = getChartThemeColors();
+  // Chart B is where students read MC = MR off the graph, so this curve is
+  // plotted from exact MC values with tension 0 — Bezier smoothing bows a
+  // convex curve below its true path and pushes the visual crossing right of
+  // Q = 1,200. The 5-unit sample step is finer than one pixel here anyway.
   const datasets = [
-    smoothDs('MC', c.mc, SMOOTH.mcDisplay, 3),
-    smoothDs('MR', c.mr, SMOOTH.mr, 3, CHART_MR_DASH),
+    smoothDs('MC', c.mc, SMOOTH.mc, 3, null, 0),
+    smoothDs('MR', c.mr, SMOOTH.mr, 3, CHART_MR_DASH, 0),
   ];
 
   if (isAvgSeriesComplete('mc')) {
@@ -7599,7 +7573,7 @@ function renderChartB() {
     data: { datasets: buildChartBDatasets() },
     options: buildChartOptions({
       x: xAxis(720, 1920, 120),
-      y: yAxis(0, 0.55, 0.05)
+      y: yAxis(0.10, 0.55, 0.05)
     })
   });
 }
@@ -8765,7 +8739,7 @@ async function saveCheckpoint(isFinal = false, options = {}) {
   // Build the plaintext payload object (will be encrypted)
   const plainObj = {
     exported:         new Date().toISOString(),
-    assignment:       'ECN212 Mod 1 Act 1 - Parfum du coeur',
+    assignment:       'ECN212 Mod 1 Act 1 - Parfum du Coeur',
     step:             stepLabel,
     employeeId:       state.employeeId,
     state: {
@@ -8804,10 +8778,23 @@ async function saveCheckpoint(isFinal = false, options = {}) {
     const filename = `wheeler_pace_${fileLabel}_${idSlug}.json`;
     const json = JSON.stringify(envelope);
     const blob = new Blob([json], { type: 'application/json' });
+    // The anchor must be attached to the document before click() — a detached
+    // anchor is ignored by Firefox and some Safari versions, which silently
+    // dropped this download when it followed the PDF save.
+    const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.download = filename;
-    link.href = URL.createObjectURL(blob);
+    link.href = url;
+    link.rel = 'noopener';
+    link.style.display = 'none';
+    document.body.appendChild(link);
     link.click();
+    // Revoke on a delay so the browser has committed the download first;
+    // revoking synchronously can abort it mid-flight.
+    setTimeout(() => {
+      URL.revokeObjectURL(url);
+      link.remove();
+    }, 30000);
     state.lastSaveTime = new Date();
     localStorage.setItem('axiom-last-save', state.lastSaveTime.toISOString());
     updateHeaderLastSave();
@@ -9850,7 +9837,7 @@ async function generateFinalReport(triggerBtn) {
   setFont(7.5, 'bold', white);
   text(`AGENT ${agentId}`, W - margin, 8, { align: 'right' });
   setFont(16, 'bold', white);
-  text('Parfum du coeur', W / 2, 18, { align: 'center' });
+  text('Parfum du Coeur', W / 2, 18, { align: 'center' });
   setFont(10, 'normal', white);
   text('Cost & Revenue Analysis Report', W / 2, 26, { align: 'center' });
 
@@ -9868,7 +9855,7 @@ async function generateFinalReport(triggerBtn) {
   // ===== OBJECTIVE 1 (starts on cover page — no empty page waste) =====
 
   sectionTitle(
-    'Objective 1 · Step 1 — Identify Fixed and Variable Costs',
+    'Objective 1 · Step 1 — Classify Costs as Fixed or Variable',
     'Monthly expenses sorted into fixed costs (constant regardless of output) and variable costs (vary with production).'
   );
   const fixedItems = EXPENSE_CARDS.filter(c => (classifySelections[c.id] || c.category) === 'fixed');
@@ -9885,7 +9872,7 @@ async function generateFinalReport(triggerBtn) {
   y += 6;
 
   sectionTitle(
-    'Objective 1 · Step 2 — Calculate Various Costs at the Baseline Output Level',
+    'Objective 1 · Step 2 — Calculate Costs at the Baseline Output Level',
     'Summary values at 960 bottles per month (current operating level).'
   );
   const bW = [colW * 0.55, colW * 0.45];
@@ -9982,31 +9969,39 @@ async function generateFinalReport(triggerBtn) {
   drawPageFooter();
 
   // ===== SAVE PDF =====
-  const idSlug = String(state.employeeId || 'AGENT').replace(/\s+/g,'_');
+  // Use the same slug rule as saveCheckpoint() so the .pdf and .json filenames
+  // always agree, including when employeeId is missing.
+  const idSlug = (state.employeeId || 'unknown').replace(/[^a-zA-Z0-9_-]/g, '_');
   doc.save(`wheeler_pace_FINAL_${idSlug}.pdf`);
 
-  // ===== SAVE CHECKPOINT JSON (delay so PDF save dialog clears first) =====
-  setTimeout(() => {
-    saveCheckpoint(true); // pass flag to suppress normal nibbles message
-  }, 1200);
+  // ===== SAVE CHECKPOINT JSON =====
+  // Awaited, not fire-and-forget: the status below must report what actually
+  // happened. A short gap keeps the two downloads from racing in Chrome's
+  // multiple-download prompt.
+  await new Promise(r => setTimeout(r, 900));
+  const jsonSaved = await saveCheckpoint(true); // suppress the normal checkpoint message
 
   // ===== POST-DOWNLOAD MESSAGE =====
-  setTimeout(() => {
-    const statusEl = document.getElementById('final-report-status');
-    const downloadStep = document.getElementById('mcc-step-3');
-    if (downloadStep) downloadStep.classList.add('done');
+  const statusEl = document.getElementById('final-report-status');
+  const downloadStep = document.getElementById('mcc-step-3');
+  if (downloadStep) downloadStep.classList.add('done');
+  if (statusEl) {
     statusEl.style.display = 'block';
-    statusEl.innerHTML = `
-      ✓ <strong>wheeler_pace_FINAL_${idSlug}.pdf</strong> — upload on Canvas question 34 (step 4)<br>
-      ✓ <strong>wheeler_pace_FINAL_${idSlug}.json</strong> — keep as backup (step 5)
-    `;
-    if (btn) {
-      btn.textContent = '✓ REPORT DOWNLOADED';
-      btn.classList.add('is-done');
-      btn.disabled = false;
-    }
-    hammondMsg(`*stamps mission seal* Report downloaded. Upload the PDF on Canvas question 34 and keep the .json file as a backup.`, 'success', 200);
-  }, 400);
+    statusEl.innerHTML = jsonSaved
+      ? `✓ <strong>wheeler_pace_FINAL_${idSlug}.pdf</strong> — upload on Canvas question 34 (step 4)<br>
+         ✓ <strong>wheeler_pace_FINAL_${idSlug}.json</strong> — keep as backup (step 5)`
+      : `✓ <strong>wheeler_pace_FINAL_${idSlug}.pdf</strong> — upload on Canvas question 34 (step 4)<br>
+         <span style="color:var(--accent-red)">✗ The .json backup did not save — click ⬇ SAVE in the toolbar to download it.</span>`;
+  }
+  if (btn) {
+    btn.textContent = '✓ REPORT DOWNLOADED';
+    btn.classList.add('is-done');
+    btn.disabled = false;
+  }
+  hammondMsg(jsonSaved
+    ? `*stamps mission seal* Both files downloaded. Upload the PDF on Canvas question 34 and keep the .json file as a backup.`
+    : `*frowns at terminal* The PDF downloaded, but the .json backup did not. Use ⬇ SAVE in the toolbar to get it.`,
+    jsonSaved ? 'success' : 'warning', 200);
   } catch (err) {
     console.error('Final report generation failed:', err);
     if (btn) {
