@@ -7159,48 +7159,72 @@ window.addEventListener('beforeunload', (event) => {
   populateAllChartDataTables();
 })();
 
-const CHART_INTERACTION = { mode: 'nearest', intersect: false };
+// 'index' + axis 'x' matches every series at the hovered output, so hovering
+// near a crossing (MC = MR at Q=1,200, AVC/ATC vs MR in Chart C) lists all
+// values at that Q instead of only the single nearest line.
+const CHART_INTERACTION = { mode: 'index', intersect: false, axis: 'x' };
 
 const CHART_CROSSHAIR_PLUGIN = {
   id: 'chartCrosshair',
   afterDraw(chart, _args, opts) {
     const tooltip = chart.tooltip;
     if (!tooltip || tooltip.opacity === 0) return;
-    const pts = tooltip.dataPoints;
-    if (!pts?.length) return;
-    const pt = pts[0];
-    const xVal = pt.parsed?.x;
-    const yVal = pt.parsed?.y;
-    if (xVal == null || yVal == null) return;
-
-    const xScale = chart.scales[pt.dataset?.xAxisID || 'x'];
-    const yScale = chart.scales[pt.dataset?.yAxisID || 'y'];
-    if (!xScale || !yScale) return;
+    const allPts = tooltip.dataPoints;
+    if (!allPts?.length) return;
+    // Mirror the tooltip filter: only mark series at the hovered output.
+    const anchorX = allPts[0].parsed?.x;
+    const pts = anchorX == null
+      ? allPts
+      : allPts.filter(p => p.parsed?.x != null && Math.abs(p.parsed.x - anchorX) < 1e-6);
+    if (!pts.length) return;
 
     const { chartArea } = chart;
-    const x = xScale.getPixelForValue(xVal);
-    const y = yScale.getPixelForValue(yVal);
-    if (x < chartArea.left || x > chartArea.right || y < chartArea.top || y > chartArea.bottom) return;
-
     const ctx = chart.ctx;
     const lineColor = opts.color || 'rgba(86, 180, 233, 0.7)';
     const glowColor = opts.glowColor || 'rgba(86, 180, 233, 0.5)';
     const dotRing = opts.dotRing || 'rgba(7, 21, 36, 0.9)';
 
-    ctx.save();
+    // Vertical guide at the hovered output, drawn once from the first point.
+    const guideScale = chart.scales[pts[0].dataset?.xAxisID || 'x'];
+    const guideX = guideScale?.getPixelForValue(pts[0].parsed?.x);
+    if (guideX != null && guideX >= chartArea.left && guideX <= chartArea.right) {
+      ctx.save();
+      ctx.strokeStyle = lineColor;
+      ctx.lineWidth = 1;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(guideX, chartArea.top);
+      ctx.lineTo(guideX, chartArea.bottom);
+      ctx.stroke();
+      ctx.restore();
+    }
 
-    const dotColor = pt.element?.options?.backgroundColor || pt.dataset?.borderColor || lineColor;
-    ctx.fillStyle = dotColor;
-    ctx.strokeStyle = dotRing;
-    ctx.lineWidth = 2;
-    ctx.shadowColor = glowColor;
-    ctx.shadowBlur = 10;
-    ctx.beginPath();
-    ctx.arc(x, y, 5, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.stroke();
+    // One dot per series so every value in the tooltip is marked on the chart.
+    pts.forEach(pt => {
+      const xVal = pt.parsed?.x;
+      const yVal = pt.parsed?.y;
+      if (xVal == null || yVal == null) return;
 
-    ctx.restore();
+      const xScale = chart.scales[pt.dataset?.xAxisID || 'x'];
+      const yScale = chart.scales[pt.dataset?.yAxisID || 'y'];
+      if (!xScale || !yScale) return;
+
+      const x = xScale.getPixelForValue(xVal);
+      const y = yScale.getPixelForValue(yVal);
+      if (x < chartArea.left || x > chartArea.right || y < chartArea.top || y > chartArea.bottom) return;
+
+      ctx.save();
+      ctx.fillStyle = pt.element?.options?.backgroundColor || pt.dataset?.borderColor || lineColor;
+      ctx.strokeStyle = dotRing;
+      ctx.lineWidth = 2;
+      ctx.shadowColor = glowColor;
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(x, y, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+    });
   }
 };
 
@@ -7262,8 +7286,9 @@ function buildChartOptions(scales, ySuffix = ' / bottle', yDecimals = null) {
         }
       },
       tooltip: {
-        mode: 'nearest',
+        mode: 'index',
         intersect: false,
+        axis: 'x',
         backgroundColor: c.tooltipBg,
         borderColor: c.tooltipBorder,
         borderWidth: 1,
@@ -7272,7 +7297,18 @@ function buildChartOptions(scales, ySuffix = ' / bottle', yDecimals = null) {
         titleColor: c.tooltipTitle,
         bodyColor: c.tooltipBody,
         displayColors: true,
-        filter: item => item.parsed?.y != null,
+        // Index mode pairs series by dataIndex, which misaligns datasets of
+        // different lengths (the 4 table-MC dots vs the 432-point curves).
+        // Keep only points sitting at the same output as the hovered point.
+        filter(item, _i, items) {
+          if (item.parsed?.y == null) return false;
+          const anchor = items?.[0]?.parsed?.x;
+          if (anchor == null || item.parsed?.x == null) return true;
+          return Math.abs(item.parsed.x - anchor) < 1e-6;
+        },
+        // Highest value first, so stacked curves read top-to-bottom in the
+        // same order they appear on the chart.
+        itemSort: (a, b) => (b.parsed?.y ?? 0) - (a.parsed?.y ?? 0),
         callbacks: {
           title(tooltipItems) {
             const x = tooltipItems[0]?.parsed?.x;
