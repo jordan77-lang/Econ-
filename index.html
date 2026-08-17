@@ -1494,6 +1494,30 @@
     transition: background 0.2s, box-shadow 0.2s;
   }
 
+  /* The mission button is always on screen (the tutorial's still toggles), so
+     it is shown by id and disabled until all 9 expenses are classified. */
+  #classify-verify-btn {
+    display: block;
+  }
+  /* Looks disabled but stays clickable, so a click on an incomplete set can
+     pulse the rows that still need an answer. */
+  #classify-verify-btn.is-locked {
+    border-color: var(--border-bright);
+    color: var(--text-dim);
+    opacity: 0.8;
+  }
+  #classify-verify-btn.is-locked:hover {
+    background: transparent;
+    box-shadow: none;
+  }
+  .classify-verify-hint {
+    margin: -1.1rem 0 1.5rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-dim);
+    text-align: center;
+  }
+
   .classify-verify-btn:hover {
     background: var(--accent-amber-dim);
     box-shadow: 0 0 12px var(--accent-amber-dim);
@@ -4709,7 +4733,8 @@
 
           <div id="classify-ledger-wrap">
             <div class="classify-ledger" id="classify-ledger"></div>
-            <button class="classify-verify-btn" id="classify-verify-btn" onclick="checkClassification()" style="display:none">⬡ VERIFY CLASSIFICATION</button>
+            <button class="classify-verify-btn" id="classify-verify-btn" onclick="checkClassification()" aria-describedby="classify-verify-hint">⬡ VERIFY CLASSIFICATION</button>
+            <p class="classify-verify-hint" id="classify-verify-hint">Classify all 9 expenses, then verify them together.</p>
           </div>
 
           <div class="classify-bins" id="classify-bins">
@@ -6266,6 +6291,13 @@ function initClassifyLedger() {
     }));
   });
   renderClassifyBins(classifySelections, EXPENSE_CARDS, MISSION_BIN_CONFIG);
+  // Restore the verify button and hint (a dev rewind may have hidden them),
+  // then sync their locked/unlocked state to the current selections.
+  const btn = document.getElementById('classify-verify-btn');
+  if (btn) btn.style.display = '';
+  const hint = document.getElementById('classify-verify-hint');
+  if (hint) hint.style.display = '';
+  checkClassifyVerifyBtn();
 }
 
 function onClassifyChoice(cardId, category) {
@@ -6276,15 +6308,39 @@ function onClassifyChoice(cardId, category) {
   checkClassifyVerifyBtn();
 }
 
+/** Hide the mission verify button and its hint together (post-verification). */
+function hideClassifyVerify() {
+  const btn = document.getElementById('classify-verify-btn');
+  if (btn) {
+    btn.style.display = 'none';
+    btn.classList.remove('action-pulse');
+  }
+  const hint = document.getElementById('classify-verify-hint');
+  if (hint) hint.style.display = 'none';
+}
+
 function checkClassifyVerifyBtn() {
   const btn = document.getElementById('classify-verify-btn');
   if (!btn) return;
-  const allClassified = EXPENSE_CARDS.every(c => classifySelections[c.id]);
-  btn.style.display = allClassified ? 'block' : 'none';
-  // Pulse once every expense has a category — the button appears below the
-  // ledger, off-screen on shorter viewports, so students were not noticing it.
-  // Matches the tutorial's classify station (tut-classify-verify-btn).
+  const done = EXPENSE_CARDS.filter(c => classifySelections[c.id]).length;
+  const total = EXPENSE_CARDS.length;
+  const allClassified = done === total;
+
+  // The button is on screen from the start so students can see what they are
+  // working toward. It *looks* disabled until all 9 are classified, but stays
+  // genuinely clickable — a real `disabled` button fires no click event, and
+  // we want a click on an incomplete set to pulse the unanswered rows rather
+  // than do nothing. aria-disabled tells assistive tech the same story.
+  btn.classList.toggle('is-locked', !allClassified);
+  btn.setAttribute('aria-disabled', allClassified ? 'false' : 'true');
   btn.classList.toggle('action-pulse', allClassified);
+
+  const hint = document.getElementById('classify-verify-hint');
+  if (hint) {
+    hint.textContent = allClassified
+      ? 'All 9 classified — verify when ready.'
+      : `${done} of ${total} classified — sort the rest, then verify all 9 together.`;
+  }
 }
 
 function revealMissionCallout(id) {
@@ -6317,7 +6373,30 @@ function restoreMissionCalloutsFromState() {
 
 function checkClassification() {
   if (state.classifyVerified) return;
-  if (!EXPENSE_CARDS.every(c => classifySelections[c.id])) return;
+
+  // Verifying a partial set would mark every unanswered expense as wrong, so
+  // instead point the student at exactly what is still blank. Pulse the rows
+  // that need an answer and scroll the first one into view.
+  const unclassified = EXPENSE_CARDS.filter(c => !classifySelections[c.id]);
+  if (unclassified.length) {
+    const rows = unclassified
+      .map(c => document.getElementById(`classify-row-${c.id}`))
+      .filter(Boolean);
+    rows.forEach(row => {
+      row.classList.remove('action-pulse');
+      void row.offsetWidth; // restart the animation if it is already running
+      row.classList.add('action-pulse');
+    });
+    setTimeout(() => rows.forEach(row => row.classList.remove('action-pulse')), 4000);
+    if (rows[0]) scrollWorkAreaToElement(rows[0], 'smooth', 24);
+    const n = unclassified.length;
+    announceStatus(`${n} ${n === 1 ? 'expense still needs' : 'expenses still need'} a category.`);
+    hammondMsg(n === 1
+      ? `*points a tiny paw* One expense still needs a category — I have highlighted it. Sort it, then verify all 9 together.`
+      : `*points a tiny paw* ${n} expenses still need a category — I have highlighted them. Sort those, then verify all 9 together.`,
+      'warning', 200);
+    return;
+  }
 
   let allCorrect = true;
   const wrongCardIds = [];
@@ -6341,7 +6420,7 @@ function checkClassification() {
 
   if (allCorrect) {
     state.classifyVerified = true;
-    document.getElementById('classify-verify-btn').style.display = 'none';
+    hideClassifyVerify();
     showClassifyResultsOnly();
     document.getElementById('step2-section').style.display = 'block';
     scrollToUnlock('step2-section');
@@ -9224,7 +9303,7 @@ function restoreVerifiedState(savedState) {
     EXPENSE_CARDS.forEach(card => {
       classifySelections[card.id] = card.category;
     });
-    document.getElementById('classify-verify-btn').style.display = 'none';
+    hideClassifyVerify();
     showClassifyResultsOnly();
     document.getElementById('step2-section').style.display = 'block';
   }
@@ -9794,7 +9873,7 @@ function devRewindToMilestone(target) {
     if (wrap) wrap.style.display = '';
     const intro = document.getElementById('classify-step-intro');
     if (intro) intro.style.display = '';
-    document.getElementById('classify-verify-btn').style.display = 'none';
+    hideClassifyVerify();
     initClassifyLedger();
     delete state.checks.classify;
   }
