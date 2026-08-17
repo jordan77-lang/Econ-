@@ -6055,6 +6055,17 @@ function scrollHammondToLatest() {
   });
 }
 
+/**
+ * Empty the N.I.B.B.L.E.S. transcript, including any in-flight typing
+ * indicator. Used when the panel's existing messages no longer apply — a
+ * student who skips training carries "Station 1" chatter into the mission
+ * otherwise.
+ */
+function clearHammondMessages() {
+  const container = document.getElementById('hammond-messages');
+  if (container) container.innerHTML = '';
+}
+
 function hammondMsg(text, type = '', delay = 0) {
   const container = document.getElementById('hammond-messages');
 
@@ -7045,6 +7056,20 @@ function completeBriefingStep(step) {
   state.briefingAcks[step] = true;
   renderBriefingStationStatus(step, step + 1);
   updateProgress();
+}
+
+/**
+ * Mark all three briefing checkpoints acknowledged without playing the
+ * sequence. Used by the skip-training path, which delivers the same
+ * information in two short messages instead of three timed checkpoints.
+ */
+function markBriefingSkipped() {
+  clearBriefingSequenceTimer();
+  normalizeBriefingAcks();
+  [1, 2, 3].forEach(step => { state.briefingAcks[step] = true; });
+  renderBriefingStations();
+  updateProgress();
+  setTimeout(() => snapMissionToStep1('smooth'), 120);
 }
 
 function finishBriefingSequence() {
@@ -8479,14 +8504,33 @@ function completeTutorial(skippedTraining) {
       materializeWorkspacePanel('main-content-card');
     },
     onComplete: () => {
+      if (skippedTraining) {
+        // Skipping used to be the noisiest path in the app: the two training
+        // messages already in the panel stayed visible and became wrong ("watch
+        // this panel throughout training", "Station 1"), then the full intro and
+        // all three checkpoints played on top — eight messages before the
+        // student had done anything, with the "you skipped" note arriving
+        // fourth. Clear the stale training chatter and give a short, ordered
+        // handoff instead.
+        // Clear twice: once now, and again on a short delay so any tutorial
+        // message still inside its typing-indicator timeout cannot land after
+        // the panel has been reset.
+        clearHammondMessages();
+        setTimeout(() => {
+          clearHammondMessages();
+          hammondMsg(`*adjusts tiny headset* Training skipped, Agent ${state.employeeId || ''}. Straight to the mission, then.`, 'info', 0);
+        }, 650);
+        setTimeout(() => hammondMsg('Hammond recovered the <strong>Parfum du Coeur</strong> ledger from 1885. Work each step below, verify as you go, and answer the matching Canvas questions. Use <strong>⬇ SAVE</strong> before you leave — without a save file your progress is lost.', 'info', 300), 2100);
+        setTimeout(() => {
+          markBriefingSkipped();
+          updateFieldPulse();
+        }, 3800);
+        return;
+      }
       startHammondIntro(() => {
         if (!briefingComplete()) runNibblesBriefingSequence();
         else updateFieldPulse();
       });
-      if (skippedTraining) {
-        const introEnd = 300 + HAMMOND_INTRO.length * 1500 + 1200;
-        setTimeout(() => hammondMsg('*adjusts tiny headset* You skipped training — I will walk you through the three briefing checkpoints now.', 'info', 400), introEnd);
-      }
     }
   });
 }
