@@ -56,8 +56,10 @@
     --color-positive-bg: #0a2820;
     --color-negative: #CC79A7;
     --color-negative-bg: #281820;
-    --chart-atc: #4D8CFF;
-    --chart-avc: #FFB020;
+    /* Memo Figures 6 & 7 describe AVC as the blue curve and ATC as the yellow
+       curve — keep these assignments matching the memo captions. */
+    --chart-atc: #FFB020;
+    --chart-avc: #4D8CFF;
     --chart-afc: #7EC8FF;
     --chart-mc: #00E5FF;
     --chart-mr: #FF4D8D;
@@ -171,8 +173,9 @@
     --color-positive-bg: #e0f5ee;
     --color-negative: #6b2460;
     --color-negative-bg: #f8e8f4;
-    --chart-atc: #003D8F;
-    --chart-avc: #C45100;
+    /* AVC blue / ATC yellow — matches memo Figures 6 & 7 (see dark block). */
+    --chart-atc: #C45100;
+    --chart-avc: #003D8F;
     --chart-afc: #006DA3;
     --chart-mc: #00796B;
     --chart-mr: #C2185B;
@@ -1861,6 +1864,18 @@
     padding: 0.15rem 8px;
     border-top: none;
     background: transparent;
+    text-align: right;
+  }
+  /* ΔTC / ΔQ source values for the MC interval on this row */
+  .avg-mc-source {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  .avg-mc-source strong {
+    color: var(--text-secondary);
+    font-weight: 600;
   }
   .avg-mc-entry-cell {
     vertical-align: middle;
@@ -4511,6 +4526,10 @@
                   <li><strong>If you leave without a save file, your progress will be lost.</strong> Use ⬇ SAVE or ⏻ LOG OUT — both download your checkpoint.</li>
                   <li>The save file is tied to your Employee ID — it cannot be used by another agent.</li>
                 </ul>
+                <div class="instr-tip" style="margin-top:0.85rem">
+                  <span>⬡</span>
+                  <span><strong>Try it now:</strong> click <span class="instr-highlight">⬇ SAVE</span> in the session toolbar at the top of the screen. A <strong>.json</strong> file downloads immediately — that is exactly what happens mid-mission. Both ⬇ SAVE and ⏻ LOG OUT are live right now, so practise with them here before the mission starts.</span>
+                </div>
               </div>
             </div>
 
@@ -4691,9 +4710,9 @@
 
               <h4>Step 2 Inputs</h4>
               <ul>
-                <li><span class="instr-highlight">FC — Fixed Cost:</span> Sum of everything you classified as Fixed. Stays the same regardless of output.</li>
-                <li><span class="instr-highlight">VC — Variable Cost:</span> Sum of everything you classified as Variable, at this output level.</li>
-                <li><span class="instr-highlight">TC — Total Cost:</span> FC + VC.</li>
+                <li><span class="instr-highlight">FC (Fixed Cost):</span> Sum of everything you classified as Fixed. Stays the same regardless of output.</li>
+                <li><span class="instr-highlight">VC (Variable Cost):</span> Sum of everything you classified as Variable, at this output level.</li>
+                <li><span class="instr-highlight">TC (Total Cost):</span> FC + VC.</li>
               </ul>
 
               <h4>After This Step — Canvas</h4>
@@ -4842,14 +4861,20 @@
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>This section covers <strong>mission memo Steps 4 through 6</strong> in one terminal workspace: calculate measures of average cost (AFC, AVC, ATC), calculate marginal cost (MC), then use Chart A to interpret cost patterns across output levels. <span class="instr-highlight">Round all answers to 3 decimal places.</span></p>
+              <p>This section covers <strong>mission memo Steps 4 through 6</strong> in one terminal workspace. <span class="instr-highlight">Round all answers to 3 decimal places.</span></p>
+              <p>Work them in this order — each one maps to a different set of Canvas questions:</p>
+              <ol>
+                <li><strong>Step 4 — average cost.</strong> Fill AFC, AVC, and ATC on all five output rows. → Canvas <strong>questions 8 through 10</strong></li>
+                <li><strong>Step 5 — marginal cost.</strong> Then fill the four MC cells on the <strong>›</strong> interval lines between output rows. → Canvas <strong>questions 11 and 12</strong></li>
+                <li><strong>Step 6 — cost patterns.</strong> Finally, read Chart A to describe how each curve behaves. → Canvas <strong>questions 13 through 15</strong></li>
+              </ol>
 
               <h4>The Four Formulas</h4>
               <div class="instr-example">
                 AFC = FC ÷ Q &nbsp; (Average Fixed Cost per bottle)<br>
                 AVC = VC ÷ Q &nbsp; (Average Variable Cost per bottle)<br>
                 ATC = TC ÷ Q &nbsp; (Average Total Cost per bottle)<br>
-                MC = ΔTC ÷ ΔQ (Marginal Cost — change in TC ÷ change in Q)
+                MC = ΔTC ÷ ΔQ &nbsp; (Marginal Cost per interval)
               </div>
 
               <h4>Curve Behavior (Firm Theory)</h4>
@@ -4863,7 +4888,8 @@
               <h4>Marginal Cost (MC) — Special Rule</h4>
               <ul>
                 <li>MC measures the <em>extra cost</em> of producing the next batch of bottles — calculated <strong>between</strong> two output levels, not at a single Q.</li>
-                <li>Formula: MC = (TC at upper Q − TC at lower Q) ÷ (upper Q − lower Q)</li>
+                <li>Formula: MC = (TC at upper Q − TC at lower Q) ÷ (upper Q − lower Q). The numerator is the change in <strong>total cost</strong> from Step 3 — not average total cost.</li>
+                <li>Each MC line in the table shows that interval's <strong>ΔTC</strong> and <strong>ΔQ</strong> beside the input, so you do not need to scroll back to the Step 3 table.</li>
                 <li>After each output row, enter MC in the <span class="instr-highlight">MC column</span> on the line to the next Q — each cell is marked with <strong>›</strong> directly to the left of the input.</li>
                 <li>Each interval spans <span class="instr-highlight">240 bottles</span>. The first interval is 960 through 1,200; MC there ($0.219) is slightly below MR ($0.25) because profit is still rising toward the peak.</li>
                 <li>Because each MC value is calculated across an interval (not at a single Q), the highlighted MC point for that interval is plotted at the <span class="instr-highlight">midpoint</span> between the two outputs (for example, 1,680 through 1,920 is plotted at Q = 1,800). Hover a point to see its interval label (e.g., “MC between 960 and 1,200 units”).</li>
@@ -5342,8 +5368,8 @@ function getChartThemeColors() {
     tooltipBorder: v('--border', '#0e3a52'),
     tooltipTitle: v('--accent-cyan', '#56B4E9'),
     tooltipBody: v('--text-primary', '#e8f4fc'),
-    atc: v('--chart-atc', '#4D8CFF'),
-    avc: v('--chart-avc', '#FFB020'),
+    atc: v('--chart-atc', '#FFB020'),
+    avc: v('--chart-avc', '#4D8CFF'),
     afc: v('--chart-afc', '#7EC8FF'),
     mc: v('--chart-mc', '#00E5FF'),
     mcPoint: v('--accent-amber', '#E69F00'),
@@ -5361,8 +5387,8 @@ const LIGHT_CHART_EXPORT_COLORS = {
   tooltipBorder: '#9ab0c4',
   tooltipTitle: '#0066a1',
   tooltipBody: '#0c1a28',
-  atc: '#003D8F',
-  avc: '#C45100',
+  atc: '#C45100',
+  avc: '#003D8F',
   afc: '#006DA3',
   mc: '#00796B',
   mcPoint: '#b45309',
@@ -5684,7 +5710,7 @@ const HAMMOND_HINTS = {
     printer: [
       "*rustles through advertising leaflets* The printer's fee is for monthly advertisements — a standing arrangement, not a per-bottle charge. Ask whether this invoice changes depending on how many bottles of perfume Parfum du Coeur actually produces that month.",
       "A monthly advertising fee is a set charge for a recurring service — the printer doesn't charge more if sales are high or less if production is slow. The fee is the same $3 regardless of how many bottles are filled.",
-      "*tiny paw on chin* The printer charges a flat monthly fee — identical whether Parfum du Coeur bottles 720 flasks or 1,920 flasks. A cost that is constant across all output levels belongs in the column for non-varying expenses.",
+      "*tiny paw on chin* The printer charges a flat monthly fee — identical whether Parfum du Coeur bottles 960 flasks or 1,920 flasks. A cost that is constant across all output levels belongs in the column for non-varying expenses.",
       "*flips through invoices* Standing monthly fees behave differently from raw materials. Apply the zero-output test from the briefing."
     ],
     laborers: [
@@ -5722,7 +5748,7 @@ const HAMMOND_HINTS = {
   // --- STEP 2: BASELINE TOTALS ---
   baseline: {
     fc: [
-      "*taps ledger with tiny paw* Fixed costs are the ones that stay constant across every row of the cost table — they do not change whether Parfum du Coeur produces 720 bottles or 1,920 bottles. Your job right now is to identify and sum those constant costs from your Step 1 classification. Go back and look at which column you put the 'does not change with output' costs into.",
+      "*taps ledger with tiny paw* Fixed costs are the ones that stay constant across every row of the cost table — they do not change whether Parfum du Coeur produces 960 bottles or 1,920 bottles. Your job right now is to identify and sum those constant costs from your Step 1 classification. Go back and look at which column you put the 'does not change with output' costs into.",
       "The Fixed Cost total is the sum of all costs classified as 'fixed' in Step 1: the obligations Parfum du Coeur owes regardless of production. Think about which items from the ledger are contractual commitments — leases, salaries, and standing fees — and add only those dollar amounts together.",
       "*consults abacus* Add up all four items in your Fixed Cost column from Step 1: shop rent, kettle lease, shopkeeper's salary, and printer's fee. Each card shows a dollar amount — sum those four values.",
       "*points at Step 1 bins* Open your Fixed Cost list from classification. You should see exactly four expenses there. Add the dollar amount shown on each card — no variable-cost items belong in this total.",
@@ -5996,14 +6022,25 @@ function smallHammondSVG() {
   const s = getComputedStyle(root);
   const accent = s.getPropertyValue('--hammond-accent').trim() || '#56B4E9';
   const shade = s.getPropertyValue('--hammond-visor-shade').trim() || '#001a2d';
+  // Fills are inlined rather than classed on purpose: the `visor-*` CSS classes
+  // used by the large avatar are scoped under .hammond-avatar / .login-avatar,
+  // and this markup is injected into .msg-avatar / .tut-nibbles-avatar where
+  // those selectors do not match. refreshHammondAvatars() re-bakes the values
+  // on theme change. Keep the inner ears, nose and eye highlights — without
+  // them the dark visor swallows the face at 24px and reads as hollow.
   return `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
     <circle cx="50" cy="45" r="26" fill="#d4b896"/>
     <ellipse cx="29" cy="26" rx="8" ry="10" fill="#c8a882"/>
     <ellipse cx="71" cy="26" rx="8" ry="10" fill="#c8a882"/>
+    <ellipse cx="29" cy="26" rx="4.5" ry="6" fill="#e8a0a0"/>
+    <ellipse cx="71" cy="26" rx="4.5" ry="6" fill="#e8a0a0"/>
     <ellipse cx="50" cy="45" rx="20" ry="18" fill="none" stroke="${accent}" stroke-width="2"/>
-    <ellipse cx="50" cy="46" rx="15" ry="12" fill="${shade}" fill-opacity="0.8"/>
+    <ellipse cx="50" cy="46" rx="15" ry="12" fill="${shade}" fill-opacity="0.55"/>
     <circle cx="43" cy="43" r="3.5" fill="${accent}"/>
     <circle cx="57" cy="43" r="3.5" fill="${accent}"/>
+    <circle cx="43" cy="43" r="1.6" fill="#ffffff"/>
+    <circle cx="57" cy="43" r="1.6" fill="#ffffff"/>
+    <ellipse cx="50" cy="53" rx="2.6" ry="1.8" fill="#e88080"/>
   </svg>`;
 }
 
@@ -6525,8 +6562,20 @@ function buildAvgTable() {
     if (interval) {
       const bridge = document.createElement('tr');
       bridge.className = 'avg-mc-interval-row';
+      // The colspan cell used to be dead space. Showing this interval's TC
+      // endpoints here keeps the ΔTC numerator on screen while MC is typed —
+      // reviewers were scrolling back to the Step 3 table, or worse, reaching
+      // for the adjacent ATC column instead of TC.
+      const dTC = +(interval.tcTo - interval.tcFrom).toFixed(2);
+      const dQ = interval.to - interval.from;
       bridge.innerHTML = `
-        <td colspan="4" class="avg-mc-gap" aria-hidden="true"></td>
+        <td colspan="4" class="avg-mc-gap">
+          <span class="avg-mc-source">
+            ${interval.from.toLocaleString()} → ${interval.to.toLocaleString()}:
+            ΔTC = $${interval.tcTo.toFixed(2)} − $${interval.tcFrom.toFixed(2)} = <strong>$${dTC.toFixed(2)}</strong>
+            &nbsp;·&nbsp; ΔQ = <strong>${dQ}</strong>
+          </span>
+        </td>
         <td class="col-mc avg-mc-entry-cell">
           <div class="avg-mc-entry" role="group" aria-label="Marginal cost from ${interval.from} to ${interval.to} bottles">
             <span class="avg-mc-marker" aria-hidden="true">›</span>
@@ -7052,7 +7101,9 @@ function updateHeaderSaveButton() {
   const missionCard = document.getElementById('main-content-card');
   const mission = missionCard?.classList.contains('panel-visible');
   if (saveBtn) {
-    saveBtn.style.display = state.tutorialComplete && mission ? 'inline-flex' : 'none';
+    // Visible during training too, so the button Station 6 tells students to
+    // use "at any time" actually exists while they are being taught it.
+    saveBtn.style.display = (tutorial || mission) ? 'inline-flex' : 'none';
   }
   if (logoutBtn) {
     logoutBtn.style.display = (tutorial || mission) ? 'inline-flex' : 'none';
@@ -7362,11 +7413,15 @@ function yAxis(min, max, step, label) {
 const CHART_MR_DASH = [12, 6];
 
 // Chart A — cost curves only (MR appears on Charts B & C after Obj 2 Step 1)
+// Each series carries its own dash pattern so the four curves are not
+// distinguished by hue alone — in dark mode AFC and AVC sit at a 1.01
+// luminance ratio, which is indistinguishable in grayscale or with
+// colour-vision deficiency. Patterns stay clear of CHART_MR_DASH ([12, 6]).
 const CHART_A_SERIES = [
-  { field: 'afc', label: 'AFC', key: 'afc', width: 3 },
-  { field: 'avc', label: 'AVC', key: 'avc', width: 3 },
+  { field: 'afc', label: 'AFC', key: 'afc', width: 3,   dash: [4, 4] },
+  { field: 'avc', label: 'AVC', key: 'avc', width: 3,   dash: [10, 5] },
   { field: 'atc', label: 'ATC', key: 'atc', width: 3.5 },
-  { field: 'mc', label: 'MC', key: 'mc', width: 3 },
+  { field: 'mc',  label: 'MC',  key: 'mc',  width: 3,   dash: [9, 4, 2, 4] },
 ];
 
 function chartALegendLabels(chart) {
@@ -8921,7 +8976,12 @@ function loadCheckpoint(event) {
 function _applyCheckpointData(data, event) {
   Object.assign(state, data.state);
   if (data.employeeId) state.employeeId = data.employeeId;
-  state.tutorialComplete = true;
+  // Honour the saved flag. Checkpoints written during training carry
+  // tutorialComplete: false and must resume in the tutorial, not the mission.
+  // Files saved before tutorial-time saving existed have no such checkpoints,
+  // so default to true when the field is absent.
+  const resumeInTutorial = data.state?.tutorialComplete === false;
+  state.tutorialComplete = !resumeInTutorial;
 
   updateHeaderAgent();
   if (data.exported) {
@@ -8950,15 +9010,23 @@ function _applyCheckpointData(data, event) {
       hideLoginOverlayImmediate();
       const idle = document.getElementById('nibbles-idle-msg');
       if (idle) idle.remove();
-      showMissionPanel();
-      mountProgressPanel('progress-slot-mission');
-      document.getElementById('progress-title').textContent = '▸ MISSION PROGRESS';
+      if (resumeInTutorial) {
+        showTutorialPanel();
+        mountProgressPanel('progress-slot-tutorial');
+        initTutorial();
+        materializeWorkspacePanel('tutorial-page');
+      } else {
+        showMissionPanel();
+        mountProgressPanel('progress-slot-mission');
+        document.getElementById('progress-title').textContent = '▸ MISSION PROGRESS';
+        materializeWorkspacePanel('main-content-card');
+      }
       updateProgress();
       markProgressSaved();
-      materializeWorkspacePanel('main-content-card');
     },
     onComplete: () => {
       hammondMsg(`*reads checkpoint seal* Welcome back, Agent ${state.employeeId || ''}. Resuming from ${(data.step || 'your saved progress').replace(/_/g,' ')}. All verified work has been restored.`, 'success', 0);
+      if (resumeInTutorial) return;
       setTimeout(() => {
         syncBriefingFromMissionProgress();
         if (!briefingComplete()) runNibblesBriefingSequence();
