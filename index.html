@@ -19,6 +19,9 @@
     --bg-input: #0a1f33;
     --accent-cyan: #56B4E9;
     --accent-cyan-dim: #56B4E933;
+    /* Visible border for outlined controls. --accent-cyan-dim is tuned for
+       subtle fills and is far too faint as an edge, especially in light mode. */
+    --control-border: #56B4E999;
     --accent-amber: #E69F00;
     --accent-amber-dim: #E69F0022;
     --accent-green: #56B4E9;
@@ -138,6 +141,7 @@
     --bg-input: #eef4f9;
     --accent-cyan: #005a8f;
     --accent-cyan-dim: #005a8f18;
+    --control-border: #005a8fb3;
     --accent-amber: #7a3600;
     --accent-amber-dim: #7a360018;
     --accent-green: #005a8f;
@@ -1059,7 +1063,7 @@
     align-items: center;
     gap: 6px;
     background: transparent;
-    border: 1px solid var(--accent-cyan-dim);
+    border: 1px solid var(--control-border);
     border-radius: 6px;
     padding: 5px 12px;
     margin-bottom: 1rem;
@@ -4443,7 +4447,7 @@
     <div id="tutorial-page">
       <div class="tutorial-card">
         <div class="tutorial-header">
-          <h1 class="tutorial-title">⬡ AXIOM TERMINAL — AGENT TRAINING</h1>
+          <h2 class="tutorial-title">⬡ AXIOM TERMINAL — AGENT TRAINING</h2>
           <div class="tutorial-header-right">
             <div class="progress-slot" id="progress-slot-tutorial">
               <div class="progress-panel progress-panel--top" id="progress-panel" role="group" aria-labelledby="progress-title">
@@ -4462,7 +4466,7 @@
         <div class="tutorial-body" tabindex="-1">
           <a href="#hammond-panel-title" class="nibbles-jump-link" onclick="focusNibblesPanel(event)">Jump to N.I.B.B.L.E.S. help</a>
           <div class="tut-station active" id="tut-s1">
-            <h2 class="tut-station-title">▸ STATION 1 — FIELD BRIEFINGS</h2>
+            <h3 class="tut-station-title">▸ STATION 1 — FIELD BRIEFINGS</h3>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-1"></div>
               <div class="tut-nibbles-bubble">*taps clipboard* Each step of the terminal has a collapsible briefing panel — like this one. Open it to see what you need to do. Click the button below to try it.</div>
@@ -4494,7 +4498,7 @@
 
           <!-- STATION 2: CLASSIFICATION -->
           <div class="tut-station" id="tut-s2">
-            <h2 class="tut-station-title">▸ STATION 2 — CLASSIFICATION</h2>
+            <h3 class="tut-station-title">▸ STATION 2 — CLASSIFICATION</h3>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-2"></div>
               <div class="tut-nibbles-bubble">*clears tiny throat* This mirrors <strong>Objective 1, Step 1</strong> in the mission. For each item, choose a category with the radio buttons — your picks appear in the sorted lists below. In the real mission you will sort <strong>nine ledger expenses</strong> as <strong>Fixed</strong> or <strong>Variable</strong> (the list is shuffled). Here, classify all <strong>five animals</strong> as Awesome or Not Awesome, then click <strong>VERIFY CLASSIFICATION</strong>. Wrong picks are cleared so you can try again. Hamsters are, objectively, AWESOME.</div>
@@ -4519,7 +4523,7 @@
 
           <!-- STATION 3: SIMPLE VERIFICATION -->
           <div class="tut-station" id="tut-s3">
-            <h2 class="tut-station-title">▸ STATION 3 — ENTERING &amp; VERIFYING ANSWERS</h2>
+            <h3 class="tut-station-title">▸ STATION 3 — ENTERING &amp; VERIFYING ANSWERS</h3>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-3"></div>
               <div class="tut-nibbles-bubble">*poses dramatically* In the mission, most answers use the same pattern: type a value, then click <strong>VERIFY</strong> or press <strong>Enter</strong>. Up and Down arrows move you to the next field. Let's practice. <strong>1 hamster</strong> is already in a room. <strong>Another hamster walks in.</strong> How many hamsters are in the room now?</div>
@@ -4540,7 +4544,7 @@
 
           <!-- STATION 4: CALCULATOR -->
           <div class="tut-station" id="tut-s4">
-            <h2 class="tut-station-title">▸ STATION 4 — THE FIELD CALCULATOR</h2>
+            <h3 class="tut-station-title">▸ STATION 4 — THE FIELD CALCULATOR</h3>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-4"></div>
               <div class="tut-nibbles-bubble">*pats abacus fondly* See the <span class="instr-highlight">⊞ CALCULATOR</span> button in the session toolbar? It is always there. Open it, do the calculation inside it, then type the result into the answer field here. Try it now — if I received 1.27 treats a day for a whole week, how many treats will I get in a week?</div>
@@ -4561,7 +4565,7 @@
 
           <!-- STATION 5: NIBBLES AI HINTS -->
           <div class="tut-station" id="tut-s5">
-            <h2 class="tut-station-title">▸ STATION 5 — N.I.B.B.L.E.S. HINT SYSTEM</h2>
+            <h3 class="tut-station-title">▸ STATION 5 — N.I.B.B.L.E.S. HINT SYSTEM</h3>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-5"></div>
               <div class="tut-nibbles-bubble">*adjusts goggles knowingly* That panel on the right — that is me, N.I.B.B.L.E.S. When you get something wrong in the mission, I send a hint. Each miss gets a <em>more specific</em> hint (without giving away the final answer). After several misses I will nudge you toward the Field Briefing — the button will pulse. Try a wrong answer here first to see the pattern, then enter the correct value.</div>
@@ -4582,7 +4586,7 @@
 
           <!-- STATION 6: SAVE, RESUME & FINAL REPORT -->
           <div class="tut-station" id="tut-s6">
-            <h2 class="tut-station-title">▸ STATION 6 — SAVING, RESUMING &amp; THE FINAL REPORT</h2>
+            <h3 class="tut-station-title">▸ STATION 6 — SAVING, RESUMING &amp; THE FINAL REPORT</h3>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-6"></div>
               <div class="tut-nibbles-bubble">*holds up a tiny USB drive* Two things to know about files in this terminal. First — mid-mission saves. Second — your final report when the mission is complete.</div>
