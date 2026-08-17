@@ -1215,6 +1215,8 @@
     margin-bottom: 0.25rem;
   }
 
+  /* The fieldset is the flex row itself so <legend> can stay its first child
+     (a wrapper div between them stops the legend naming the group). */
   .classify-row {
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -1222,6 +1224,11 @@
     padding: 0.75rem 1rem;
     margin: 0;
     transition: border-color 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
   }
 
   .classify-row.classify-correct {
@@ -1261,6 +1268,10 @@
     gap: 0.5rem 1rem;
     padding: 0;
     font-size: inherit;
+    /* Neutralise UA legend styles now that it participates in the flex row */
+    float: none;
+    width: auto;
+    margin: 0;
   }
 
   .classify-row-name {
@@ -4262,7 +4273,7 @@
 
   <!-- Phase 1: full-screen DOS boot -->
   <div class="login-dos-screen" id="login-boot-screen" aria-hidden="false" aria-label="AXIOM system boot">
-    <div class="login-dos-console" id="login-boot-console" aria-live="polite" aria-atomic="true">
+    <div class="login-dos-console" id="login-boot-console" aria-live="polite" aria-atomic="false" aria-relevant="additions">
       <div id="login-boot-lines"></div>
       <span class="login-dos-cursor" id="login-boot-cursor" aria-hidden="true">_</span>
     </div>
@@ -4386,7 +4397,7 @@
     <div id="tutorial-page">
       <div class="tutorial-card">
         <div class="tutorial-header">
-          <div class="tutorial-title">⬡ AXIOM TERMINAL — AGENT TRAINING</div>
+          <h1 class="tutorial-title">⬡ AXIOM TERMINAL — AGENT TRAINING</h1>
           <div class="tutorial-header-right">
             <div class="progress-slot" id="progress-slot-tutorial">
               <div class="progress-panel progress-panel--top" id="progress-panel" role="group" aria-labelledby="progress-title">
@@ -4405,7 +4416,7 @@
         <div class="tutorial-body" tabindex="-1">
           <a href="#hammond-panel-title" class="nibbles-jump-link" onclick="focusNibblesPanel(event)">Jump to N.I.B.B.L.E.S. help</a>
           <div class="tut-station active" id="tut-s1">
-            <div class="tut-station-title">▸ STATION 1 — FIELD BRIEFINGS</div>
+            <h2 class="tut-station-title">▸ STATION 1 — FIELD BRIEFINGS</h2>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-1"></div>
               <div class="tut-nibbles-bubble">*taps clipboard* Each step of the terminal has a collapsible briefing panel — like this one. Open it to see what you need to do. Click the button below to try it.</div>
@@ -4437,7 +4448,7 @@
 
           <!-- STATION 2: CLASSIFICATION -->
           <div class="tut-station" id="tut-s2">
-            <div class="tut-station-title">▸ STATION 2 — CLASSIFICATION</div>
+            <h2 class="tut-station-title">▸ STATION 2 — CLASSIFICATION</h2>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-2"></div>
               <div class="tut-nibbles-bubble">*clears tiny throat* This mirrors <strong>Objective 1, Step 1</strong> in the mission. For each item, choose a category with the radio buttons — your picks appear in the sorted lists below. In the real mission you will sort <strong>nine ledger expenses</strong> as <strong>Fixed</strong> or <strong>Variable</strong> (the list is shuffled). Here, classify all <strong>five animals</strong> as Awesome or Not Awesome, then click <strong>VERIFY CLASSIFICATION</strong>. Wrong picks are cleared so you can try again. Hamsters are, objectively, AWESOME.</div>
@@ -4462,7 +4473,7 @@
 
           <!-- STATION 3: SIMPLE VERIFICATION -->
           <div class="tut-station" id="tut-s3">
-            <div class="tut-station-title">▸ STATION 3 — ENTERING &amp; VERIFYING ANSWERS</div>
+            <h2 class="tut-station-title">▸ STATION 3 — ENTERING &amp; VERIFYING ANSWERS</h2>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-3"></div>
               <div class="tut-nibbles-bubble">*poses dramatically* In the mission, most answers use the same pattern: type a value, then click <strong>VERIFY</strong> or press <strong>Enter</strong>. Up and Down arrows move you to the next field. Let's practice. <strong>1 hamster</strong> is already in a room. <strong>Another hamster walks in.</strong> How many hamsters are in the room now?</div>
@@ -4483,7 +4494,7 @@
 
           <!-- STATION 4: CALCULATOR -->
           <div class="tut-station" id="tut-s4">
-            <div class="tut-station-title">▸ STATION 4 — THE FIELD CALCULATOR</div>
+            <h2 class="tut-station-title">▸ STATION 4 — THE FIELD CALCULATOR</h2>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-4"></div>
               <div class="tut-nibbles-bubble">*pats abacus fondly* See the <span class="instr-highlight">⊞ CALCULATOR</span> button in the session toolbar? It is always there. Open it, do the calculation inside it, then type the result into the answer field here. Try it now — if I received 1.27 treats a day for a whole week, how many treats will I get in a week?</div>
@@ -4504,7 +4515,7 @@
 
           <!-- STATION 5: NIBBLES AI HINTS -->
           <div class="tut-station" id="tut-s5">
-            <div class="tut-station-title">▸ STATION 5 — N.I.B.B.L.E.S. HINT SYSTEM</div>
+            <h2 class="tut-station-title">▸ STATION 5 — N.I.B.B.L.E.S. HINT SYSTEM</h2>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-5"></div>
               <div class="tut-nibbles-bubble">*adjusts goggles knowingly* That panel on the right — that is me, N.I.B.B.L.E.S. When you get something wrong in the mission, I send a hint. Each miss gets a <em>more specific</em> hint (without giving away the final answer). After several misses I will nudge you toward the Field Briefing — the button will pulse. Try a wrong answer here first to see the pattern, then enter the correct value.</div>
@@ -4525,7 +4536,7 @@
 
           <!-- STATION 6: SAVE, RESUME & FINAL REPORT -->
           <div class="tut-station" id="tut-s6">
-            <div class="tut-station-title">▸ STATION 6 — SAVING, RESUMING &amp; THE FINAL REPORT</div>
+            <h2 class="tut-station-title">▸ STATION 6 — SAVING, RESUMING &amp; THE FINAL REPORT</h2>
             <div class="tut-nibbles-msg">
               <div class="tut-nibbles-avatar" id="tut-nibbles-avatar-6"></div>
               <div class="tut-nibbles-bubble">*holds up a tiny USB drive* Two things to know about files in this terminal. First — mid-mission saves. Second — your final report when the mission is complete.</div>
@@ -4642,23 +4653,23 @@
               ⬡ Objective 1 · Step 1 — Classify Costs as Fixed or Variable
             </div>
             <div class="instr-panel-body">
-              <h4>What You're Doing</h4>
+              <h3>What You're Doing</h3>
               <p>Parfum du Coeur's monthly expense ledger lists <span class="instr-highlight">9 expenses</span>. Your job is to sort each one into the correct cost category before you can calculate totals in Step 2.</p>
 
-              <h4>The Two Categories</h4>
+              <h3>The Two Categories</h3>
               <ul>
                 <li><span class="instr-highlight">Fixed Costs</span> — expenses that stay the same every month no matter how many bottles of perfume are produced. Even if output drops to zero, these costs are still owed.</li>
                 <li><span class="instr-highlight">Variable Costs</span> — expenses that change based on how much is produced. More bottles means more of these inputs are needed and purchased.</li>
               </ul>
 
-              <h4>The Key Test</h4>
+              <h3>The Key Test</h3>
               <p>For each expense, ask yourself: <em>"If Parfum du Coeur produced zero bottles this month, would this cost still appear on the bill?"</em></p>
               <div class="instr-example">
                 ▸ YES — still owed at zero output → <strong>Fixed Cost</strong><br>
                 ▸ NO — disappears when nothing is produced → <strong>Variable Cost</strong>
               </div>
 
-              <h4>How to Classify</h4>
+              <h3>How to Classify</h3>
               <ul>
                 <li>The 9 ledger expenses are listed below in shuffled order.</li>
                 <li>For each expense, select <span class="instr-highlight">Fixed</span> or <span class="instr-highlight">Variable</span> using the radio buttons.</li>
@@ -4667,13 +4678,13 @@
                 <li>Click VERIFY — correct entries turn green and lock in. Incorrect entries are flagged so you can try again.</li>
               </ul>
 
-              <h4>Scoring</h4>
+              <h3>Scoring</h3>
               <ul>
                 <li>You can verify as many times as needed — there is no penalty for wrong attempts.</li>
                 <li>Once all 9 are correctly classified, Step 2 will unlock automatically.</li>
               </ul>
 
-              <h4>After This Step — Canvas</h4>
+              <h3>After This Step — Canvas</h3>
               <p>When classification is verified, use your completed fixed and variable lists to answer <strong>questions 1 and 2</strong> in the mission memo before continuing in the terminal.</p>
 
               <div class="instr-tip">
@@ -4721,10 +4732,10 @@
               ⬡ Objective 1 · Step 2 — Calculate Costs at the Baseline Output Level
             </div>
             <div class="instr-panel-body">
-              <h4>What You're Doing</h4>
+              <h3>What You're Doing</h3>
               <p>Total up what Parfum du Coeur spent at its <span class="instr-highlight">baseline output of 960 bottles per month</span> — the scaled-back level it held during the slump, just before the owners decided to expand. Output is given; you calculate the three cost figures.</p>
 
-              <h4>Step 2 Inputs</h4>
+              <h3>Step 2 Inputs</h3>
               <ul>
                 <li><span class="instr-highlight">FC (Fixed Cost):</span> Sum of everything you classified as Fixed. Stays the same regardless of output.</li>
                 <li><span class="instr-highlight">VC (Variable Cost):</span> Sum of everything you classified as Variable, at this output level.</li>
@@ -4732,7 +4743,7 @@
               </ul>
               <p>Enter all three as dollar amounts to <span class="instr-highlight">2 decimal places</span> (e.g., 233.00).</p>
 
-              <h4>After This Step — Canvas</h4>
+              <h3>After This Step — Canvas</h3>
               <p>Use your verified baseline values to answer <strong>questions 3 through 5</strong> in the mission memo.</p>
 
               <div class="instr-tip">
@@ -4798,10 +4809,10 @@
               ⬡ Objective 1 · Step 3 — Calculate Total Cost Across Output Levels
             </div>
             <div class="instr-panel-body">
-              <h4>What You're Doing</h4>
+              <h3>What You're Doing</h3>
               <p>The table shows <span class="instr-highlight">5 output levels (Q)</span> from the mission analysis: 960, 1,200, 1,440, 1,680, and 1,920 bottles per month. For each row, calculate <span class="instr-highlight">TC = FC + VC</span> and enter it in the "Your TC" column.</p>
 
-              <h4>The Formula</h4>
+              <h3>The Formula</h3>
               <div class="instr-example">
                 TC = FC + VC<br>
                 ▸ FC is already filled in — it is $108.00 for every row (Fixed costs never change)<br>
@@ -4809,13 +4820,13 @@
                 ▸ Your job: add the two together and enter the result
               </div>
 
-              <h4>How to Enter Answers</h4>
+              <h3>How to Enter Answers</h3>
               <ul>
                 <li>Rows can be done in any order. Round to 2 decimal places (e.g., 233.00).</li>
                 <li>All 5 rows must be correct before Steps 4 through 6 unlock.</li>
               </ul>
 
-              <h4>After This Step — Canvas</h4>
+              <h3>After This Step — Canvas</h3>
               <p>Use your completed cost table to answer <strong>questions 6 and 7</strong> in the mission memo.</p>
 
               <div class="instr-tip">
@@ -4851,7 +4862,7 @@
               <div class="chart-label">
                 <span id="chartTC-title">CHART TC — TOTAL COST vs OUTPUT</span>
               </div>
-              <canvas id="chartTC" role="img" aria-label="Total cost curve showing how total cost changes with output from 960 through 1,920 bottles."></canvas>
+              <canvas id="chartTC" role="img" aria-label="Total cost curve showing how total cost rises with output, from 0 through 2,040 bottles. Your five verified table values sit between 960 and 1,920."></canvas>
               <details class="chart-data-details">
                 <summary>View chart data table (total cost)</summary>
                 <div class="table-scroll-wrap"><table class="data-table chart-data-table" id="chartTC-data" aria-label="Chart TC data"></table></div>
@@ -4877,7 +4888,7 @@
               ⬡ Objective 1 · Steps 4 through 6 — Average Cost, Marginal Cost, and Cost Patterns
             </div>
             <div class="instr-panel-body">
-              <h4>What You're Doing</h4>
+              <h3>What You're Doing</h3>
               <p>This section covers <strong>mission memo Steps 4 through 6</strong> in one terminal workspace. <span class="instr-highlight">Round all answers to 3 decimal places.</span></p>
               <p>Work them in this order — each one maps to a different set of Canvas questions:</p>
               <ol>
@@ -4886,7 +4897,7 @@
                 <li><strong>Step 6 — cost patterns.</strong> Finally, read Chart A to describe how each curve behaves. → Canvas <strong>questions 13 through 15</strong></li>
               </ol>
 
-              <h4>The Four Formulas</h4>
+              <h3>The Four Formulas</h3>
               <div class="instr-example">
                 AFC = FC ÷ Q &nbsp; (Average Fixed Cost per bottle)<br>
                 AVC = VC ÷ Q &nbsp; (Average Variable Cost per bottle)<br>
@@ -4894,7 +4905,7 @@
                 MC = ΔTC ÷ ΔQ &nbsp; (Marginal Cost per interval)
               </div>
 
-              <h4>Curve Behavior (Firm Theory)</h4>
+              <h3>Curve Behavior (Firm Theory)</h3>
               <ul>
                 <li><span class="instr-highlight">AFC</span> always falls as output rises — the same fixed overhead is spread across more bottles.</li>
                 <li><span class="instr-highlight">AVC</span> is typically U-shaped: average variable cost falls at low output, then rises as capacity strains.</li>
@@ -4902,7 +4913,7 @@
                 <li><span class="instr-highlight">MC</span> intersects AVC and ATC at their minimum points — a standard result in cost theory.</li>
               </ul>
 
-              <h4>Marginal Cost (MC) — Special Rule</h4>
+              <h3>Marginal Cost (MC) — Special Rule</h3>
               <ul>
                 <li>MC measures the <em>extra cost</em> of producing the next batch of bottles — calculated <strong>between</strong> two output levels, not at a single Q.</li>
                 <li>Formula: MC = (TC at upper Q − TC at lower Q) ÷ (upper Q − lower Q). The numerator is the change in <strong>total cost</strong> from Step 3 — not average total cost.</li>
@@ -4913,14 +4924,14 @@
                 <li>Charts plot a <span class="instr-highlight">smooth MC curve</span> from the same cost equation — it sweeps upward at low Q and crosses MR at Q = 1,200. The highlighted midpoint dots mark your four calculated MC interval values. Chart C shows where AVC crosses the $0.25 price line at high output (short-run shutdown).</li>
               </ul>
 
-              <h4>How to Enter Answers</h4>
+              <h3>How to Enter Answers</h3>
               <ul>
                 <li>Fill in AFC, AVC, and ATC on each output row.</li>
                 <li>Fill in MC in the <span class="instr-highlight">MC column</span> between rows (on the › line, not on the Q row itself).</li>
                 <li>All values verified → Objective 2 unlocks in the terminal.</li>
               </ul>
 
-              <h4>After This Step — Canvas</h4>
+              <h3>After This Step — Canvas</h3>
               <p>Use your AFC, AVC, ATC, and MC values plus Chart A to answer <strong>questions 8 through 15</strong> in the mission memo.</p>
 
               <div class="instr-tip">
@@ -4986,20 +4997,20 @@
               ⬡ Objective 2 · Step 1 — Compare Marginal Cost to Marginal Revenue
             </div>
             <div class="instr-panel-body">
-              <h4>What You're Doing</h4>
+              <h3>What You're Doing</h3>
               <p>Parfum du Coeur operates in a <span class="instr-highlight">perfectly competitive market</span>. Begin by entering the market price per bottle — this is the firm's <span class="instr-highlight">Marginal Revenue (MR)</span>. After MR is verified, use Chart B to compare MC and MR at each output (Canvas questions 16 through 18).</p>
 
-              <h4>Key Concept</h4>
+              <h3>Key Concept</h3>
               <ul>
                 <li>In a perfectly competitive market, the firm is a <span class="instr-highlight">price taker</span> — it cannot set its own price.</li>
                 <li>Every bottle sells for the same market price, no matter how many bottles are produced.</li>
                 <li>Because price is constant, <span class="instr-highlight">MR = Market Price</span> at every output level.</li>
               </ul>
 
-              <h4>Where to Find It</h4>
+              <h3>Where to Find It</h3>
               <p>The market price is stated in the <span class="instr-highlight">Objective 2 field report</span> above. Enter that per-bottle price as MR — expressed in dollars (e.g., 0.25). Historical context: the earlier baseline price was about 0.23, so compare decisions carefully rather than assuming output should jump dramatically.</p>
 
-              <h4>After This Step — Canvas</h4>
+              <h3>After This Step — Canvas</h3>
               <p>After MR is verified, use <strong>Chart B</strong> and your MC values to answer <strong>questions 16 through 18</strong> in the mission memo.</p>
 
               <div class="instr-tip">
@@ -5049,10 +5060,10 @@
               ⬡ Objective 2 · Step 2 — Calculate Profit at Different Outputs
             </div>
             <div class="instr-panel-body">
-              <h4>What You're Doing</h4>
+              <h3>What You're Doing</h3>
               <p>Bottles can sell fast and the firm still lose money — revenue only matters against what it cost to earn. Combine your cost data with the market price to find profit at each output level, and watch how it changes as output rises.</p>
 
-              <h4>The Formulas</h4>
+              <h3>The Formulas</h3>
               <div class="instr-example">
                 <strong>Market Price</strong> = $0.25 per bottle (perfect competition → P = MR)<br>
                 <strong>Total Revenue (TR)</strong> = Price × Output = $0.25 × Q<br>
@@ -5060,7 +5071,7 @@
               </div>
               <p>Using the Total Cost (TC) values you completed in Objective 1 (already shown in the table), continue these calculations for every output until the table is complete. <span class="instr-highlight">Round to 2 decimal places.</span> Profit turns negative at the two highest outputs — enter those with a minus sign.</p>
 
-              <h4>Firm Decisions (Preview — Objective 3 in Canvas)</h4>
+              <h3>Firm Decisions (Preview — Objective 3 in Canvas)</h3>
               <ul>
                 <li><span class="instr-highlight">Profit maximization:</span> produce where <strong>MC = MR</strong> (see Chart B). Your profit table should peak near that output.</li>
                 <li><span class="instr-highlight">Short-run shutdown:</span> if <strong>Price &lt; AVC</strong>, the firm shuts down temporarily to minimize loss (Chart C).</li>
@@ -5068,10 +5079,10 @@
                 <li>At a given output level, always compare price to <em>AVC</em> for the short-run decision and to <em>ATC</em> for the long-run decision.</li>
               </ul>
 
-              <h4>After This Step — Canvas</h4>
+              <h3>After This Step — Canvas</h3>
               <p>When your profit table is complete, answer <strong>questions 19 and 20</strong> in the mission memo. Objective 3 strategy questions (<strong>21 through 33</strong>) are answered entirely in Canvas using your terminal tables and charts.</p>
 
-              <h4>How to Enter Answers</h4>
+              <h3>How to Enter Answers</h3>
               <ul>
                 <li>Verify TR for a row and that row's <strong>Profit</strong> cell unlocks. Enter TR − TC.</li>
               </ul>
@@ -5565,7 +5576,9 @@ function focusNibblesPanel(event) {
   if (event) event.preventDefault();
   const panel = document.getElementById('hammond-panel-title') || document.getElementById('hammond-messages');
   const rail = document.getElementById('right-rail');
-  if (rail) rail.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // A JS `behavior: 'smooth'` overrides the CSS scroll-behavior reset, so the
+  // reduced-motion preference has to be checked here too.
+  if (rail) rail.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' });
   if (panel) {
     if (!panel.hasAttribute('tabindex')) panel.setAttribute('tabindex', '-1');
     panel.focus({ preventScroll: true });
@@ -5583,12 +5596,26 @@ function setVerifyStatusIcon(el, ok, label) {
 
 function createFocusTrap(container) {
   let previousFocus = null;
+  // Only nodes that are actually rendered can hold focus. The login overlay
+  // swaps between a boot screen, an ID screen and a choice screen, so the
+  // focusable set changes as phases advance.
+  function visibleNodes() {
+    return [...container.querySelectorAll(FOCUSABLE_SEL)].filter(n => n.offsetParent !== null);
+  }
   function onKeyDown(e) {
     if (e.key !== 'Tab' || !container || container.getAttribute('aria-hidden') === 'true') return;
-    const nodes = [...container.querySelectorAll(FOCUSABLE_SEL)].filter(n => n.offsetParent !== null);
+    const nodes = visibleNodes();
     if (!nodes.length) return;
     const first = nodes[0];
     const last = nodes[nodes.length - 1];
+    // Bound to document, so focus that has escaped the container (browser
+    // chrome round-trip, a background click, an AT cursor jump) is pulled back
+    // instead of tabbing freely through the page behind the dialog.
+    if (!container.contains(document.activeElement)) {
+      e.preventDefault();
+      first.focus();
+      return;
+    }
     if (e.shiftKey && document.activeElement === first) {
       e.preventDefault();
       last.focus();
@@ -5600,12 +5627,14 @@ function createFocusTrap(container) {
   return {
     activate() {
       previousFocus = document.activeElement;
-      container.addEventListener('keydown', onKeyDown);
-      const first = container.querySelector(FOCUSABLE_SEL);
+      document.addEventListener('keydown', onKeyDown);
+      // Same visibility filter as onKeyDown — a bare querySelector could land
+      // focus on a node inside an inert/hidden phase of the overlay.
+      const first = visibleNodes()[0];
       if (first) first.focus();
     },
     deactivate() {
-      container.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('keydown', onKeyDown);
       if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
       previousFocus = null;
     }
@@ -6152,21 +6181,22 @@ function buildClassifyRow(card, options) {
   fieldset.id = `${namePrefix}-row-${card.id}`;
   const amountHtml = card.amount ? `<span class="classify-row-amount">${card.amount}</span>` : '';
   const name = card.name || card.label;
+  // <legend> must be the FIRST CHILD of <fieldset> or it names nothing — the
+  // group was previously announced as an unnamed fieldset because a layout
+  // <div> sat between them. The fieldset itself now carries the flex layout.
   fieldset.innerHTML = `
-    <div class="classify-row-main">
-      <legend class="classify-row-legend">
-        <span class="classify-row-name">${name}</span>
-        ${amountHtml}
-      </legend>
-      <div class="classify-radio-group" role="radiogroup" aria-label="Category for ${name}">
-        ${categories.map(cat => `
-          <label class="classify-radio-label ${cat.value}">
-            <input type="radio" name="${namePrefix}-${card.id}" value="${cat.value}" aria-label="${cat.label} — ${name}">
-            <span class="classify-radio-icon" aria-hidden="true">${cat.icon || ''}</span>
-            <span>${cat.label}</span>
-          </label>
-        `).join('')}
-      </div>
+    <legend class="classify-row-legend">
+      <span class="classify-row-name">${name}</span>
+      ${amountHtml}
+    </legend>
+    <div class="classify-radio-group" role="radiogroup" aria-label="Category for ${name}">
+      ${categories.map(cat => `
+        <label class="classify-radio-label ${cat.value}">
+          <input type="radio" name="${namePrefix}-${card.id}" value="${cat.value}" aria-label="${cat.label} — ${name}">
+          <span class="classify-radio-icon" aria-hidden="true">${cat.icon || ''}</span>
+          <span>${cat.label}</span>
+        </label>
+      `).join('')}
     </div>
   `;
   fieldset.querySelectorAll('input[type="radio"]').forEach(radio => {
@@ -8286,6 +8316,9 @@ function submitLogin() {
     setTimeout(() => card.classList.remove('login-card--screen-swap'), 450);
   }
   card?.classList.add('login-card--ready');
+  // Focus was on the now-hidden LOG IN button; move it onto the new screen so
+  // keyboard and screen-reader users continue from the right place.
+  document.querySelector('#login-screen-choice .login-choice-btn')?.focus();
 }
 
 function releaseLoginFocusTrap() {
@@ -9446,6 +9479,14 @@ document.addEventListener('keydown', e => {
     return;
   }
   const key = e.key;
+  // A focused calculator button must keep its native Enter/Space activation —
+  // intercepting those made every key reachable by Tab but impossible to press
+  // (Enter ran "=" instead of the focused key, Space was cancelled outright).
+  // Escape still closes from anywhere; typed characters are handled below and
+  // only when focus is not sitting on a button.
+  const onCalcButton = document.activeElement.classList.contains('calc-btn');
+  if (onCalcButton && (key === 'Enter' || key === ' ')) return;
+
   const handle = (fn) => { e.preventDefault(); e.stopPropagation(); fn(); };
   if ('0123456789'.includes(key)) { handle(() => calcDigit(key)); return; }
   if (key === '.') { handle(calcDecimal); return; }
@@ -9456,9 +9497,6 @@ document.addEventListener('keydown', e => {
   if (key === '-') { handle(() => calcOp('−')); return; }
   if (key === '*') { handle(() => calcOp('×')); return; }
   if (key === '/') { handle(() => calcOp('÷')); return; }
-  if (key === ' ' && document.activeElement.classList.contains('calc-btn')) {
-    e.preventDefault();
-  }
 });
 
 // ============================================================
