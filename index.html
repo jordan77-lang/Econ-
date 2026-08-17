@@ -4687,7 +4687,7 @@
             </div>
             <div class="instr-panel-body">
               <h4>What You're Doing</h4>
-              <p>Total up what Parfum du Coeur spent at its <span class="instr-highlight">baseline output of 960 bottles per month</span> — the level just before the firm expanded production. Output is given; you calculate the three cost figures.</p>
+              <p>Total up what Parfum du Coeur spent at its <span class="instr-highlight">baseline output of 960 bottles per month</span> — the scaled-back level it held during the slump, just before the owners decided to expand. Output is given; you calculate the three cost figures.</p>
 
               <h4>Step 2 Inputs</h4>
               <ul>
@@ -4930,7 +4930,7 @@
 
           <div id="obj-2" style="display:none">
           <div class="section-intro">
-            ► <strong>Objective 2</strong> — Compare costs and revenue to evaluate profitability. Parfum du Coeur operates in a <strong>perfectly competitive</strong> market. The firm is a price taker: it cannot influence the market price. Field reports confirm the prevailing market price is <span class="instr-highlight">$0.25 per bottle</span>. In perfect competition, <strong>Marginal Revenue (MR) = Market Price</strong> at every output level. Archive notes indicate the pre-boom price was about <span class="instr-highlight">$0.23</span> (near zero economic profit), so this price increase is meaningful but modest. Complete both steps here, then answer the matching Canvas questions before starting Objective 3.
+            ► <strong>Objective 2</strong> — Compare costs and revenue to evaluate profitability. Parfum du Coeur operates in a <strong>perfectly competitive</strong> market. The firm is a price taker: it cannot influence the market price. Field reports confirm the prevailing market price is <span class="instr-highlight">$0.25 per bottle</span>. In perfect competition, <strong>Marginal Revenue (MR) = Market Price</strong> at every output level. Archive notes: the trade sat near <span class="instr-highlight">$0.24</span> for years, then demand dipped and the price slipped to <span class="instr-highlight">$0.23</span> — Parfum du Coeur scaled back to 960 bottles and took small monthly losses while waiting out the slump. Demand has now surged and the price is $0.25, which is why the owners want to double production. Complete both steps here, then answer the matching Canvas questions before starting Objective 3.
           </div>
           <h2 class="step-title">▸ Objective 2 · Step 1 — Compare Marginal Cost to Marginal Revenue</h2>
 
@@ -4973,7 +4973,7 @@
               <button type="button" class="check-btn" onclick="checkInput('mr')" aria-label="Verify market price">VERIFY</button>
               <div class="check-status" id="status-mr"></div>
             </div>
-            <p style="margin-top:0.45rem;font-size:11px;color:var(--text-secondary);font-family:'IBM Plex Mono',monospace;">Field note: pre-boom price was about $0.23; current market price is $0.25.</p>
+            <p style="margin-top:0.45rem;font-size:11px;color:var(--text-secondary);font-family:'IBM Plex Mono',monospace;">Field note: the price was about $0.24 for years, slipped to $0.23 during the slump, and has now risen to $0.25.</p>
           </div>
 
           <!-- CHART B -->
@@ -5700,9 +5700,9 @@ const HAMMOND_HINTS = {
       "*sniffs chimney soot* Distillation fuel is used up when you produce — it is not a monthly flat fee. Use the consumable-input test."
     ],
     flowers: [
-      "*wipes pollen from whiskers* The Blue Silphium harvest is the primary raw ingredient in this perfume formula. Consider the relationship between raw materials and production volume. If Parfum du Coeur wants to make twice as many bottles, what happens to the amount of Blue Silphium they need to harvest and pay for?",
+      "*wipes pollen from whiskers* Blue Silphium is the primary raw ingredient in this perfume formula. Consider the relationship between raw materials and production volume. If Parfum du Coeur wants to make twice as many bottles, what happens to the amount of Blue Silphium they need to harvest and pay for?",
       "Raw materials are consumed in proportion to the quantity produced. A cost rises with output and disappears if production stops entirely — no perfume means no Blue Silphium needed.",
-      "*field agent voice* At $30, the Blue Silphium harvest is a raw ingredient: consumed during production, purchased based on output targets, and zero if nothing is produced. That behavior belongs in the column for costs that vary with output.",
+      "*field agent voice* At $30, Blue Silphium is a raw ingredient: consumed during production, purchased based on output targets, and zero if nothing is produced. That behavior belongs in the column for costs that vary with output.",
       "*pollen on whiskers* Primary ingredients are classic output-sensitive costs. Walk through the zero-output test for this card."
     ],
     bottles: [
@@ -5731,7 +5731,7 @@ const HAMMOND_HINTS = {
     vc: [
       "*sniffs variable cost column* Variable Cost is the total of all the expenses that change based on how much Parfum du Coeur produces. You already sorted those items in Step 1 — look back at the column you labeled Variable Costs. Add up the dollar amounts for every item you placed there.",
       "Variable costs are the inputs that get consumed during production — materials, fuel, and task-based labor. In Step 1 you identified five of them from the ledger. Sum all five dollar values from your Variable Cost column.",
-      "*consults abacus* The five variable cost items from Step 1 are: apprentices & laborers, coal, the Blue Silphium harvest, glass bottles & corks, and alcohol. Locate each in your variable column and add their amounts.",
+      "*consults abacus* The five variable cost items from Step 1 are: apprentices and laborers, coal, Blue Silphium, glass bottles and corks, and alcohol. Locate each in your variable column and add their amounts.",
       "*points at Step 1 bins* Your Variable Cost column should list exactly five expenses. Add the dollar amount on each card — nothing from the fixed column belongs in this sum.",
       "*steady field voice* Operation: sum the five amounts in your Variable Cost column. Use the ⊞ CALCULATOR in the header. This total is variable cost at the baseline output level shown in Step 2."
     ],
@@ -6018,12 +6018,12 @@ function refreshHammondAvatars() {
 // ============================================================
 const EXPENSE_CARDS = [
   { id: 'rent',       name: 'Rent on shop and workshop',    amount: '$40.00', category: 'fixed'    },
-  { id: 'kettle',     name: 'Cast iron distillation kettle lease', amount: '$15.00', category: 'fixed' },
+  { id: 'kettle',     name: 'Cast iron kettle lease',        amount: '$15.00', category: 'fixed'    },
   { id: 'salary',     name: "Shopkeeper's salary",           amount: '$50.00', category: 'fixed'    },
   { id: 'printer',    name: "Printer's fee for monthly advertisements", amount: '$3.00', category: 'fixed' },
   { id: 'laborers',   name: 'Apprentices and laborers',      amount: '$60.00', category: 'variable' },
   { id: 'wood',       name: 'Coal',                          amount: '$10.00', category: 'variable' },
-  { id: 'flowers',    name: 'Blue Silphium harvest',         amount: '$30.00', category: 'variable' },
+  { id: 'flowers',    name: 'Blue Silphium',                 amount: '$30.00', category: 'variable' },
   { id: 'bottles',    name: 'Glass bottles and corks',       amount: '$15.00', category: 'variable' },
   { id: 'herbs',      name: 'Alcohol',                       amount: '$10.00', category: 'variable' },
 ];
