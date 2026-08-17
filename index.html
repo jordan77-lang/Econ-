@@ -56,13 +56,14 @@
     --color-positive-bg: #0a2820;
     --color-negative: #CC79A7;
     --color-negative-bg: #281820;
-    /* Memo Figures 6 & 7 describe AVC as the blue curve and ATC as the yellow
-       curve — keep these assignments matching the memo captions. */
-    --chart-atc: #FFB020;
-    --chart-avc: #4D8CFF;
-    --chart-afc: #7EC8FF;
-    --chart-mc: #00E5FF;
-    --chart-mr: #FF4D8D;
+    /* Sampled from the mission memo figures: ATC is the blue curve, AVC the
+       orange one (memo Fig 3 #1E73B4 / #FF7D0A, Fig 4 & 6 #005AB4 / #E69B00).
+       Note the Fig 6/7 captions state the reverse — the artwork is correct. */
+    --chart-atc: #2E86C8;
+    --chart-avc: #FF7D0A;
+    --chart-afc: #00A57E;
+    --chart-mc: #E8503A;
+    --chart-mr: #CC79A7;
     --chart-tc: #FFD966;
     --instr-panel-bg: #020f1c;
     --instr-header-bg: #021624;
@@ -173,12 +174,14 @@
     --color-positive-bg: #e0f5ee;
     --color-negative: #6b2460;
     --color-negative-bg: #f8e8f4;
-    /* AVC blue / ATC yellow — matches memo Figures 6 & 7 (see dark block). */
-    --chart-atc: #C45100;
-    --chart-avc: #003D8F;
-    --chart-afc: #006DA3;
-    --chart-mc: #00796B;
-    --chart-mr: #C2185B;
+    /* Memo figure colours as-sampled — those figures sit on white, so these
+       are used directly rather than lightened (see dark block for the note on
+       the Fig 6/7 captions being reversed). */
+    --chart-atc: #1E73B4;
+    --chart-avc: #D2660A;
+    --chart-afc: #00806A;
+    --chart-mc: #C8321E;
+    --chart-mr: #A64D82;
     --chart-tc: #8a6800;
     --instr-panel-bg: #eef4fa;
     --instr-header-bg: #dce8f4;
@@ -1950,6 +1953,19 @@
     max-width: var(--chart-block-max-width);
     position: relative;
     box-shadow: 0 0 0 1px var(--panel-ring), inset 0 0 30px var(--chart-panel-inset);
+  }
+
+  /* Shown only when the Chart.js CDN fails to load */
+  .chart-unavailable {
+    margin: 0.75rem 0 0;
+    padding: 0.7rem 0.9rem;
+    border: 1px dashed var(--accent-amber);
+    border-radius: 6px;
+    background: var(--color-variable-bg);
+    color: var(--text-secondary);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    line-height: 1.6;
   }
 
   .chart-label {
@@ -4714,6 +4730,7 @@
                 <li><span class="instr-highlight">VC (Variable Cost):</span> Sum of everything you classified as Variable, at this output level.</li>
                 <li><span class="instr-highlight">TC (Total Cost):</span> FC + VC.</li>
               </ul>
+              <p>Enter all three as dollar amounts to <span class="instr-highlight">2 decimal places</span> (e.g., 233.00).</p>
 
               <h4>After This Step — Canvas</h4>
               <p>Use your verified baseline values to answer <strong>questions 3 through 5</strong> in the mission memo.</p>
@@ -5041,7 +5058,7 @@
                 <strong>Total Revenue (TR)</strong> = Price × Output = $0.25 × Q<br>
                 <strong>Profit (π)</strong> = Total Revenue − Total Cost = TR − TC
               </div>
-              <p>Using the Total Cost (TC) values you completed in Objective 1 (already shown in the table), continue these calculations for every output until the table is complete.</p>
+              <p>Using the Total Cost (TC) values you completed in Objective 1 (already shown in the table), continue these calculations for every output until the table is complete. <span class="instr-highlight">Round to 2 decimal places.</span> Profit turns negative at the two highest outputs — enter those with a minus sign.</p>
 
               <h4>Firm Decisions (Preview — Objective 3 in Canvas)</h4>
               <ul>
@@ -5068,7 +5085,7 @@
 
           <div id="step-profit-section" style="display:none">
             <p style="font-size:12px; color:var(--text-secondary); margin-bottom:1rem; font-family:'IBM Plex Mono',monospace;">
-              Calculate TR = $0.25 × Q and Profit = TR − TC for each output level. Use TC values from Objective 1.
+              Calculate TR = $0.25 × Q and Profit = TR − TC for each output level. Use TC values from Objective 1. Round to 2 decimal places; profit is negative at the highest outputs.
             </p>
             <div class="table-scroll-hint">↔ Scroll table on narrow screens</div>
             <div class="table-scroll-wrap table-scroll-wrap--fit">
@@ -5094,7 +5111,7 @@
               </div>
               <canvas id="chartC" role="img" aria-label="Marginal revenue at $0.25, average variable cost, and average total cost from 720 through 2,160 bottles."></canvas>
               <details class="chart-data-details">
-                <summary>View chart data table (MR, AVC, ATC)</summary>
+                <summary>View chart data table (MR, AVC, ATC) — includes Q = 2,040, where AVC rises above the $0.25 price</summary>
                 <div class="table-scroll-wrap"><table class="data-table chart-data-table" id="chartC-data" aria-label="Chart C data"></table></div>
               </details>
               </figure>
@@ -5368,12 +5385,12 @@ function getChartThemeColors() {
     tooltipBorder: v('--border', '#0e3a52'),
     tooltipTitle: v('--accent-cyan', '#56B4E9'),
     tooltipBody: v('--text-primary', '#e8f4fc'),
-    atc: v('--chart-atc', '#FFB020'),
-    avc: v('--chart-avc', '#4D8CFF'),
-    afc: v('--chart-afc', '#7EC8FF'),
-    mc: v('--chart-mc', '#00E5FF'),
+    atc: v('--chart-atc', '#2E86C8'),
+    avc: v('--chart-avc', '#FF7D0A'),
+    afc: v('--chart-afc', '#00A57E'),
+    mc: v('--chart-mc', '#E8503A'),
     mcPoint: v('--accent-amber', '#E69F00'),
-    mr: v('--chart-mr', '#FF4D8D'),
+    mr: v('--chart-mr', '#CC79A7'),
     tc: v('--chart-tc', '#FFD966'),
   };
 }
@@ -5387,12 +5404,12 @@ const LIGHT_CHART_EXPORT_COLORS = {
   tooltipBorder: '#9ab0c4',
   tooltipTitle: '#0066a1',
   tooltipBody: '#0c1a28',
-  atc: '#C45100',
-  avc: '#003D8F',
-  afc: '#006DA3',
-  mc: '#00796B',
+  atc: '#1E73B4',
+  avc: '#D2660A',
+  afc: '#00806A',
+  mc: '#C8321E',
   mcPoint: '#b45309',
-  mr: '#C2185B',
+  mr: '#A64D82',
   tc: '#a67c00',
 };
 
@@ -5499,6 +5516,27 @@ function parseMathInput(str) {
   } catch (e) {
     return NaN;
   }
+}
+
+/**
+ * True when `val` rounds to the same number as `answer` at `dp` decimals.
+ *
+ * Replaces the old epsilon comparisons, which were looser than the Canvas
+ * answer margins: a student who rounded AFC to 0.11 instead of 0.113 passed
+ * here and then lost the point in Canvas. Rounding both sides to the required
+ * precision matches Canvas exactly and forgives precision without forgiving
+ * wrong rounding — `108/960` (0.1125) still verifies against 0.113, because
+ * parseMathInput lets students type the raw division.
+ *
+ * Compares scaled integers rather than a raw difference, so the check does not
+ * hinge on float noise: several answers sit exactly one tolerance-step from
+ * their 2-decimal rounding, and an `<= 0.001` test only rejected those by the
+ * accident of the difference computing as 0.0010000000000000009.
+ */
+function matchesAtPrecision(val, answer, dp) {
+  if (typeof val !== 'number' || !isFinite(val)) return false;
+  const f = Math.pow(10, dp);
+  return Math.round(val * f) === Math.round(answer * f);
 }
 
 // ============================================================
@@ -5608,23 +5646,37 @@ function setInstructionExpanded(btn, isOpen) {
   if (label) label.textContent = isOpen ? ' CLOSE FIELD BRIEFING' : ' OPEN FIELD BRIEFING';
 }
 
-function sampleSeriesPoints(series, maxRows = 24) {
+/**
+ * Evenly sample a dense curve down to a readable number of table rows.
+ *
+ * `mustInclude` forces specific outputs into the result even when the even
+ * stride would skip them — Chart C needs Q = 2,040 (the short-run shutdown
+ * output) because the plotted curve shows the AVC/price crossing but the
+ * sampled table would otherwise jump 1,985 → 2,075 straight past it, leaving
+ * screen-reader users no way to read the value.
+ */
+function sampleSeriesPoints(series, maxRows = 24, mustInclude = []) {
   if (!series || !series.length) return [];
   const step = Math.max(1, Math.floor(series.length / maxRows));
   const out = [];
   for (let i = 0; i < series.length; i += step) out.push(series[i]);
   if (out[out.length - 1] !== series[series.length - 1]) out.push(series[series.length - 1]);
-  return out;
+  mustInclude.forEach(x => {
+    if (out.some(p => p.x === x)) return;
+    const pt = series.find(p => p.x === x);
+    if (pt) out.push(pt);
+  });
+  return out.sort((a, b) => a.x - b.x);
 }
 
 function populateAllChartDataTables() {
   if (!window.SMOOTH) return;
-  function fill(tableId, cols) {
+  function fill(tableId, cols, opts = {}) {
     const table = document.getElementById(tableId);
     if (!table) return;
     const firstSeries = window.SMOOTH[cols[0].series];
     if (!firstSeries) return;
-    const rows = sampleSeriesPoints(firstSeries);
+    const rows = sampleSeriesPoints(firstSeries, 24, opts.mustInclude || []);
     let html = '<thead><tr>' + cols.map(c => `<th scope="col">${c.label}</th>`).join('') + '</tr></thead><tbody>';
     rows.forEach((pt, i) => {
       html += '<tr>';
@@ -5656,12 +5708,15 @@ function populateAllChartDataTables() {
     { series: 'mcDisplay', label: 'MC ($)', decimals: 3 },
     { series: 'mr', label: 'MR ($)', decimals: 3 }
   ]);
+  // 4 decimals here, not 3: AVC overtakes the $0.25 price at Q ≈ 2,039.6, so at
+  // Q = 2,040 it exceeds MR by only 0.00006. Rounded to 3 places both columns
+  // read 0.250 and the shutdown point looks like a tie instead of a crossing.
   fill('chartC-data', [
     { series: 'avc', label: 'Output (Q)', type: 'q' },
-    { series: 'mr', label: 'MR ($)', decimals: 3 },
-    { series: 'avc', label: 'AVC ($)', decimals: 3 },
-    { series: 'atc', label: 'ATC ($)', decimals: 3 }
-  ]);
+    { series: 'mr', label: 'MR ($)', decimals: 4 },
+    { series: 'avc', label: 'AVC ($)', decimals: 4 },
+    { series: 'atc', label: 'ATC ($)', decimals: 4 }
+  ], { mustInclude: [2040] });
 }
 
 function initAccessibility() {
@@ -5822,7 +5877,7 @@ const HAMMOND_HINTS = {
       "Marginal Cost (MC) is defined as the change in Total Cost divided by the change in output: MC = ΔTC ÷ ΔQ. It is a between-rows calculation — it measures the additional cost incurred when output increases from one level to the next. You need two rows: the current row and the row immediately above it (the previous output level). Because MC is interval-based, its highlighted chart point is placed halfway between those two output levels.",
       "*traces between rows* For Q = {Q}: find the TC in this row (${TC}) and the TC in the row immediately above it (${prevTC} at Q = {prevQ}). Calculate ΔTC = {TC} − {prevTC}. Calculate ΔQ = {Q} − {prevQ}. Then MC = ΔTC ÷ ΔQ. This gives you the cost per additional bottle in this batch.",
       "*points at two specific rows* Current row: Q = {Q}, TC = ${TC}. Previous row: Q = {prevQ}, TC = ${prevTC}. ΔTC = {TC} − {prevTC} = ___. ΔQ = {Q} − {prevQ} = ___. MC = ΔTC ÷ ΔQ. You have all four numbers. Perform the two subtractions first, then divide the results.",
-      "*calm and direct* TC changed from ${prevTC} (at Q={prevQ}) to ${TC} (at Q={Q}). That is a change of ({TC} − {prevTC}) in cost over a change of ({Q} − {prevQ}) in quantity. Divide the cost change by the quantity change. That quotient is the Marginal Cost for this row. Compute it and enter rounded to three decimal places."
+      "*calm and direct* TC changed from ${prevTC} (at Q={prevQ}) to ${TC} (at Q={Q}). That is a change of ({TC} − {prevTC}) in cost over a change of ({Q} − {prevQ}) in quantity. Divide the cost change by the quantity change. That quotient is the Marginal Cost for this interval. Compute it and enter rounded to three decimal places."
     ]
   },
   profit: {
@@ -6406,9 +6461,10 @@ function checkInput(field) {
   const attempts = (state.checks[field] || 0) + 1;
   state.checks[field] = attempts;
 
-  const tol = field === 'mr' ? 0.001 : 0.01;
+  // MR is a per-bottle price (3 decimals); FC/VC/TC are dollar totals (2).
+  const dp = field === 'mr' ? 3 : 2;
 
-  if (Math.abs(val - correct) <= tol) {
+  if (matchesAtPrecision(val, correct, dp)) {
     input.value = field === 'output' ? correct : correct.toFixed(2);
     input.classList.remove('incorrect');
     input.classList.add('correct');
@@ -6504,7 +6560,9 @@ function checkTCRow(i) {
   state.checks[`tc-${i}`] = attempts;
   const statusEl = document.getElementById(`tc-status-${i}`);
 
-  if (Math.abs(val - correct) <= 0.05) {
+  // 2 decimals — TC = FC + VC involves no rounding step, so the exact cent is
+  // always reachable and an off-by-a-cent entry is an arithmetic slip.
+  if (matchesAtPrecision(val, correct, 2)) {
     input.value = correct.toFixed(2);
     input.classList.add('correct'); input.disabled = true;
     state.tcVerified[i] = true;
@@ -6607,14 +6665,14 @@ function isAvgTableFullyComplete() {
 function checkAvgField(i, field) {
   if (state.avgVerified[i] && state.avgVerified[i][field]) return true;
   const row = AVG_TABLE[i];
-  const tol = 0.006;
   const answer = row[field];
   const inp = document.getElementById(`${field}-${i}`);
   const statusEl = document.getElementById(`avg-status-${field}-${i}`);
   if (!inp || inp.disabled) return false;
 
   const val = parseMathInput(inp.value);
-  const correct = !isNaN(val) && Math.abs(val - answer) <= tol;
+  // 3 decimals — the precision this step asks for and Canvas grades at.
+  const correct = matchesAtPrecision(val, answer, 3);
 
   const attemptKey = `avg-${i}-${field}`;
   const attempts = (state.checks[attemptKey] || 0) + 1;
@@ -6655,13 +6713,13 @@ function checkAvgField(i, field) {
 function checkMcInterval(j) {
   if (state.mcIntervalVerified[j]) return true;
   const interval = MC_INTERVALS[j];
-  const tol = 0.006;
   const inp = document.getElementById(`mc-interval-${j}`);
   const statusEl = document.getElementById(`mc-interval-status-${j}`);
   if (!inp || inp.disabled) return false;
 
   const val = parseMathInput(inp.value);
-  const correct = !isNaN(val) && Math.abs(val - interval.mc) <= tol;
+  // 3 decimals, matching the AFC/AVC/ATC columns and Canvas Q11/Q12.
+  const correct = matchesAtPrecision(val, interval.mc, 3);
 
   const attemptKey = `mc-interval-${j}`;
   const attempts = (state.checks[attemptKey] || 0) + 1;
@@ -6753,7 +6811,8 @@ function checkTRRow(i) {
   state.checks[`tr-${i}`] = attempts;
   const statusEl = document.getElementById(`tr-status-${i}`);
 
-  if (Math.abs(val - correct) <= 0.05) {
+  // 2 decimals — TR = 0.25 x Q is exact at every listed output.
+  if (matchesAtPrecision(val, correct, 2)) {
     inp.value = correct.toFixed(2);
     inp.classList.add('correct'); inp.disabled = true;
     if (!state.trVerified) state.trVerified = {};
@@ -6792,7 +6851,8 @@ function checkProfitRow(i) {
   state.checks[`profit-${i}`] = attempts;
   const statusEl = document.getElementById(`profit-status-${i}`);
 
-  if (Math.abs(val - correct) <= 0.05) {
+  // 2 decimals — profit = TR - TC, both exact to the cent.
+  if (matchesAtPrecision(val, correct, 2)) {
     inp.value = correct.toFixed(2);
     inp.classList.add('correct'); inp.disabled = true;
     state.profitVerified[i] = true;
@@ -7283,6 +7343,33 @@ if (typeof Chart !== 'undefined') {
   Chart.register(CHART_CROSSHAIR_PLUGIN);
 }
 
+/**
+ * Chart.js is loaded from a CDN, which school networks and ad blockers do
+ * sometimes block. Without this guard the first `new Chart(...)` throws a
+ * ReferenceError from inside checkTCTableComplete(), aborting the rest of that
+ * function — the student would get Step 4 revealed but no scroll, no Canvas
+ * prompt and no N.I.B.B.L.E.S. message, mid-mission. Verified answers and the
+ * .json checkpoint are unaffected, so the mission stays completable; only the
+ * charts are missing.
+ */
+let chartLoadWarned = false;
+function chartsAvailable() {
+  if (typeof Chart !== 'undefined') return true;
+  if (!chartLoadWarned) {
+    chartLoadWarned = true;
+    document.querySelectorAll('.chart-container').forEach(el => {
+      if (el.querySelector('.chart-unavailable')) return;
+      const note = document.createElement('p');
+      note.className = 'chart-unavailable';
+      note.setAttribute('role', 'status');
+      note.textContent = 'Chart could not load — the charting library was blocked or unavailable. Your entered values are safe; refresh to try again, or open the data table below this chart.';
+      el.appendChild(note);
+    });
+    hammondMsg('*taps the display* The charting library did not load — your network may be blocking it. Your verified answers are safe and you can keep working; refresh the page to try loading the charts again. Every chart also has a "View chart data table" link with the same numbers.', 'warning', 300);
+  }
+  return false;
+}
+
 function chartUiScale() {
   // PDF offscreen captures are downsampled onto the page — bump type so labels stay readable
   return chartExportColors ? 1.9 : 1;
@@ -7413,15 +7500,15 @@ function yAxis(min, max, step, label) {
 const CHART_MR_DASH = [12, 6];
 
 // Chart A — cost curves only (MR appears on Charts B & C after Obj 2 Step 1)
-// Each series carries its own dash pattern so the four curves are not
-// distinguished by hue alone — in dark mode AFC and AVC sit at a 1.01
-// luminance ratio, which is indistinguishable in grayscale or with
-// colour-vision deficiency. Patterns stay clear of CHART_MR_DASH ([12, 6]).
+// Solid lines throughout — the mission memo figures label each curve with an
+// arrow, so line style is not carrying the identification. Colours are sampled
+// from those figures (see the --chart-* tokens) so the terminal and the memo
+// read as the same chart.
 const CHART_A_SERIES = [
-  { field: 'afc', label: 'AFC', key: 'afc', width: 3,   dash: [4, 4] },
-  { field: 'avc', label: 'AVC', key: 'avc', width: 3,   dash: [10, 5] },
+  { field: 'afc', label: 'AFC', key: 'afc', width: 3 },
+  { field: 'avc', label: 'AVC', key: 'avc', width: 3 },
   { field: 'atc', label: 'ATC', key: 'atc', width: 3.5 },
-  { field: 'mc',  label: 'MC',  key: 'mc',  width: 3,   dash: [9, 4, 2, 4] },
+  { field: 'mc',  label: 'MC',  key: 'mc',  width: 3 },
 ];
 
 function chartALegendLabels(chart) {
@@ -7608,7 +7695,7 @@ function refreshChartC() {
 
 function initChartTC() {
   const canvas = document.getElementById('chartTC');
-  if (!canvas || !isTCTableComplete()) return;
+  if (!canvas || !isTCTableComplete() || !chartsAvailable()) return;
   if (state.charts['chartTC']) {
     refreshChartTC();
     return;
@@ -7628,7 +7715,7 @@ function initChartTC() {
 
 function initChartA() {
   const canvas = document.getElementById('chartA');
-  if (!canvas) return;
+  if (!canvas || !chartsAvailable()) return;
   if (state.charts['chartA']) {
     refreshChartA();
     return;
@@ -7657,7 +7744,7 @@ function updateChartB() {
 
 function renderChartB() {
   const canvas = document.getElementById('chartB');
-  if (!canvas) return;
+  if (!canvas || !chartsAvailable()) return;
   if (state.charts['chartB']) return;
   state.charts['chartB'] = new Chart(canvas.getContext('2d'), {
     type: 'scatter',
@@ -7671,12 +7758,15 @@ function renderChartB() {
 
 function updateChartC() {
   const canvas = document.getElementById('chartC');
-  if (!canvas) return;
+  if (!canvas || !chartsAvailable()) return;
   if (!state.charts['chartC']) {
     state.charts['chartC'] = new Chart(canvas.getContext('2d'), {
       type: 'scatter',
       data: { datasets: buildChartCDatasets() },
-      options: buildChartOptions(chartCScales())
+      // 4 decimals: AVC overtakes the $0.25 price at Q ≈ 2,039.6, so at the
+      // Q = 2,040 shutdown point it leads MR by only 0.00006. At 3 decimals the
+      // tooltip reads "AVC 0.250 / MR 0.250" and the crossing looks like a tie.
+      options: buildChartOptions(chartCScales(), ' / bottle', 4)
     });
   } else {
     refreshChartC();
@@ -7730,7 +7820,7 @@ function pdfChartSnapshotSpec(chartId) {
       return {
         datasets: buildChartCDatasets(),
         options: {
-          ...buildChartOptions(chartCScales()),
+          ...buildChartOptions(chartCScales(), ' / bottle', 4),
           responsive: false,
           maintainAspectRatio: false,
           animation: false,
@@ -9372,10 +9462,12 @@ document.addEventListener('keydown', e => {
 });
 
 // ============================================================
-// DEV MODE — REMOVE THIS ENTIRE BLOCK BEFORE STUDENT RELEASE
-// To disable without removing: set DEV_MODE = false
+// DEV MODE — must stay false for any student-facing deployment.
+// true exposes a toolbar that jumps between screens and auto-answers the
+// whole activity (FILL ALL). initDevMode() removes the toolbar from the DOM
+// when false, so it cannot be revealed from devtools.
 // ============================================================
-const DEV_MODE = true;
+const DEV_MODE = false;
 
 (function initDevMode() {
   if (!DEV_MODE) {
