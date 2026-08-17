@@ -1203,7 +1203,7 @@
   .classify-ledger {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.35rem;
     margin-bottom: 1rem;
   }
 
@@ -1221,11 +1221,11 @@
     border: 1px solid var(--border);
     border-radius: 8px;
     background: var(--bg-card);
-    padding: 0.75rem 1rem;
+    padding: 0.4rem 0.75rem;
     margin: 0;
     transition: border-color 0.2s, box-shadow 0.2s;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
@@ -1259,25 +1259,36 @@
     gap: 0.75rem;
   }
 
-  .classify-row-legend {
-    flex: 1;
-    min-width: 180px;
+  .classify-row-label {
+    flex: 1 1 auto;
+    min-width: 0;
     display: flex;
-    flex-wrap: wrap;
     align-items: baseline;
+    justify-content: space-between;
     gap: 0.5rem 1rem;
-    padding: 0;
-    font-size: inherit;
-    /* Neutralise UA legend styles now that it participates in the flex row */
-    float: none;
-    width: auto;
-    margin: 0;
+    padding-right: 0.5rem;
+  }
+
+  /* Narrow screens: let the name sit above the buttons rather than overflow. */
+  @media (max-width: 560px) {
+    .classify-row {
+      flex-wrap: wrap;
+      padding: 0.6rem 0.75rem;
+    }
+    .classify-row-label {
+      flex-basis: 100%;
+      padding-right: 0;
+    }
   }
 
   .classify-row-name {
     font-size: 12px;
     color: var(--text-secondary);
     font-family: 'IBM Plex Mono', monospace;
+    /* The longest label is 40 characters; let it wrap to a second line rather
+       than push the buttons off the row. */
+    min-width: 0;
+    line-height: 1.35;
   }
 
   .classify-row-amount {
@@ -1285,6 +1296,8 @@
     color: var(--text-primary);
     font-family: 'IBM Plex Mono', monospace;
     font-weight: bold;
+    flex-shrink: 0;
+    white-space: nowrap;
   }
 
   .classify-radio-group {
@@ -1475,7 +1488,7 @@
     flex-shrink: 0;
   }
 
-  .tut-classify-ledger .classify-row-legend { min-width: 120px; }
+  .tut-classify-ledger .classify-row-label { min-width: 0; }
   .tut-classify-ledger .classify-row-name { font-size: 13px; color: var(--text-primary); }
 
   .classify-verify-btn {
@@ -6226,14 +6239,17 @@ function buildClassifyRow(card, options) {
   fieldset.id = `${namePrefix}-row-${card.id}`;
   const amountHtml = card.amount ? `<span class="classify-row-amount">${card.amount}</span>` : '';
   const name = card.name || card.label;
-  // <legend> must be the FIRST CHILD of <fieldset> or it names nothing — the
-  // group was previously announced as an unnamed fieldset because a layout
-  // <div> sat between them. The fieldset itself now carries the flex layout.
+  // <legend> stays the fieldset's first child so it names the group, but it is
+  // taken out of the layout: browsers give <legend> special rendering inside a
+  // <fieldset> and force it to full row width, which pushed the buttons onto a
+  // second line. The visible name is a plain sibling that flexes normally, so
+  // each expense fits on one line.
   fieldset.innerHTML = `
-    <legend class="classify-row-legend">
+    <legend class="visually-hidden">${name}${card.amount ? `, ${card.amount}` : ''}</legend>
+    <span class="classify-row-label" aria-hidden="true">
       <span class="classify-row-name">${name}</span>
       ${amountHtml}
-    </legend>
+    </span>
     <div class="classify-radio-group" role="radiogroup" aria-label="Category for ${name}">
       ${categories.map(cat => `
         <label class="classify-radio-label ${cat.value}">
