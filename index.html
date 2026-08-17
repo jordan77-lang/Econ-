@@ -1310,10 +1310,19 @@
     user-select: none;
   }
 
-  .classify-radio-label.fixed { border-style: solid; }
-  .classify-radio-label.variable { border-style: dashed; }
-  .classify-radio-label.awesome { border-style: solid; }
-  .classify-radio-label.notawesome { border-style: dashed; }
+  /* Both borders are solid — the dashed variant read as "disabled" rather than
+     as a category. The ■ / ▲ glyph inside each button already carries the
+     non-colour cue required by WCAG 1.4.1, reinforced here by a coloured edge
+     bar so the two options stay distinguishable in greyscale. */
+  .classify-radio-label.fixed,
+  .classify-radio-label.variable,
+  .classify-radio-label.awesome,
+  .classify-radio-label.notawesome { border-style: solid; }
+
+  .classify-radio-label.fixed { border-left-width: 5px; border-left-color: var(--color-fixed); }
+  .classify-radio-label.variable { border-left-width: 5px; border-left-color: var(--color-variable); }
+  .classify-radio-label.awesome { border-left-width: 5px; border-left-color: var(--color-positive); }
+  .classify-radio-label.notawesome { border-left-width: 5px; border-left-color: var(--color-negative); }
 
   .classify-radio-label .classify-radio-icon {
     font-size: 10px;
@@ -6269,7 +6278,13 @@ function onClassifyChoice(cardId, category) {
 
 function checkClassifyVerifyBtn() {
   const btn = document.getElementById('classify-verify-btn');
-  if (btn) btn.style.display = EXPENSE_CARDS.every(c => classifySelections[c.id]) ? 'block' : 'none';
+  if (!btn) return;
+  const allClassified = EXPENSE_CARDS.every(c => classifySelections[c.id]);
+  btn.style.display = allClassified ? 'block' : 'none';
+  // Pulse once every expense has a category — the button appears below the
+  // ledger, off-screen on shorter viewports, so students were not noticing it.
+  // Matches the tutorial's classify station (tut-classify-verify-btn).
+  btn.classList.toggle('action-pulse', allClassified);
 }
 
 function revealMissionCallout(id) {
