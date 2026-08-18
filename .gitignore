@@ -1,2 +1,5 @@
 *.pdf
 *.xlsx
+
+# Icon source art — generated icons (favicon-*.png, apple-touch-icon.png) are tracked
+Flavcon.png

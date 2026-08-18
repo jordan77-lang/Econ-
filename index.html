@@ -4,9 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wheeler & Pace — AXIOM Terminal</title>
-<link rel="icon" type="image/png" href="wheeler-and-pace.png">
-<link rel="shortcut icon" type="image/png" href="wheeler-and-pace.png">
-<link rel="apple-touch-icon" href="wheeler-and-pace.png">
+<!-- Square icons generated from wheeler-and-pace.png. The source logo is
+     601x412; browsers expect a square favicon and were rejecting it, so the
+     tab icon never appeared. -->
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Exo+2:wght@300;400;600;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
@@ -8180,6 +8183,9 @@ function resetLoginScreen() {
   if (overlay) {
     overlay.classList.add('login-overlay--dos');
     overlay.classList.remove('login-overlay--welcome');
+    // Cleared in case the overlay was previously dismissed (which marks it
+    // inert); otherwise nothing inside would be focusable when it reopens.
+    overlay.inert = false;
   }
   if (bootScreen) {
     bootScreen.classList.remove('login-dos-screen--done', 'login-dos-screen--post-logout');
@@ -8474,7 +8480,14 @@ function releaseLoginFocusTrap() {
 function hideLoginOverlayImmediate() {
   const overlay = document.getElementById('login-overlay');
   releaseLoginFocusTrap();
+  // The overlay is dismissed by clicking a button inside it, so that button
+  // still holds focus here. Applying aria-hidden over focused content hides it
+  // from assistive tech while it remains focused — the browser logs a warning
+  // and screen readers land on nothing. Move focus out first, then mark the
+  // subtree inert so nothing inside can be reached while it is dismissed.
+  if (overlay.contains(document.activeElement)) document.activeElement.blur();
   overlay.setAttribute('aria-hidden', 'true');
+  overlay.inert = true;
   overlay.style.display = 'none';
   overlay.classList.remove('fade-out');
   const main = document.getElementById('main-content');
@@ -9686,6 +9699,7 @@ function devGoLogin() {
   overlay.style.opacity = '1';
   overlay.classList.remove('fade-out');
   overlay.removeAttribute('aria-hidden');
+  overlay.inert = false;
   const main = document.getElementById('main-content');
   const rail = document.getElementById('right-rail');
   if (main) main.setAttribute('aria-hidden', 'true');
